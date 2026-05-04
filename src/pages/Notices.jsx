@@ -1,0 +1,609 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import AsyncSelect from "react-select/async";
+import { ModalAttention, ModalNotice } from "../components/Modals";
+import NoticeCard from "../components/NoticeCard";
+import { fetchCurrentUser } from "../store/authSlice";
+import {
+  Box,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  Grid,
+  InputAdornment,
+  FormControl,
+  CircularProgress,
+} from "@mui/material";
+import CustomPagination from "../components/CustomPagination";
+
+const Notices = () => {
+  const dispatch = useDispatch();
+  const [notices, setNotices] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  // Filter States
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const [sex, setSex] = useState("");
+  const [species, setSpecies] = useState("");
+  const [locationId, setLocationId] = useState(null);
+  const [sortBy, setSortBy] = useState("");
+
+  // Options
+  const [categories, setCategories] = useState([]);
+  const [sexOptions, setSexOptions] = useState([]);
+  const [speciesOptions, setSpeciesOptions] = useState([]);
+
+  // Modals
+  const [isAttentionOpen, setIsAttentionOpen] = useState(false);
+  const [selectedNotice, setSelectedNotice] = useState(null);
+
+  const { token, user } = useSelector((state) => state.auth);
+  const isAuth = !!token;
+  const favoriteIds = user?.noticesFavorites?.map((n) => n._id) || [];
+
+  // Fetch filter options
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        const [catRes, sexRes, specRes] = await Promise.all([
+          axios.get("https://petlove.b.goit.study/api/notices/categories"),
+          axios.get("https://petlove.b.goit.study/api/notices/sex"),
+          axios.get("https://petlove.b.goit.study/api/notices/species"),
+        ]);
+        setCategories(catRes.data);
+        setSexOptions(sexRes.data);
+        setSpeciesOptions(specRes.data);
+      } catch (error) {
+        console.error("Error fetching options:", error);
+      }
+    };
+    fetchOptions();
+  }, []);
+
+  // Fetch notices
+  useEffect(() => {
+    const fetchNotices = async () => {
+      setLoading(true);
+      try {
+        let url = `https://petlove.b.goit.study/api/notices?page=${page}&limit=6`;
+        if (search) url += `&keyword=${search}`;
+        if (category) url += `&category=${category}`;
+        if (sex) url += `&sex=${sex}`;
+        if (species) url += `&species=${species}`;
+        if (locationId?.value) url += `&locationId=${locationId.value}`;
+        if (sortBy === "popular") url += `&byPopularity=false`;
+        if (sortBy === "unpopular") url += `&byPopularity=true`;
+        if (sortBy === "expensive") url += `&byPrice=false`;
+        if (sortBy === "cheap") url += `&byPrice=true`;
+
+        const response = await axios.get(url);
+
+        setNotices(response.data.results);
+        setTotalPages(response.data.totalPages);
+      } catch (error) {
+        console.error("Error fetching notices:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchNotices();
+  }, [page, search, category, sex, species, locationId, sortBy]);
+
+  const loadCityOptions = async (inputValue) => {
+    if (inputValue.length < 3) return [];
+    try {
+      const response = await axios.get(
+        `https://petlove.b.goit.study/api/cities?keyword=${inputValue}`,
+      );
+      return response.data.map((city) => ({
+        label: city.cityEn || city.stateEn,
+        value: city._id,
+      }));
+    } catch {
+      return [];
+    }
+  };
+
+  const handleLearnMore = async (id) => {
+    if (!isAuth) {
+      setIsAttentionOpen(true);
+      return;
+    }
+    try {
+      const res = await axios.get(
+        `https://petlove.b.goit.study/api/notices/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+      setSelectedNotice(res.data);
+    } catch (error) {
+      console.error("Error fetching notice details:", error);
+      if (error.response?.status === 401) {
+        dispatch(fetchCurrentUser());
+      }
+    }
+  };
+
+  const handleToggleFavorite = async (id) => {
+    if (!isAuth) {
+      setIsAttentionOpen(true);
+      return;
+    }
+    try {
+      const isFav = favoriteIds.includes(id);
+      if (isFav) {
+        await axios.delete(
+          `https://petlove.b.goit.study/api/notices/favorites/remove/${id}`,
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+      } else {
+        await axios.post(
+          `https://petlove.b.goit.study/api/notices/favorites/add/${id}`,
+          {},
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+      }
+      dispatch(fetchCurrentUser());
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
+  };
+
+  const selectStyles = {
+    control: (base) => ({
+      ...base,
+      borderRadius: "30px",
+      borderColor: "transparent",
+      minHeight: "48px",
+      boxShadow: "none",
+      backgroundColor: "white",
+      paddingLeft: "8px",
+      "&:hover": { borderColor: "#F6B83D" },
+    }),
+    placeholder: (base) => ({
+      ...base,
+      fontFamily: "'Manrope', sans-serif",
+      fontSize: "16px",
+      fontWeight: 500,
+      color: "#262626",
+    }),
+    input: (base) => ({
+      ...base,
+      fontFamily: "'Manrope', sans-serif",
+    }),
+    option: (base, state) => ({
+      ...base,
+      fontFamily: "'Manrope', sans-serif",
+      backgroundColor: state.isSelected ? "#F6B83D" : "white",
+      "&:hover": { backgroundColor: "#FFF4DF" },
+    }),
+  };
+
+  const sortOptions = [
+    { value: "popular", label: "Popular" },
+    { value: "unpopular", label: "Unpopular" },
+    { value: "cheap", label: "Cheap" },
+    { value: "expensive", label: "Expensive" },
+  ];
+
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        minHeight: "100vh",
+        bgcolor: "#F9F9F9",
+        pb: { xs: "60px", lg: "100px" },
+      }}
+    >
+      <Box sx={{ maxWidth: "1216px", mx: "auto", px: { xs: 2, lg: 0 }, pt: { xs: "40px", lg: "80px" } }}>
+        <Typography
+          sx={{
+            fontFamily: "'Manrope', sans-serif",
+            fontWeight: 700,
+            fontSize: { xs: "32px", lg: "54px" },
+            lineHeight: { xs: "32px", lg: "54px" },
+            letterSpacing: "-0.03em",
+            color: "#262626",
+            mb: "40px",
+          }}
+        >
+          Find your favorite pet
+        </Typography>
+
+        {/* Filters Section */}
+        <Box
+          sx={{
+            p: "40px",
+            borderRadius: "30px",
+            bgcolor: "#FFF4DF",
+            mb: "40px",
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+          }}
+        >
+          {/* Row 1: Main Filters */}
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "16px",
+              mb: "20px",
+            }}
+          >
+            <TextField
+              placeholder="Search"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1);
+              }}
+              variant="outlined"
+              sx={{
+                width: { xs: "100%", sm: "230px" },
+                "& .MuiOutlinedInput-root": {
+                  height: "48px",
+                  borderRadius: "30px",
+                  px: "14px",
+                  bgcolor: "white",
+                  "& fieldset": { border: "none" },
+                  "&:hover": { border: "1px solid #F6B83D" },
+                  "&.Mui-focused": { border: "1px solid #F6B83D" },
+                },
+                "& .MuiInputBase-input": {
+                  fontFamily: "'Manrope', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "16px",
+                  color: "#262626",
+                  "&::placeholder": { opacity: 1, color: "#262626" },
+                },
+              }}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Box
+                        sx={{
+                          width: "18px",
+                          height: "18px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                          <circle
+                            cx="8.5"
+                            cy="8.5"
+                            r="5.75"
+                            stroke="#262626"
+                            strokeWidth="1.5"
+                          />
+                          <path
+                            d="M13 13L15.5 15.5"
+                            stroke="#262626"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </Box>
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
+
+            <FormControl sx={{ width: { xs: "100%", sm: "200px" } }}>
+              <Select
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                  setPage(1);
+                }}
+                displayEmpty
+                IconComponent={() => (
+                  <Box
+                    sx={{ mr: "14px", pointerEvents: "none", display: "flex" }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path
+                        d="M4.5 7.5L9 12L13.5 7.5"
+                        stroke="#262626"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Box>
+                )}
+                sx={{
+                  height: "48px",
+                  borderRadius: "30px",
+                  bgcolor: "white",
+                  fontFamily: "'Manrope', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "16px",
+                  color: "#262626",
+                  "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    border: "1px solid #F6B83D",
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    border: "1px solid #F6B83D",
+                  },
+                }}
+              >
+                <MenuItem value="">Category</MenuItem>
+                {categories?.map((c) => (
+                  <MenuItem key={c} value={c}>
+                    {c}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ width: { xs: "100%", sm: "190px" } }}>
+              <Select
+                value={sex}
+                onChange={(e) => {
+                  setSex(e.target.value);
+                  setPage(1);
+                }}
+                displayEmpty
+                IconComponent={() => (
+                  <Box
+                    sx={{ mr: "14px", pointerEvents: "none", display: "flex" }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path
+                        d="M4.5 7.5L9 12L13.5 7.5"
+                        stroke="#262626"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Box>
+                )}
+                sx={{
+                  height: "48px",
+                  borderRadius: "30px",
+                  bgcolor: "white",
+                  fontFamily: "'Manrope', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "16px",
+                  color: "#262626",
+                  "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+                }}
+              >
+                <MenuItem value="">By gender</MenuItem>
+                {sexOptions?.map((s) => (
+                  <MenuItem key={s} value={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ width: { xs: "100%", sm: "190px" } }}>
+              <Select
+                value={species}
+                onChange={(e) => {
+                  setSpecies(e.target.value);
+                  setPage(1);
+                }}
+                displayEmpty
+                IconComponent={() => (
+                  <Box
+                    sx={{ mr: "14px", pointerEvents: "none", display: "flex" }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <path
+                        d="M4.5 7.5L9 12L13.5 7.5"
+                        stroke="#262626"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Box>
+                )}
+                sx={{
+                  height: "48px",
+                  borderRadius: "30px",
+                  bgcolor: "white",
+                  fontFamily: "'Manrope', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "16px",
+                  color: "#262626",
+                  "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+                }}
+              >
+                <MenuItem value="">By type</MenuItem>
+                {speciesOptions?.map((s) => (
+                  <MenuItem key={s} value={s}>
+                    {s}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <Box sx={{ width: { xs: "100%", sm: "227px" } }}>
+              <AsyncSelect
+                loadOptions={loadCityOptions}
+                value={locationId}
+                onChange={(val) => {
+                  setLocationId(val);
+                  setPage(1);
+                }}
+                placeholder="Location"
+                styles={{
+                  ...selectStyles,
+                  control: (base) => ({
+                    ...base,
+                    ...selectStyles.control(base),
+                    width: "100%",
+                  }),
+                }}
+                components={{
+                  DropdownIndicator: () => (
+                    <Box
+                      sx={{ mr: "14px", display: "flex", alignItems: "center" }}
+                    >
+                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <circle
+                          cx="8"
+                          cy="8"
+                          r="6.5"
+                          stroke="#262626"
+                          strokeWidth="2"
+                        />
+                        <path
+                          d="M12.5 12.5L16 16"
+                          stroke="#262626"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </Box>
+                  ),
+                  IndicatorSeparator: () => null,
+                }}
+              />
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              width: "calc(100% - 80px)",
+              height: "1px",
+              bgcolor: "rgba(38, 38, 38, 0.1)",
+              mx: "auto",
+              mb: "20px",
+            }}
+          />
+
+          {/* Row 2: Sorting Options */}
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            {sortOptions.map((opt) => (
+              <Box
+                key={opt.value}
+                onClick={() => {
+                  setSortBy(sortBy === opt.value ? "" : opt.value);
+                  setPage(1);
+                }}
+                sx={{
+                  height: "48px",
+                  px: "14px",
+                  borderRadius: "30px",
+                  bgcolor: "white",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  fontFamily: "'Manrope', sans-serif",
+                  fontWeight: 500,
+                  fontSize: "16px",
+                  color: "#262626",
+                  transition: "all 0.2s",
+                  border:
+                    sortBy === opt.value
+                      ? "2px solid #F6B83D"
+                      : "2px solid transparent",
+                  "&:hover": { border: "2px solid #F6B83D" },
+                }}
+              >
+                {opt.label}
+                {sortBy === opt.value && (
+                  <Box sx={{ ml: "8px", display: "flex", alignItems: "center" }}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path
+                        d="M10.5 3.5L3.5 10.5"
+                        stroke="#F6B83D"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M3.5 3.5L10.5 10.5"
+                        stroke="#F6B83D"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Box>
+                )}
+              </Box>
+            ))}
+          </Box>
+        </Box>
+
+        {/* Grid Section */}
+        {loading ? (
+          <Box sx={{ display: "flex", justifyContent: "center", py: 10 }}>
+            <CircularProgress sx={{ color: "#F6B83D" }} />
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                md: "repeat(2, 1fr)",
+                lg: "repeat(3, 1fr)",
+              },
+              gap: "32px",
+            }}
+          >
+            {notices.map((item) => (
+              <NoticeCard
+                key={item._id}
+                item={item}
+                isFavorite={favoriteIds.includes(item._id)}
+                onToggleFavorite={handleToggleFavorite}
+                onLearnMore={handleLearnMore}
+              />
+            ))}
+          </Box>
+        )}
+
+        {/* Pagination */}
+        <CustomPagination
+          page={page}
+          totalPages={totalPages}
+          onPageChange={(p) => setPage(p)}
+        />
+
+        <ModalAttention
+          isOpen={isAttentionOpen}
+          onClose={() => setIsAttentionOpen(false)}
+        />
+        <ModalNotice
+          isOpen={!!selectedNotice}
+          onClose={() => setSelectedNotice(null)}
+          notice={selectedNotice}
+          isFavorite={
+            selectedNotice ? favoriteIds.includes(selectedNotice._id) : false
+          }
+          onToggleFavorite={handleToggleFavorite}
+        />
+      </Box>
+    </Box>
+  );
+};
+
+export default Notices;
