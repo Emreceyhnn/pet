@@ -43,6 +43,7 @@ const News = () => {
         width: "100%",
         minHeight: "100vh",
         bgcolor: "#F9F9F9",
+        px: { xs: 2, lg: "64px" },
         pb: { xs: "60px", lg: "100px" },
       }}
     >
@@ -50,7 +51,6 @@ const News = () => {
         sx={{
           maxWidth: "1216px",
           mx: "auto",
-          px: { xs: 2, lg: 0 },
           pt: { xs: "40px", lg: "80px" },
         }}
       >

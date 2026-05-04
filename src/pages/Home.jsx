@@ -14,156 +14,164 @@ const Home = () => {
   const { token, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+  const navLinks = [
+    { label: "News", to: "/news" },
+    { label: "Find pet", to: "/notices" },
+    { label: "Our friends", to: "/friends" },
+  ];
+
+  const handleLogout = () => dispatch(logoutClient());
+
   return (
     <Box
       sx={{
         bgcolor: "white",
         minHeight: "100vh",
-        pt: "16px",
-        pb: "16px",
-        px: { xs: 2, lg: "32px" },
+        width: "100%",
+        maxWidth: "1216px",
+        mx: "auto",
+        px: { xs: 2, lg: "64px" },
+        py: { xs: 2, lg: "32px" },
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+        gap: { xs: "10px", lg: "16px" },
       }}
     >
+      {/* ── YELLOW HERO BLOCK ── */}
       <Box
         sx={{
-          maxWidth: "1216px",
-          mx: "auto",
+          position: "relative",
+          width: "100%",
+          boxSizing: "border-box",
+          minHeight: { xs: "400px", md: "480px", lg: "calc(50vh - 12px)" },
+          bgcolor: "#F6B83D",
+          borderRadius: { xs: "30px", lg: "60px" },
+          overflow: "hidden",
           display: "flex",
           flexDirection: "column",
-          gap: 0, // 0 gap to make the blocks touch perfectly
         }}
       >
-        {/* ── YELLOW HERO BLOCK ── */}
+        {/* ── HEADER ROW ── */}
         <Box
           sx={{
-            position: "relative",
-            width: "100%",
-            height: { xs: "auto", lg: "384px" },
-            minHeight: { xs: 400, lg: "384px" },
-            bgcolor: "#F6B83D",
-            borderRadius: "60px",
-            overflow: "hidden",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            px: { xs: 3, lg: "64px" },
+            pt: { xs: 3, lg: "16px" },
+            height: { xs: "80px", lg: "82px" },
           }}
         >
-          {/* ── HEADER ROW ── */}
-          <Box
+          {/* Logo */}
+          <MuiLink
+            component={RouterLink}
+            to="/"
             sx={{
               display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              px: { xs: 3, lg: "64px" },
-              pt: { xs: 3, lg: "16px" },
-              height: { xs: "auto", lg: "82px" },
+              alignItems: "flex-end",
+              gap: 0,
+              textDecoration: "none",
+              color: "inherit",
+              zIndex: 10,
             }}
           >
-            {/* Logo */}
-            <MuiLink
-              component={RouterLink}
-              to="/"
+            <Typography
               sx={{
-                display: "flex",
-                alignItems: "flex-end",
-                gap: 0,
-                textDecoration: "none",
-                color: "inherit",
+                fontFamily: "'Manrope', sans-serif",
+                fontSize: 28,
+                fontWeight: 700,
+                lineHeight: "28px",
+                letterSpacing: "-0.04em",
+                color: "#fff",
               }}
             >
-              <Typography
-                sx={{
-                  fontFamily: "'Manrope', sans-serif",
-                  fontSize: 28,
-                  fontWeight: 800,
-                  lineHeight: "28px",
-                  letterSpacing: "-0.04em",
-                  color: "#fff",
-                }}
-              >
-                petl
-              </Typography>
-              <Box
-                sx={{
-                  width: 23,
-                  height: 23,
-                  bgcolor: "#fff",
-                  borderRadius: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  mb: "2px",
-                  flexShrink: 0,
-                }}
-              >
-                <svg width="13" height="12" viewBox="0 0 14 13" fill="none">
-                  <path
-                    d="M7 11.5S1 7.5 1 3.5A3 3 0 0 1 7 2.118 3 3 0 0 1 13 3.5C13 7.5 7 11.5 7 11.5Z"
-                    fill="#F6B83D"
-                  />
-                </svg>
-              </Box>
-              <Typography
-                sx={{
-                  fontFamily: "'Manrope', sans-serif",
-                  fontSize: 28,
-                  fontWeight: 700,
-                  lineHeight: "28px",
-                  letterSpacing: "-0.04em",
-                  color: "#fff",
-                }}
-              >
-                ve
-              </Typography>
-            </MuiLink>
-
-            {/* Nav - Centered exactly on large screens */}
+              petl
+            </Typography>
             <Box
               sx={{
-                display: { xs: "none", lg: "flex" },
+                width: 23,
+                height: 23,
+                bgcolor: "#fff",
+                borderRadius: "50%",
+                display: "flex",
                 alignItems: "center",
-                gap: "10px",
-                position: "absolute",
-                left: "50%",
-                transform: "translateX(-50%)",
+                justifyContent: "center",
+                mb: "2px",
+                flexShrink: 0,
               }}
             >
-              {[
-                { label: "News", to: "/news" },
-                { label: "Find pet", to: "/notices" },
-                { label: "Our friends", to: "/friends" },
-              ].map(({ label, to }) => (
-                <Button
-                  key={label}
-                  component={NavLink}
-                  to={to}
-                  sx={{
-                    height: 50,
-                    px: "20px",
-                    border: "1px solid rgba(255, 255, 255, 0.4)",
-                    borderRadius: "30px",
-                    fontSize: 16,
-                    textTransform: "none",
-                    color: "white",
-                    fontFamily: "'Manrope', sans-serif",
-                    fontWeight: 500,
-                    lineHeight: "20px",
-                    letterSpacing: "-0.03em",
-                    "&:hover": {
-                      bgcolor: "rgba(255,255,255,0.1)",
-                      borderColor: "rgba(255,255,255,0.6)",
-                    },
-                    "&.active": {
-                      bgcolor: "white",
-                      color: "#F6B83D",
-                      borderColor: "white",
-                    },
-                  }}
-                >
-                  {label}
-                </Button>
-              ))}
+              <svg width="13" height="12" viewBox="0 0 14 13" fill="none">
+                <path
+                  d="M7 11.5S1 7.5 1 3.5A3 3 0 0 1 7 2.118 3 3 0 0 1 13 3.5C13 7.5 7 11.5 7 11.5Z"
+                  fill="#F6B83D"
+                />
+              </svg>
             </Box>
+            <Typography
+              sx={{
+                fontFamily: "'Manrope', sans-serif",
+                fontSize: 28,
+                fontWeight: 700,
+                lineHeight: "28px",
+                letterSpacing: "-0.04em",
+                color: "#fff",
+              }}
+            >
+              ve
+            </Typography>
+          </MuiLink>
 
-            {/* Auth/User — right */}
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          {/* Desktop Nav - Centered exactly on large screens */}
+          <Box
+            sx={{
+              display: { xs: "none", lg: "flex" },
+              alignItems: "center",
+              gap: "10px",
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            {navLinks.map(({ label, to }) => (
+              <Button
+                key={label}
+                component={NavLink}
+                to={to}
+                sx={{
+                  height: 50,
+                  px: "20px",
+                  border: "1px solid rgba(255, 255, 255, 0.4)",
+                  borderRadius: "30px",
+                  fontSize: 16,
+                  textTransform: "none",
+                  color: "white",
+                  fontFamily: "'Manrope', sans-serif",
+                  fontWeight: 500,
+                  lineHeight: "20px",
+                  letterSpacing: "-0.03em",
+                  "&:hover": {
+                    bgcolor: "rgba(255,255,255,0.1)",
+                    borderColor: "rgba(255,255,255,0.6)",
+                  },
+                  "&.active": {
+                    bgcolor: "white",
+                    color: "#F6B83D",
+                    borderColor: "white",
+                  },
+                }}
+              >
+                {label}
+              </Button>
+            ))}
+          </Box>
+
+          {/* Auth/User — right */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            {/* Tablet/Desktop Auth */}
+            <Box sx={{ display: { xs: "none", md: "flex" }, gap: "10px" }}>
               {token ? (
                 <>
                   <MuiLink
@@ -189,10 +197,10 @@ const Home = () => {
                         overflow: "hidden",
                       }}
                     >
-                      {user?.avatar ? (
+                      {user?.avatar || user?.avatarURL ? (
                         <Box
                           component="img"
-                          src={user.avatar}
+                          src={user.avatar || user.avatarURL}
                           sx={{
                             width: "100%",
                             height: "100%",
@@ -221,7 +229,6 @@ const Home = () => {
                         lineHeight: "20px",
                         letterSpacing: "-0.03em",
                         color: "#fff",
-                        display: { xs: "none", md: "block" },
                       }}
                     >
                       {user?.name?.split(" ")[0] || "Profile"}
@@ -254,14 +261,12 @@ const Home = () => {
                     sx={{
                       height: 50,
                       px: "20px",
-                      color: "#fff",
                       bgcolor: "#FFF4DF",
                       color: "#F6B83D",
                       borderRadius: "30px",
                       fontFamily: "'Manrope', sans-serif",
                       fontWeight: 700,
                       fontSize: "16px",
-                      display: { xs: "none", sm: "flex" },
                       textTransform: "uppercase",
                       "&:hover": { bgcolor: "#fee8c1" },
                     }}
@@ -271,26 +276,40 @@ const Home = () => {
                 </Box>
               )}
             </Box>
-          </Box>
 
-          {/* ── HEADLINE ── */}
-          <Box
-            sx={{
-              position: { lg: "absolute" },
-              left: { lg: "64px" },
-              top: { lg: "178px" },
-              px: { xs: 3, lg: 0 },
-              mt: { xs: 4, lg: 0 },
-              width: { lg: "760px" },
-            }}
-          >
+            {/* Mobile Hamburger */}
+            <IconButton
+              onClick={() => setIsMenuOpen(true)}
+              sx={{ display: { lg: "none" }, color: "#fff", p: 0 }}
+            >
+              <MenuIcon sx={{ fontSize: 32 }} />
+            </IconButton>
+          </Box>
+        </Box>
+
+        {/* ── CONTENT ROW ── */}
+        <Box
+          sx={{
+            display: "flex",
+            flex: 1,
+            alignItems: { xs: "flex-start", lg: "flex-end" },
+            px: { xs: 3, lg: "64px" },
+            pb: { xs: 5, lg: "48px" },
+            pt: { xs: 4, lg: 0 },
+            gap: { xs: "24px", lg: "32px" },
+            flexDirection: { xs: "column", lg: "row" },
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Headline */}
+          <Box sx={{ flex: "0 0 auto", maxWidth: { xs: "100%", lg: "65%" } }}>
             <Typography
               variant="h1"
               sx={{
                 fontFamily: "'Manrope', sans-serif",
                 fontWeight: 700,
-                fontSize: { xs: 54, lg: 90 },
-                lineHeight: { xs: "54px", lg: "87px" },
+                fontSize: { xs: 40, sm: 54, lg: 80 },
+                lineHeight: { xs: 1.1, lg: 1 },
                 letterSpacing: "-0.03em",
                 color: "#FFFFFF",
               }}
@@ -305,24 +324,14 @@ const Home = () => {
             </Typography>
           </Box>
 
-          {/* ── DESCRIPTION ── */}
-          <Box
-            sx={{
-              position: { lg: "absolute" },
-              left: { lg: "897px" },
-              top: { lg: "264px" },
-              width: { xs: "100%", lg: "255px" },
-              px: { xs: 3, lg: 0 },
-              mt: { xs: 3, lg: 0 },
-              mb: { xs: 4, lg: 0 },
-            }}
-          >
+          {/* Description */}
+          <Box sx={{ flex: "0 0 auto", maxWidth: { xs: "100%", lg: "250px" } }}>
             <Typography
               sx={{
                 fontFamily: "'Manrope', sans-serif",
                 fontWeight: 500,
-                fontSize: "18px",
-                lineHeight: "22px",
+                fontSize: { xs: "14px", lg: "16px" },
+                lineHeight: { xs: "18px", lg: "22px" },
                 letterSpacing: "-0.02em",
                 color: "#FFFFFF",
               }}
@@ -332,31 +341,208 @@ const Home = () => {
             </Typography>
           </Box>
         </Box>
+      </Box>
 
-        {/* ── HERO IMAGE BLOCK ── */}
+      {/* ── HERO IMAGE BLOCK ── */}
+      <Box
+        sx={{
+          width: "100%",
+          boxSizing: "border-box",
+          height: { xs: "400px", md: "500px", lg: "calc(50vh - 12px)" },
+          borderRadius: { xs: "30px", lg: "60px" },
+          overflow: "hidden",
+          bgcolor: "#000",
+        }}
+      >
         <Box
+          component="img"
+          src="/home-hero.png"
+          alt="Woman with dog"
           sx={{
             width: "100%",
-            height: { xs: 400, lg: "384px" },
-            borderRadius: "60px",
-            overflow: "hidden",
-            // Removed margin to let it touch the yellow block
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
+            display: "block",
+          }}
+        />
+      </Box>
+
+      {/* Mobile menu drawer (Duplicate of Header.jsx drawer for Home) */}
+      <Drawer
+        anchor="right"
+        open={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        PaperProps={{
+          sx: {
+            width: "100%",
+            height: "100%",
+            bgcolor: "#F6B83D",
+            p: { xs: 2, md: 4 },
+            display: "flex",
+            flexDirection: "column",
+          },
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: 8,
           }}
         >
-          <Box
-            component="img"
-            src="/home-hero.png"
-            alt="Woman with dog"
+          <MuiLink
+            component={RouterLink}
+            to="/"
+            onClick={() => setIsMenuOpen(false)}
             sx={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center 20%",
-              display: "block",
+              display: "flex",
+              alignItems: "flex-end",
+              gap: 0,
+              textDecoration: "none",
+              color: "inherit",
             }}
-          />
+          >
+            <Typography sx={{ fontSize: 28, fontWeight: 800, color: "white" }}>
+              petl
+            </Typography>
+            <Box
+              sx={{
+                width: 23,
+                height: 23,
+                bgcolor: "white",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                mb: "2px",
+              }}
+            >
+              <svg width="13" height="12" viewBox="0 0 14 13" fill="none">
+                <path
+                  d="M7 11.5S1 7.5 1 3.5A3 3 0 0 1 7 2.118 3 3 0 0 1 13 3.5C13 7.5 7 11.5 7 11.5Z"
+                  fill="#F6B83D"
+                />
+              </svg>
+            </Box>
+            <Typography sx={{ fontSize: 28, fontWeight: 700, color: "white" }}>
+              ve
+            </Typography>
+          </MuiLink>
+          <IconButton onClick={() => setIsMenuOpen(false)}>
+            <CloseIcon sx={{ fontSize: 36, color: "white" }} />
+          </IconButton>
         </Box>
-      </Box>
+
+        <Box
+          component="nav"
+          sx={{
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 2,
+            mt: 4,
+          }}
+        >
+          {navLinks.map((link) => (
+            <Button
+              key={link.label}
+              component={NavLink}
+              to={link.to}
+              onClick={() => setIsMenuOpen(false)}
+              sx={{
+                width: "100%",
+                maxWidth: "280px",
+                height: "56px",
+                borderRadius: "30px",
+                fontSize: "18px",
+                fontWeight: 700,
+                color: "white",
+                bgcolor: "transparent",
+                border: "1px solid rgba(255, 255, 255, 0.4)",
+                textTransform: "none",
+                "&.active": {
+                  bgcolor: "white",
+                  color: "#F6B83D",
+                  border: "none",
+                },
+                "&:hover": {
+                  bgcolor: "rgba(255, 255, 255, 0.1)",
+                },
+              }}
+            >
+              {link.label}
+            </Button>
+          ))}
+        </Box>
+
+        <Box
+          sx={{
+            display: { xs: "flex", md: "none" },
+            flexDirection: "column",
+            gap: 2,
+            mb: 4,
+            px: 2,
+          }}
+        >
+          {!token ? (
+            <>
+              <Button
+                component={RouterLink}
+                to="/login"
+                onClick={() => setIsMenuOpen(false)}
+                fullWidth
+                sx={{
+                  height: "50px",
+                  borderRadius: "30px",
+                  bgcolor: "white",
+                  color: "#F6B83D",
+                  fontWeight: 700,
+                  fontSize: "16px",
+                }}
+              >
+                LOG IN
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/register"
+                onClick={() => setIsMenuOpen(false)}
+                fullWidth
+                sx={{
+                  height: "50px",
+                  borderRadius: "30px",
+                  bgcolor: "#FFF4DF",
+                  color: "#F6B83D",
+                  fontWeight: 700,
+                  fontSize: "16px",
+                }}
+              >
+                REGISTRATION
+              </Button>
+            </>
+          ) : (
+            <Button
+              onClick={() => {
+                handleLogout();
+                setIsMenuOpen(false);
+              }}
+              fullWidth
+              sx={{
+                height: "50px",
+                borderRadius: "30px",
+                bgcolor: "#FFF4DF",
+                color: "#F6B83D",
+                fontWeight: 700,
+                fontSize: "16px",
+              }}
+            >
+              LOG OUT
+            </Button>
+          )}
+        </Box>
+      </Drawer>
     </Box>
   );
 };

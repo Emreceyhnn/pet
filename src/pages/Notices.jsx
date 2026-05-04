@@ -198,10 +198,11 @@ const Notices = () => {
         width: "100%",
         minHeight: "100vh",
         bgcolor: "#F9F9F9",
+        px: { xs: 2, lg: "64px" },
         pb: { xs: "60px", lg: "100px" },
       }}
     >
-      <Box sx={{ maxWidth: "1216px", mx: "auto", px: { xs: 2, lg: 0 }, pt: { xs: "40px", lg: "80px" } }}>
+      <Box sx={{ maxWidth: "1216px", mx: "auto", pt: { xs: "40px", lg: "80px" } }}>
         <Typography
           sx={{
             fontFamily: "'Manrope', sans-serif",
@@ -219,7 +220,7 @@ const Notices = () => {
         {/* Filters Section */}
         <Box
           sx={{
-            p: "40px",
+            p: { xs: "24px", md: "40px" },
             borderRadius: "30px",
             bgcolor: "#FFF4DF",
             mb: "40px",
@@ -233,7 +234,7 @@ const Notices = () => {
             sx={{
               display: "flex",
               flexWrap: "wrap",
-              gap: "16px",
+              gap: "12px",
               mb: "20px",
             }}
           >
@@ -246,7 +247,7 @@ const Notices = () => {
               }}
               variant="outlined"
               sx={{
-                width: { xs: "100%", sm: "230px" },
+                width: { xs: "100%", md: "230px" },
                 "& .MuiOutlinedInput-root": {
                   height: "48px",
                   borderRadius: "30px",
@@ -277,7 +278,12 @@ const Notices = () => {
                           justifyContent: "center",
                         }}
                       >
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                        >
                           <circle
                             cx="8.5"
                             cy="8.5"
@@ -299,7 +305,7 @@ const Notices = () => {
               }}
             />
 
-            <FormControl sx={{ width: { xs: "100%", sm: "200px" } }}>
+            <FormControl sx={{ width: { xs: "100%", md: "200px" } }}>
               <Select
                 value={category}
                 onChange={(e) => {
@@ -348,7 +354,7 @@ const Notices = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ width: { xs: "100%", sm: "190px" } }}>
+            <FormControl sx={{ width: { xs: "100%", md: "190px" } }}>
               <Select
                 value={sex}
                 onChange={(e) => {
@@ -391,7 +397,7 @@ const Notices = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ width: { xs: "100%", sm: "190px" } }}>
+            <FormControl sx={{ width: { xs: "100%", md: "190px" } }}>
               <Select
                 value={species}
                 onChange={(e) => {
@@ -434,7 +440,7 @@ const Notices = () => {
               </Select>
             </FormControl>
 
-            <Box sx={{ width: { xs: "100%", sm: "227px" } }}>
+            <Box sx={{ width: { xs: "100%", md: "227px" } }}>
               <AsyncSelect
                 loadOptions={loadCityOptions}
                 value={locationId}
@@ -456,7 +462,12 @@ const Notices = () => {
                     <Box
                       sx={{ mr: "14px", display: "flex", alignItems: "center" }}
                     >
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                      >
                         <circle
                           cx="8"
                           cy="8"
@@ -481,21 +492,24 @@ const Notices = () => {
 
           <Box
             sx={{
-              width: "calc(100% - 80px)",
+              width: "100%",
               height: "1px",
               bgcolor: "rgba(38, 38, 38, 0.1)",
-              mx: "auto",
               mb: "20px",
             }}
           />
 
-          {/* Row 2: Sorting Options */}
+          {/* Row 2: Sorting Options - Scrollable on Mobile */}
           <Box
             sx={{
               display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
+              overflowX: { xs: "auto", lg: "visible" },
+              whiteSpace: "nowrap",
+              pb: { xs: 1, lg: 0 },
               gap: "8px",
+              "&::-webkit-scrollbar": { display: "none" },
+              msOverflowStyle: "none",
+              scrollbarWidth: "none",
             }}
           >
             {sortOptions.map((opt) => (
@@ -510,7 +524,7 @@ const Notices = () => {
                   px: "14px",
                   borderRadius: "30px",
                   bgcolor: "white",
-                  display: "flex",
+                  display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
@@ -560,23 +574,30 @@ const Notices = () => {
         ) : (
           <Box
             sx={{
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "1fr",
-                md: "repeat(2, 1fr)",
-                lg: "repeat(3, 1fr)",
-              },
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
               gap: "32px",
             }}
           >
             {notices.map((item) => (
-              <NoticeCard
+              <Box
                 key={item._id}
-                item={item}
-                isFavorite={favoriteIds.includes(item._id)}
-                onToggleFavorite={handleToggleFavorite}
-                onLearnMore={handleLearnMore}
-              />
+                sx={{
+                  width: {
+                    xs: "100%",
+                    md: "calc((100% - 32px) / 2)",
+                    lg: "calc((100% - 64px) / 3)",
+                  },
+                }}
+              >
+                <NoticeCard
+                  item={item}
+                  isFavorite={favoriteIds.includes(item._id)}
+                  onToggleFavorite={handleToggleFavorite}
+                  onLearnMore={handleLearnMore}
+                />
+              </Box>
             ))}
           </Box>
         )}

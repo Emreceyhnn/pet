@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutClient } from "../store/authSlice";
 import { Link as RouterLink } from "react-router-dom";
@@ -20,13 +20,14 @@ import {
   IconButton,
   Stack,
   Container,
+  CircularProgress,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 const Profile = () => {
-  const { user, token } = useSelector((state) => state.auth);
+  const { user, token, isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [activeTab, setActiveTab] = useState("favorites");
   const [selectedNotice, setSelectedNotice] = useState(null);
@@ -38,35 +39,59 @@ const Profile = () => {
     setIsLogoutModalOpen(false);
   };
 
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [dispatch, token]);
+
   const handleEditProfile = async (data) => {
     try {
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("email", data.email);
-      formData.append("phone", data.phone);
-      
-      // If we have a file object from the upload, use it
       if (data.avatarFile) {
+        // file upload → multipart/form-data
+        const formData = new FormData();
+        formData.append("name",   data.name);
+        formData.append("email",  data.email);
+        formData.append("phone",  data.phone);
         formData.append("avatar", data.avatarFile);
-      } else if (data.avatar && !data.avatar.startsWith("data:")) {
-        // If it's a regular URL string, append it
-        formData.append("avatar", data.avatar);
+
+        await axios.patch(
+          "https://petlove.b.goit.study/api/users/current/edit",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      } else {
+        // no file → JSON
+        const body = {
+          name:  data.name,
+          email: data.email,
+          phone: data.phone,
+          ...(data.avatar && !data.avatar.startsWith("data:")
+            ? { avatar: data.avatar }
+            : {}),
+        };
+
+        await axios.patch(
+          "https://petlove.b.goit.study/api/users/current/edit",
+          body,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
       }
 
-      await axios.patch(
-        "https://petlove.b.goit.study/api/users/current/edit",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        },
-      );
       dispatch(fetchCurrentUser());
       setIsEditModalOpen(false);
     } catch (error) {
-      console.error("Error updating profile", error);
+      console.error("Error updating profile", error.response?.data);
       alert(error.response?.data?.message || "Error updating profile");
     }
   };
@@ -126,8 +151,8 @@ const Profile = () => {
   const favoriteIds = user?.noticesFavorites?.map((n) => n._id) || [];
 
   return (
-    <Box sx={{ bgcolor: "#F9F9F9", minHeight: "100vh", py: { xs: 4, lg: 4 } }}>
-      <Container maxWidth="lg">
+    <Box sx={{ bgcolor: "#F9F9F9", minHeight: "100vh", px: { xs: 2, lg: "64px" }, py: { xs: 4, lg: 4 } }}>
+      <Box sx={{ maxWidth: "1216px", mx: "auto" }}>
         <Box
           sx={{
             display: "flex",
@@ -144,7 +169,8 @@ const Profile = () => {
               borderRadius: "40px",
               bgcolor: "white",
               p: 4,
-              position: "relative",
+              position: { xs: "relative", lg: "sticky" },
+              top: { lg: 32 },
               flexShrink: 0,
             }}
           >
@@ -390,20 +416,32 @@ const Profile = () => {
           </Paper>
 
           {/* Right Column: Notices Tabs & Content */}
-          <Box sx={{ flexGrow: 1, minWidth: 0 }}>
+          <Box sx={{ flexGrow: 1, minWidth: 0, minHeight: "80vh" }}>
             <Stack spacing={3}>
               {/* Tab Navigation */}
-              <Box sx={{ display: "flex", gap: 1 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 1,
+                  overflowX: "auto",
+                  whiteSpace: "nowrap",
+                  pb: 1,
+                  "&::-webkit-scrollbar": { display: "none" },
+                  scrollbarWidth: "none",
+                }}
+              >
                 <Button
                   onClick={() => setActiveTab("favorites")}
                   sx={{
                     borderRadius: "100px",
-                    px: 3.5,
+                    px: { xs: 3, sm: 3.5 },
                     py: 1.5,
                     textTransform: "none",
                     fontWeight: 600,
+                    fontSize: { xs: 14, sm: 16 },
                     bgcolor: activeTab === "favorites" ? "#F6B83D" : "white",
                     color: activeTab === "favorites" ? "white" : "#262626",
+                    flexShrink: 0,
                     "&:hover": {
                       bgcolor:
                         activeTab === "favorites" ? "#e5a52e" : "#f5f5f5",
@@ -416,12 +454,14 @@ const Profile = () => {
                   onClick={() => setActiveTab("viewed")}
                   sx={{
                     borderRadius: "100px",
-                    px: 3.5,
+                    px: { xs: 3, sm: 3.5 },
                     py: 1.5,
                     textTransform: "none",
                     fontWeight: 600,
+                    fontSize: { xs: 14, sm: 16 },
                     bgcolor: activeTab === "viewed" ? "#F6B83D" : "white",
                     color: activeTab === "viewed" ? "white" : "#262626",
+                    flexShrink: 0,
                     "&:hover": {
                       bgcolor: activeTab === "viewed" ? "#e5a52e" : "#f5f5f5",
                     },
@@ -431,48 +471,70 @@ const Profile = () => {
                 </Button>
               </Box>
 
-              {/* Grid Content */}
-              <Grid container spacing={3}>
+              {/* Notices List (Flex Row + Wrap) */}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  gap: "24px",
+                  minHeight: 400,
+                }}
+              >
                 {activeNotices.map((item) => (
-                  <Grid item xs={12} sm={6} key={item._id}>
+                  <Box
+                    key={item._id}
+                    sx={{
+                      width: {
+                        xs: "100%",
+                        sm: "calc(50% - 12px)",
+                      },
+                      display: "flex",
+                    }}
+                  >
                     <NoticeCard
                       item={item}
                       isFavorite={favoriteIds.includes(item._id)}
                       onToggleFavorite={handleToggleFavorite}
                       onLearnMore={handleLearnMore}
                     />
-                  </Grid>
+                  </Box>
                 ))}
-                {activeNotices.length === 0 && (
-                  <Grid item xs={12}>
-                    <Box
+                {activeNotices.length === 0 && !isLoading && (
+                  <Box
+                    sx={{
+                      width: "100%",
+                      textAlign: "center",
+                      maxWidth: "400px",
+                      mx: "auto",
+                      pt: 15,
+                    }}
+                  >
+                    <Typography
                       sx={{
-                        textAlign: "center",
-                        maxWidth: "400px",
-                        mx: "auto",
-                        pt: 15,
+                        color: "#262626",
+                        fontSize: 16,
+                        lineHeight: "22px",
+                        fontFamily: "'Manrope', sans-serif",
                       }}
                     >
-                      <Typography
-                        sx={{
-                          color: "#262626",
-                          fontSize: 16,
-                          lineHeight: "22px",
-                          fontFamily: "'Manrope', sans-serif",
-                        }}
-                      >
-                        Oops,{" "}
-                        <Box component="span" sx={{ color: "#F6B83D" }}>
-                          looks like there aren't any furries
-                        </Box>{" "}
-                        on our adorable page yet. Do not worry! View your pets
-                        on the "find your favorite pet" page and add them to
-                        your favorites.
-                      </Typography>
-                    </Box>
-                  </Grid>
+                      Oops,{" "}
+                      <Box component="span" sx={{ color: "#F6B83D" }}>
+                        looks like there aren't any furries
+                      </Box>{" "}
+                      on our adorable page yet. Do not worry! View your pets
+                      on the "find your favorite pet" page and add them to
+                      your favorites.
+                    </Typography>
+                  </Box>
                 )}
-              </Grid>
+                {isLoading && (
+                  <Box sx={{ width: "100%", display: "flex", justifyContent: "center", pt: 15 }}>
+                    <CircularProgress sx={{ color: "#F6B83D" }} />
+                  </Box>
+                )}
+              </Box>
+
             </Stack>
           </Box>
         </Box>
@@ -499,7 +561,7 @@ const Profile = () => {
           }
           onToggleFavorite={handleToggleFavorite}
         />
-      </Container>
+      </Box>
     </Box>
   );
 };

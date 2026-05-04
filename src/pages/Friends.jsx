@@ -24,10 +24,11 @@ const Friends = () => {
       sx={{
         bgcolor: "#F9F9F9",
         minHeight: "100vh",
+        px: { xs: 2, lg: "64px" },
         pb: { xs: 4, md: 8 },
       }}
     >
-      <Box sx={{ maxWidth: "1216px", mx: "auto", px: { xs: 2, lg: 0 } }}>
+      <Box sx={{ maxWidth: "1216px", mx: "auto" }}>
         <Typography
           variant="h1"
           sx={{

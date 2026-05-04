@@ -1,3 +1,4 @@
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   Dialog,
@@ -553,18 +554,33 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(editSchema),
     defaultValues: {
       avatar: user?.avatar || "",
-      name: user?.name || "",
-      email: user?.email || "",
-      phone: user?.phone || "+380",
+      name:   user?.name  || "",
+      email:  user?.email || "",
+      phone:  user?.phone || "+380",
     },
   });
 
+  // Reload user values every time the modal opens
+  React.useEffect(() => {
+    if (isOpen) {
+      reset({
+        avatar: user?.avatar || "",
+        name:   user?.name  || "",
+        email:  user?.email || "",
+        phone:  user?.phone || "+380",
+        avatarFile: undefined,
+      });
+    }
+  }, [isOpen, user, reset]);
+
   const avatarUrl = watch("avatar");
+
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();

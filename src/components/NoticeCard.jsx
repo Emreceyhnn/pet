@@ -68,44 +68,13 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
           {item.category || "Sell"}
         </Box>
 
-        {/* Favorite Button */}
-        <IconButton
-          onClick={(e) => {
-            e.preventDefault();
-            onToggleFavorite(item._id);
-          }}
-          sx={{
-            position: "absolute",
-            top: 12,
-            right: 12,
-            bgcolor: "rgba(255, 255, 255, 0.5)",
-            backdropFilter: "blur(4px)",
-            color: "#F6B83D",
-            width: 40,
-            height: 40,
-            "&:hover": { bgcolor: "white" },
-          }}
-        >
-          {isFavorite ? (
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-              <path
-                d="M9 16.5L7.875 15.4725C3.87 11.835 1.125 9.3375 1.125 6.255C1.125 3.7575 3.0825 1.8 5.58 1.8C6.9975 1.8 8.355 2.46 9 3.4875C9.645 2.46 11.0025 1.8 12.42 1.8C14.9175 1.8 16.875 3.7575 16.875 6.255C16.875 9.3375 14.13 11.835 10.125 15.48L9 16.5Z"
-                fill="#F6B83D"
-              />
-            </svg>
-          ) : (
-            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
-              <path
-                d="M12.42 1.8C11.0025 1.8 9.645 2.46 9 3.4875C8.355 2.46 6.9975 1.8 5.58 1.8C3.0825 1.8 1.125 3.7575 1.125 6.255C1.125 9.3375 3.87 11.835 7.875 15.4725L9 16.5L10.125 15.48C14.13 11.835 16.875 9.3375 16.875 6.255C16.875 3.7575 14.9175 1.8 12.42 1.8ZM9.09 14.2875L9 14.3775L8.91 14.2875C5.235 10.95 2.625 8.58 2.625 6.255C2.625 4.5825 3.87 3.3 5.58 3.3C6.8325 3.3 8.0475 4.11 8.475 5.2275H9.525C9.9525 4.11 11.1675 3.3 12.42 3.3C14.13 3.3 15.375 4.5825 15.375 6.255C15.375 8.58 12.765 10.95 9.09 14.2875Z"
-                fill="#F6B83D"
-              />
-            </svg>
-          )}
-        </IconButton>
+        
       </Box>
 
       {/* Body */}
-      <Box sx={{ flexGrow: 1, mb: 3 }}>
+      <Box sx={{ flexGrow: 1, mb: 3 }}/>
+      {/* Content Area */}
+      <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
         <Typography
           sx={{
             fontSize: 18,
@@ -133,11 +102,12 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
             {
               label: "Birthday",
               value: item.birthday
-                ? new Date(item.birthday).toLocaleDateString("en-GB")
+                ? new Date(item.birthday).toLocaleDateString("en-GB").replaceAll("/", ".")
                 : "Unknown",
             },
             { label: "Sex", value: item.sex },
             { label: "Species", value: item.species },
+            { label: "Category", value: item.category },
           ].map((detail) => (
             <Grid item xs={3} key={detail.label}>
               <Typography
@@ -157,6 +127,7 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
+                  textTransform: "capitalize",
                 }}
               >
                 {detail.value}
@@ -164,37 +135,95 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
             </Grid>
           ))}
         </Grid>
-      </Box>
 
-      {/* Footer */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          mt: "auto",
-        }}
-      >
-        <Typography sx={{ fontSize: 18, fontWeight: 700, color: "#262626" }}>
-          ${item.price || "0.00"}
-        </Typography>
-        <Button
-          onClick={() => onLearnMore(item._id)}
-          variant="contained"
+        {/* Commentary / Description */}
+        <Typography
           sx={{
-            bgcolor: "#F6B83D",
-            color: "white",
-            borderRadius: "100px",
-            textTransform: "none",
-            fontWeight: 700,
-            px: 3,
-            "&:hover": { bgcolor: "#e5a52e" },
+            fontFamily: "'Manrope', sans-serif",
+            fontSize: 14,
+            fontWeight: 500,
+            color: "#262626",
+            mt: 2,
+            lineHeight: "18px",
+            letterSpacing: "-0.02em",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical",
+            minHeight: "36px",
           }}
         >
-          Learn more
-        </Button>
+          {item.comment || "No description provided."}
+        </Typography>
+      </Box>
+
+      {/* Footer Area (Fixed at bottom) */}
+      <Box sx={{ mt: 3 }}>
+        {/* Price Row */}
+        {item.price && (
+          <Typography
+            sx={{
+              fontSize: 20,
+              fontWeight: 700,
+              color: "#F6B83D",
+              mb: 1.5,
+              fontFamily: "'Manrope', sans-serif",
+            }}
+          >
+            ${item.price}
+          </Typography>
+        )}
+
+        {/* Buttons Row */}
+        <Box sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <Button
+            onClick={() => onLearnMore(item._id)}
+            variant="contained"
+            fullWidth
+            sx={{
+              bgcolor: "#F6B83D",
+              color: "white",
+              borderRadius: "30px",
+              textTransform: "none",
+              fontWeight: 700,
+              fontSize: 16,
+              height: 48,
+              boxShadow: "none",
+              "&:hover": { bgcolor: "#e5a52e", boxShadow: "none" },
+            }}
+          >
+            Learn more
+          </Button>
+
+          <IconButton
+            onClick={() => onToggleFavorite(item._id)}
+            sx={{
+              width: 48,
+              height: 48,
+              bgcolor: "#FFF4DF",
+              borderRadius: "50%",
+              flexShrink: 0,
+              color: isFavorite ? "#F6B83D" : "rgba(246, 184, 61, 0.5)",
+              "&:hover": { bgcolor: "#fee8c1" },
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M17.3667 3.84172C16.9412 3.41594 16.4359 3.07809 15.88 2.84765C15.3241 2.61721 14.7285 2.49869 14.1269 2.49869C13.5252 2.49869 12.9296 2.61721 12.3737 2.84765C11.8178 3.07809 11.3126 3.41594 10.887 3.84172L10.0001 4.72859L9.11322 3.84172C8.25369 2.98219 7.08772 2.49911 5.87197 2.49911C4.65622 2.49911 3.49025 2.98219 2.63072 3.84172C1.77119 4.70125 1.28811 5.86722 1.28811 7.08297C1.28811 8.29872 1.77119 9.46469 2.63072 10.3242L3.51759 11.2211L10.0001 17.7036L16.4826 11.2211L17.3695 10.3242C17.7952 9.89862 18.1331 9.39335 18.3635 8.83745C18.594 8.28155 18.7125 7.68595 18.7125 7.08428C18.7125 6.48261 18.594 5.88701 18.3635 5.33111C18.1331 4.77521 17.7952 4.26993 17.3695 3.84434L17.3667 3.84172Z"
+                stroke="#F6B83D"
+                fill={isFavorite ? "#F6B83D" : "none"}
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </IconButton>
+        </Box>
       </Box>
     </Card>
+
+
   );
 };
 

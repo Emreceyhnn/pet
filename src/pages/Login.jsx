@@ -66,234 +66,188 @@ const Login = () => {
       sx={{
         display: "flex",
         justifyContent: "center",
-        bgcolor: "rgba(249, 249, 249, 1)",
-        px: { xs: 2, lg: "32px" },
-        py: "16px",
+        bgcolor: "#F9F9F9",
+        px: { xs: 2, lg: "64px" },
+        py: { xs: 2, lg: "16px" },
+        minHeight: "calc(100vh - 100px)",
       }}
     >
       <Stack
-        direction={"row"}
+        direction={{ xs: "column", md: "row" }}
         sx={{
           width: "100%",
           maxWidth: "1216px",
           mx: "auto",
-          gap: { md: 4, lg: 8 },
+          gap: { xs: 2, md: 4, lg: 8 },
         }}
       >
+        {/* Left/Top Card */}
         <Box
           sx={{
-            display: { xs: "none", md: "flex" },
-            alignItems: "flex-end",
+            flex: { xs: "none", md: 1 },
+            height: { xs: "280px", sm: "350px", md: "654px" },
+            bgcolor: "#F6B83D",
+            borderRadius: { xs: "30px", md: "60px" },
+            position: "relative",
+            overflow: "hidden",
+            display: "flex",
+            alignItems: "center",
             justifyContent: "center",
-            flex: 1,
           }}
         >
-          {/* Exact Figma Layout for Left Card */}
+          {/* Background Illustration */}
+          <Box
+            component="img"
+            src="/bg.png"
+            alt=""
+            sx={{
+              position: "absolute",
+              width: { xs: "120%", md: "512px" },
+              height: "auto",
+              left: { xs: "-10%", md: "40px" },
+              top: { xs: "-10px", md: "-6px" },
+              objectFit: "contain",
+              opacity: 0.8,
+            }}
+          />
+
+          {/* Pet Image */}
+          <Box
+            component="img"
+            src="/login dog.png"
+            alt="Pet illustration"
+            sx={{
+              scale: { xs: 1.1, md: 1.45 },
+              position: "absolute",
+              width: { xs: "240px", sm: "320px", md: "512px" },
+              height: "auto",
+              left: { xs: "50%", md: "auto" },
+              right: { xs: "auto", md: "40px" },
+              transform: { xs: "translateX(-50%)", md: "none" },
+              top: { xs: "40px", md: "60px" },
+              objectFit: "contain",
+            }}
+          />
+
+          {/* Info Card (Visible on MD+, or mini version on Mobile if desired) */}
           <Box
             sx={{
-              position: "relative",
-              width: "592px",
-              height: "654px",
-              bgcolor: "#F6B83D",
-              borderRadius: "60px",
-              overflow: "hidden",
-              flexShrink: 0,
+              display: { xs: "none", md: "block" },
+              position: "absolute",
+              width: "294px",
+              height: "121px",
+              left: "60px",
+              top: "450px",
+              bgcolor: "#FFFFFF",
+              borderRadius: "20px",
+              zIndex: 5,
             }}
           >
-            {/* Rectangle 4561 - White transparent overlay */}
-            <Box
-              component="img"
-              src="/bg.png"
-              alt="Pet illustration"
-              sx={{
-                position: "absolute",
-                width: "512px",
-                height: "660px",
-                left: "40px",
-                top: "-6px",
-                objectFit: "contain",
-              }}
-            />
-
-            {/* Pet Image */}
-            <Box
-              component="img"
-              src="/login dog.png"
-              alt="Pet illustration"
-              sx={{
-                scale: 1.45,
-                position: "absolute",
-                width: "512px",
-                height: "660px",
-                left: "40px",
-                top: "60px",
-                objectFit: "contain",
-              }}
-            />
-
-            {/* Info Card (Rich) */}
+            {/* Image Icon Block */}
             <Box
               sx={{
                 position: "absolute",
-                width: "294px",
-                height: "121px",
-                left: "60px",
-                top: "450px",
-                bgcolor: "#FFFFFF",
-                borderRadius: "20px",
+                width: "60px",
+                height: "60px",
+                left: "16px",
+                top: "16px",
+                bgcolor: "#FFF4DF",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
-              {/* Image Icon Block */}
-              <Box
-                sx={{
-                  position: "absolute",
-                  width: "60px",
-                  height: "60px",
-                  left: "16px",
-                  top: "16px",
-                }}
-              >
-                {/* Ellipse */}
-                <Box
-                  sx={{
-                    position: "absolute",
-                    width: "60px",
-                    height: "60px",
-                    left: "0px",
-                    top: "0px",
-                    bgcolor: "#FFF4DF",
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontWeight: 800,
-                      fontSize: "32px",
-                      lineHeight: "32px",
-                      letterSpacing: "-0.04em",
-                      color: "#FFFFFF",
-                    }}
-                  >
-                    🐶
-                  </Typography>
-                </Box>
-              </Box>
+              <Typography sx={{ fontSize: "32px" }}>🐶</Typography>
+            </Box>
 
-              {/* Text Block */}
+            {/* Text Block */}
+            <Box
+              sx={{
+                position: "absolute",
+                left: "84px",
+                top: "19px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+              }}
+            >
               <Box
                 sx={{
-                  position: "absolute",
-                  width: "194px",
-                  height: "84px",
-                  left: "84px",
-                  top: "19px",
                   display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  gap: "8px",
+                  alignItems: "center",
+                  gap: "48px",
                 }}
               >
-                {/* Top row: Name & Birthday */}
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: "48px",
-                    width: "194px",
-                    height: "20px",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontWeight: 700,
-                      fontSize: "16px",
-                      lineHeight: "20px",
-                      letterSpacing: "-0.03em",
-                      color: "#F6B83D",
-                    }}
-                  >
-                    Rich
-                  </Typography>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "flex-start",
-                      gap: "4px",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontFamily: "'Manrope', sans-serif",
-                        fontWeight: 500,
-                        fontSize: "12px",
-                        lineHeight: "14px",
-                        letterSpacing: "-0.02em",
-                        color: "rgba(38, 38, 38, 0.5)",
-                      }}
-                    >
-                      Birthday:
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontFamily: "'Manrope', sans-serif",
-                        fontWeight: 500,
-                        fontSize: "12px",
-                        lineHeight: "14px",
-                        letterSpacing: "-0.02em",
-                        color: "#262626",
-                      }}
-                    >
-                      21.09.2020
-                    </Typography>
-                  </Box>
-                </Box>
-
-                {/* Description */}
                 <Typography
                   sx={{
-                    width: "194px",
-                    height: "56px",
                     fontFamily: "'Manrope', sans-serif",
-                    fontWeight: 500,
-                    fontSize: "12px",
-                    lineHeight: "14px",
-                    letterSpacing: "-0.02em",
-                    color: "rgba(38, 38, 38, 0.8)",
+                    fontWeight: 700,
+                    fontSize: "16px",
+                    color: "#F6B83D",
                   }}
                 >
-                  Rich would be the perfect addition to an active family that
-                  loves to play and go on walks. I bet he would love having a
-                  doggy playmate too!
+                  Rich
                 </Typography>
+                <Box sx={{ display: "flex", gap: "4px" }}>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      color: "rgba(38, 38, 38, 0.5)",
+                    }}
+                  >
+                    Birthday:
+                  </Typography>
+                  <Typography sx={{ fontSize: "12px", color: "#262626" }}>
+                    21.09.2020
+                  </Typography>
+                </Box>
               </Box>
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  color: "rgba(38, 38, 38, 0.8)",
+                  maxWidth: "194px",
+                }}
+              >
+                Rich would be the perfect addition to an active family that
+                loves to play and go on walks.
+              </Typography>
             </Box>
           </Box>
         </Box>
 
-        {/* Right: Form */}
+        {/* Right/Bottom Form Block */}
         <Stack
           sx={{
             flex: 1,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            bgcolor: "rgba(255, 255, 255, 1)",
-            borderRadius: "60px",
+            bgcolor: "#FFFFFF",
+            borderRadius: { xs: "30px", md: "60px" },
+            p: { xs: 3, md: 6 },
           }}
         >
           <Box sx={{ maxWidth: 424, width: "100%" }}>
-            <Typography variant="h2" sx={{ mb: 2, color: "#262626" }}>
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 2,
+                color: "#262626",
+                fontSize: { xs: "32px", md: "54px" },
+                fontWeight: 700,
+              }}
+            >
               Log in
             </Typography>
-            <Typography sx={{ color: "rgba(38, 38, 38, 0.5)", mb: 4 }}>
+            <Typography
+              sx={{
+                color: "rgba(38, 38, 38, 0.5)",
+                mb: 4,
+                fontSize: { xs: "14px", md: "18px" },
+              }}
+            >
               Welcome back! Please enter your details to continue.
             </Typography>
 
@@ -314,7 +268,21 @@ const Login = () => {
                 fullWidth
                 error={!!errors.email}
                 helperText={errors.email?.message}
-                slotProps={{ input: { sx: { borderRadius: "30px", px: 1 } } }}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "30px",
+                    height: "52px",
+                    fontFamily: "'Manrope', sans-serif",
+                    "& fieldset": { borderColor: "rgba(38,38,38,0.15)" },
+                    "&:hover fieldset": { borderColor: "rgba(38,38,38,0.35)" },
+                    "&.Mui-focused fieldset": { borderColor: "#F6B83D", borderWidth: "1.5px" },
+                  },
+                  "& .MuiOutlinedInput-input": {
+                    padding: "0 18px",
+                    fontFamily: "'Manrope', sans-serif",
+                    "&::placeholder": { color: "rgba(38,38,38,0.4)", opacity: 1 },
+                  },
+                }}
               />
 
               <TextField
@@ -324,9 +292,23 @@ const Login = () => {
                 fullWidth
                 error={!!errors.password}
                 helperText={errors.password?.message}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "30px",
+                    height: "52px",
+                    fontFamily: "'Manrope', sans-serif",
+                    "& fieldset": { borderColor: "rgba(38,38,38,0.15)" },
+                    "&:hover fieldset": { borderColor: "rgba(38,38,38,0.35)" },
+                    "&.Mui-focused fieldset": { borderColor: "#F6B83D", borderWidth: "1.5px" },
+                  },
+                  "& .MuiOutlinedInput-input": {
+                    padding: "0 18px",
+                    fontFamily: "'Manrope', sans-serif",
+                    "&::placeholder": { color: "rgba(38,38,38,0.4)", opacity: 1 },
+                  },
+                }}
                 slotProps={{
                   input: {
-                    sx: { borderRadius: "30px" },
                     endAdornment: (
                       <InputAdornment position="end" sx={{ pr: 1 }}>
                         <IconButton
@@ -350,9 +332,12 @@ const Login = () => {
                 fullWidth
                 sx={{
                   mt: 2,
-                  height: 48,
+                  height: 52,
                   borderRadius: "30px",
                   bgcolor: "#F6B83D",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  "&:hover": { bgcolor: "#e5a52e" },
                 }}
               >
                 {isSubmitting ? "Logging in..." : "Log In"}
