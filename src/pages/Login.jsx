@@ -120,7 +120,7 @@ const Login = () => {
         
           <Box
             component="img"
-            src="/login dog.png"
+            src="/login dog.webp"
             alt="Pet illustration"
             sx={{
               scale: { xs: 1.1, sm: 1.2, md: 1.45 },

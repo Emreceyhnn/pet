@@ -901,7 +901,7 @@ export const ModalCongrats = ({
       >
         <Box
           component="img"
-          src="/cat-success.png" // Using a generic success image or similar
+          src="/cat-success.webp" // Using a generic success image or similar
           sx={{ width: 44, height: 44, objectFit: "contain" }}
           onError={(e) => {
             // Fallback to emoji if image is missing

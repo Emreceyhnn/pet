@@ -64,7 +64,7 @@ const Loader = ({ onDone }) => {
 
       <Box
         component="img"
-        src="/landing loader background.png"
+        src="/landing loader background.webp"
         alt=""
         sx={{
           position: 'absolute',

@@ -135,7 +135,7 @@ const Register = () => {
           {/* Pet Image */}
           <Box
             component="img"
-            src="/register cat.png"
+            src="/register cat.webp"
             alt="Pet illustration"
             sx={{
               scale: { xs: 1.1, sm: 1.2, md: 1.4 },

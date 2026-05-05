@@ -371,7 +371,7 @@ const Home = () => {
         >
           <Box
             component="img"
-            src="/home-hero.png"
+            src="/home-hero.webp"
             alt="Woman with dog"
             sx={{
               width: "100%",

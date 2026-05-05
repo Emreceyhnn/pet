@@ -179,7 +179,7 @@ const NotFound = () => {
           >
             <Box
               component="img"
-              src="/404.png"
+              src="/404.webp"
               alt="Lost cat"
               sx={{
                 width: "90%",

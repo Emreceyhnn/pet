@@ -221,7 +221,7 @@ const AddPet = () => {
           />
           <Box
             component="img"
-            src="/add pet dog.png"
+            src="/add pet dog.webp"
             alt="Pet illustration"
             sx={{
               scale: { xs: 1.1, sm: 1.2, md: 1.45 },
