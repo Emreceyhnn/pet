@@ -18,15 +18,11 @@ import {
   Button,
   Avatar,
   Paper,
-  Grid,
   IconButton,
   Stack,
-  Container,
   CircularProgress,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutlined";
-import LogoutIcon from "@mui/icons-material/Logout";
 
 const Profile = () => {
   const { user, token, isLoading } = useSelector((state) => state.auth);

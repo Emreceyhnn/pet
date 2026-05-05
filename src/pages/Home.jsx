@@ -8,7 +8,6 @@ import {
   Box,
   Typography,
   Button,
-  Avatar,
   Link as MuiLink,
   Drawer,
   IconButton,

@@ -3,10 +3,8 @@ import {
   Box,
   Typography,
   Card,
-  CardContent,
   IconButton,
   Button,
-  Grid,
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 

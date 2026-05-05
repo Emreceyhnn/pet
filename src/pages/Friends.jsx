@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Grid, Card, Link as MuiLink } from "@mui/material";
+import { Box, Typography, Link as MuiLink } from "@mui/material";
 import axios from "axios";
 
 const Friends = () => {

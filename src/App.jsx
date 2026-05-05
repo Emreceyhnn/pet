@@ -29,7 +29,7 @@ const PublicRoute = ({ children, restricted = false }) => {
 
 function App() {
   const dispatch = useDispatch();
-  const { token, user, isLoading } = useSelector((state) => state.auth);
+  const { token, user } = useSelector((state) => state.auth);
   const [showLoader, setShowLoader] = useState(
     !sessionStorage.getItem('loaderShown')
   );

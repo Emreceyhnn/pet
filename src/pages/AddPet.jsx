@@ -88,7 +88,6 @@ const AddPet = () => {
     control,
     handleSubmit,
     watch,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: yupResolver(schema),

@@ -17,7 +17,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { TextField } from "@mui/material";
 import { useRef } from "react";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+
 
 // ────────────────────────────────────────────────────────────
 // Base Modal (Using MUI Dialog)
@@ -488,7 +488,7 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
     setValue,
     watch,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(editSchema),
     defaultValues: {
