@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import SEO from "../components/SEO";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -72,6 +73,10 @@ const Login = () => {
         minHeight: "calc(100vh - 130px)",
       }}
     >
+      <SEO 
+        title="Login" 
+        description="Login to your PetLove account to manage your profile, view favorites, and add new pets." 
+      />
       <Stack
         direction={{ xs: "column", md: "row" }}
         sx={{

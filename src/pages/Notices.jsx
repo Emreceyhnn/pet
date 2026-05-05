@@ -16,6 +16,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CustomPagination from "../components/CustomPagination";
+import SEO from "../components/SEO";
 
 const Notices = () => {
   const dispatch = useDispatch();
@@ -212,6 +213,10 @@ const Notices = () => {
         pb: { xs: "60px", lg: "100px" },
       }}
     >
+      <SEO 
+        title="Find Pets" 
+        description="Browse our notices to find your new best friend. Filter by category, gender, type, and location to find the perfect pet for you." 
+      />
       <Box sx={{ maxWidth: "1216px", mx: "auto", pt: { xs: "40px", lg: "80px" } }}>
         <Typography
           sx={{

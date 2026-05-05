@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Link as MuiLink } from "@mui/material";
 import axios from "axios";
+import SEO from "../components/SEO";
 
 const Friends = () => {
   const [friends, setFriends] = useState([]);
@@ -28,6 +29,10 @@ const Friends = () => {
         pb: { xs: 4, md: 8 },
       }}
     >
+      <SEO 
+        title="Our Friends" 
+        description="Meet our partners and friends who help us provide the best care for pets and facilitate adoptions." 
+      />
       <Box sx={{ maxWidth: "1216px", mx: "auto" }}>
         <Typography
           variant="h1"

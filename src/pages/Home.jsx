@@ -12,6 +12,7 @@ import {
   Drawer,
   IconButton,
 } from "@mui/material";
+import SEO from "../components/SEO";
 
 const Home = () => {
   const { token, user } = useSelector((state) => state.auth);
@@ -40,6 +41,11 @@ const Home = () => {
         overflow: "hidden",
       }}
     >
+      <SEO 
+        title="Home" 
+        description="Welcome to PetLove! Take good care of your small pets and find your perfect companion today." 
+      />
+
 
         <Box
           sx={{

@@ -4,6 +4,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Link as MuiLink } from "@mui/material";
+import SEO from "../components/SEO";
 
 const NotFound = () => {
   const { token, user } = useSelector((s) => s.auth);
@@ -19,6 +20,10 @@ const NotFound = () => {
         boxSizing: "border-box",
       }}
     >
+      <SEO 
+        title="404 - Page Not Found" 
+        description="The page you are looking for does not exist. Return to PetLove home page to find your perfect pet companion." 
+      />
      
       <Box
         sx={{

@@ -9,6 +9,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CustomPagination from "../components/CustomPagination";
+import SEO from "../components/SEO";
 
 const News = () => {
   const [news, setNews] = useState([]);
@@ -47,6 +48,10 @@ const News = () => {
         pb: { xs: "60px", lg: "100px" },
       }}
     >
+      <SEO 
+        title="News" 
+        description="Stay updated with the latest news about pets, adoption stories, and animal care tips from PetLove." 
+      />
       <Box
         sx={{
           maxWidth: "1216px",

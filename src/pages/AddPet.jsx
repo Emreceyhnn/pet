@@ -19,6 +19,7 @@ import {
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ModalCongrats } from "../components/Modals";
+import SEO from "../components/SEO";
 
 
 const schema = yup.object({
@@ -176,6 +177,10 @@ const AddPet = () => {
         minHeight: "calc(100vh - 130px)",
       }}
     >
+      <SEO 
+        title="Add Pet" 
+        description="Share your pet with the PetLove community! Add your pet's details and photos to find them a new friend or just show them off." 
+      />
       <Stack
         direction={{ xs: "column", md: "row" }}
         sx={{

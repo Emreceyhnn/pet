@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import SEO from "../components/SEO";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -87,6 +88,10 @@ const Register = () => {
         minHeight: "calc(100vh - 130px)",
       }}
     >
+      <SEO 
+        title="Registration" 
+        description="Join PetLove today! Create an account to start finding your perfect pet companion and share your love for animals." 
+      />
       <Stack
         direction={{ xs: "column", md: "row" }}
         sx={{

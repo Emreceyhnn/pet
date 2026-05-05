@@ -12,6 +12,7 @@ import {
 import NoticeCard from "../components/NoticeCard";
 import axios from "axios";
 import { fetchCurrentUser } from "../store/authSlice";
+import SEO from "../components/SEO";
 import {
   Box,
   Typography,
@@ -163,6 +164,10 @@ const Profile = () => {
 
   return (
     <Box sx={{ bgcolor: "#F9F9F9", minHeight: "100vh", px: { xs: 2, lg: "64px" }, py: { xs: 4, lg: 4 } }}>
+      <SEO 
+        title="My Profile" 
+        description="View and manage your personal information, your pets, and your favorite notices on PetLove." 
+      />
       <Box sx={{ maxWidth: "1216px", mx: "auto" }}>
         <Box
           sx={{
