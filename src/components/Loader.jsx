@@ -1,22 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 
-const LOGO_DURATION = 1200;   // ms logo görünür kalır
-const COUNT_DURATION = 1600;  // ms sayaç sürer (0→100)
+const LOGO_DURATION = 1200;   
+const COUNT_DURATION = 1600;  
 
 const Loader = ({ onDone }) => {
-  const [phase, setPhase] = useState('logo');   // 'logo' | 'progress'
+  const [phase, setPhase] = useState('logo');   
   const [pct, setPct] = useState(0);
   const [visible, setVisible] = useState(true);
   const rafRef = useRef(null);
 
-  // Phase 1 → Phase 2
+ 
   useEffect(() => {
     const t = setTimeout(() => setPhase('progress'), LOGO_DURATION);
     return () => clearTimeout(t);
   }, []);
 
-  // Sayaç animasyonu
+
   useEffect(() => {
     if (phase !== 'progress') return;
     const start = performance.now();
@@ -28,7 +28,7 @@ const Loader = ({ onDone }) => {
       if (raw < 1) {
         rafRef.current = requestAnimationFrame(tick);
       } else {
-        // %100 olunca fade-out
+       
         setTimeout(() => {
           setVisible(false);
           onDone?.();
@@ -39,7 +39,7 @@ const Loader = ({ onDone }) => {
     return () => cancelAnimationFrame(rafRef.current);
   }, [phase, onDone]);
 
-  // SVG ring hesabı
+  
   const size = 140;
   const stroke = 3;
   const r = (size - stroke) / 2;
@@ -61,7 +61,7 @@ const Loader = ({ onDone }) => {
         pointerEvents: visible ? 'all' : 'none',
       }}
     >
-      {/* Tam ekran arka plan */}
+
       <Box
         component="img"
         src="/landing loader background.png"
@@ -75,7 +75,6 @@ const Loader = ({ onDone }) => {
         }}
       />
 
-      {/* Hafif karartma overlay */}
       <Box
         sx={{
           position: 'absolute',
@@ -84,10 +83,10 @@ const Loader = ({ onDone }) => {
         }}
       />
 
-      {/* İçerik */}
+      
       <Box sx={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 
-        {/* LOGO PHASE */}
+      
         <Box
           sx={{
             position: 'absolute',
@@ -111,7 +110,7 @@ const Loader = ({ onDone }) => {
           >
             petl
           </Typography>
-          {/* Heart icon – sarı dolu */}
+         
           <Box
             sx={{
               width: 36,
@@ -146,7 +145,7 @@ const Loader = ({ onDone }) => {
           </Typography>
         </Box>
 
-        {/* PROGRESS PHASE */}
+      
         <Box
           sx={{
             display: 'flex',
@@ -158,7 +157,7 @@ const Loader = ({ onDone }) => {
           }}
         >
           <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
-            {/* Track */}
+       
             <circle
               cx={size / 2}
               cy={size / 2}
@@ -167,7 +166,7 @@ const Loader = ({ onDone }) => {
               stroke="rgba(255,255,255,0.25)"
               strokeWidth={stroke}
             />
-            {/* Progress */}
+       
             <circle
               cx={size / 2}
               cy={size / 2}
@@ -181,7 +180,7 @@ const Loader = ({ onDone }) => {
               style={{ transition: 'stroke-dashoffset 0.05s linear' }}
             />
           </svg>
-          {/* Ortadaki yüzde */}
+       
           <Box sx={{ position: 'absolute' }}>
             <Typography
               sx={{

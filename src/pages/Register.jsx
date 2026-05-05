@@ -96,7 +96,7 @@ const Register = () => {
           gap: { xs: 2, md: 4, lg: 8 },
         }}
       >
-        {/* Left/Top Card */}
+      
         <Box
           sx={{
             flex: { xs: "none", md: 1 },
@@ -110,7 +110,7 @@ const Register = () => {
             justifyContent: "center",
           }}
         >
-          {/* Background Illustration */}
+        
           <Box
             component="img"
             src="/bg.png"
@@ -145,7 +145,7 @@ const Register = () => {
             }}
           />
 
-          {/* Info Card (Visible on SM+) */}
+       
           <Box
             sx={{
               display: { xs: "none", sm: "block" },
@@ -161,7 +161,7 @@ const Register = () => {
               transformOrigin: "bottom left",
             }}
           >
-            {/* Image Icon Block */}
+         
             <Box
               sx={{
                 position: "absolute",
@@ -179,7 +179,7 @@ const Register = () => {
               <Typography sx={{ fontSize: "32px" }}>🐈</Typography>
             </Box>
 
-            {/* Text Block */}
+        
             <Box
               sx={{
                 position: "absolute",
@@ -235,7 +235,7 @@ const Register = () => {
           </Box>
         </Box>
 
-        {/* Right/Bottom Form Block */}
+ 
         <Stack
           sx={{
             flex: 1,

@@ -40,7 +40,7 @@ const Home = () => {
         overflow: "hidden",
       }}
     >
-        {/* ── YELLOW HERO BLOCK ── */}
+
         <Box
           sx={{
             position: "relative",
@@ -59,7 +59,7 @@ const Home = () => {
             flexShrink: 0,
           }}
         >
-          {/* ── HEADER ROW ── */}
+
           <Box
             sx={{
               display: "flex",
@@ -70,7 +70,7 @@ const Home = () => {
               height: { xs: "80px", lg: "82px" },
             }}
           >
-            {/* Logo */}
+
             <MuiLink
               component={RouterLink}
               to="/"
@@ -129,7 +129,7 @@ const Home = () => {
               </Typography>
             </MuiLink>
 
-            {/* Desktop Nav - Centered exactly on large screens */}
+
             <Box
               sx={{
                 display: { xs: "none", lg: "flex" },
@@ -173,9 +173,9 @@ const Home = () => {
               ))}
             </Box>
 
-            {/* Auth/User — right */}
+
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              {/* Tablet/Desktop Auth */}
+
               <Box sx={{ display: { xs: "none", md: "flex" }, gap: "10px" }}>
                 {token ? (
                   <>
@@ -282,7 +282,7 @@ const Home = () => {
                 )}
               </Box>
 
-              {/* Mobile Hamburger */}
+
               <IconButton
                 onClick={() => setIsMenuOpen(true)}
                 sx={{ display: { lg: "none" }, color: "#fff", p: 0 }}
@@ -292,7 +292,7 @@ const Home = () => {
             </Box>
           </Box>
 
-          {/* ── CONTENT ROW ── */}
+
           <Box
             sx={{
               display: "flex",
@@ -306,7 +306,7 @@ const Home = () => {
               justifyContent: "space-between",
             }}
           >
-            {/* Headline */}
+
             <Box sx={{ flex: 1, maxWidth: { xs: "100%", md: "700px", lg: "760px" } }}>
               <Typography
                 variant="h1"
@@ -329,7 +329,7 @@ const Home = () => {
               </Typography>
             </Box>
 
-            {/* Description */}
+
             <Box sx={{ flex: "0 0 auto", maxWidth: { xs: "100%", lg: "250px" } }}>
               <Typography
                 sx={{
@@ -348,7 +348,7 @@ const Home = () => {
           </Box>
         </Box>
 
-        {/* ── HERO IMAGE BLOCK ── */}
+
         <Box
           sx={{
             width: "100%",
@@ -377,7 +377,7 @@ const Home = () => {
           />
       </Box>
 
-      {/* Mobile menu drawer */}
+
       <Drawer
         anchor="right"
         open={isMenuOpen}
@@ -397,7 +397,7 @@ const Home = () => {
           },
         }}
       >
-        {/* Top row: Close */}
+
         <Box
           sx={{
             position: "absolute",
@@ -410,7 +410,7 @@ const Home = () => {
           </IconButton>
         </Box>
 
-        {/* Nav links - vertically centered */}
+
         <Box
           component="nav"
           sx={{
@@ -483,7 +483,7 @@ const Home = () => {
           )}
         </Box>
 
-        {/* Auth buttons - pinned to bottom */}
+
         <Box
           sx={{
             display: "flex",

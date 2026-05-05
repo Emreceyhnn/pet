@@ -48,7 +48,7 @@ const Header = () => {
           justifyContent: "space-between",
         }}
       >
-        {/* Logo */}
+
         <MuiLink
           component={RouterLink}
           to="/"
@@ -103,7 +103,7 @@ const Header = () => {
           </Typography>
         </MuiLink>
 
-        {/* Desktop Nav - Centered */}
+
         <Box
           component="nav"
           sx={{
@@ -139,9 +139,9 @@ const Header = () => {
           ))}
         </Box>
 
-        {/* Right side */}
+
         <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          {/* Tablet/Desktop auth */}
+
           <Box sx={{ display: { xs: "none", md: "flex" }, gap: "10px" }}>
             {token ? (
               <>
@@ -254,7 +254,7 @@ const Header = () => {
             )}
           </Box>
 
-          {/* Hamburger - mobile/tablet only */}
+
           <IconButton
             onClick={() => setIsMenuOpen(true)}
             sx={{ display: { lg: "none" }, color: "#262626", p: 0 }}
@@ -264,7 +264,7 @@ const Header = () => {
         </Box>
       </Box>
 
-      {/* DRAWER */}
+
       <Drawer
         anchor="right"
         open={isMenuOpen}
@@ -284,7 +284,7 @@ const Header = () => {
           },
         }}
       >
-        {/* Top row: Close */}
+
         <Box
           sx={{
             position: "absolute",
@@ -292,7 +292,7 @@ const Header = () => {
             right: "20px",
           }}
         >
-          {/* Close */}
+
           <IconButton
             onClick={() => setIsMenuOpen(false)}
             sx={{ p: 0, color: "#262626" }}
@@ -301,7 +301,7 @@ const Header = () => {
           </IconButton>
         </Box>
 
-        {/* Nav links - vertically centered in remaining space */}
+
         <Box
           component="nav"
           sx={{
@@ -380,7 +380,7 @@ const Header = () => {
           )}
         </Box>
 
-        {/* Auth buttons - pinned to bottom */}
+
         <Box
           sx={{
             display: "flex",

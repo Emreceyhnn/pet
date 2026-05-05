@@ -54,7 +54,7 @@ const News = () => {
           pt: { xs: "40px", lg: "80px" },
         }}
       >
-        {/* Header Section */}
+        
         <Box
           sx={{
             display: "flex",
@@ -148,7 +148,7 @@ const News = () => {
           />
         </Box>
 
-        {/* Cards Grid */}
+       
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", py: 10 }}>
             <CircularProgress sx={{ color: "#F6B83D" }} />
@@ -178,7 +178,7 @@ const News = () => {
                   mx: "auto",
                 }}
               >
-                {/* Image */}
+         
                 <Box
                   sx={{
                     width: "100%",
@@ -199,7 +199,7 @@ const News = () => {
                   />
                 </Box>
 
-                {/* Text Content */}
+                
                 <Box
                   sx={{
                     flexGrow: 1,
@@ -251,7 +251,7 @@ const News = () => {
                     </Typography>
                   </Box>
 
-                  {/* Bottom Row */}
+               
                   <Box
                     sx={{
                       display: "flex",
@@ -295,7 +295,7 @@ const News = () => {
           </Box>
         )}
 
-        {/* Pagination */}
+        
         <CustomPagination
           page={page}
           totalPages={totalPages}

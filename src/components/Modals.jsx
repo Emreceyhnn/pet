@@ -19,9 +19,7 @@ import { TextField } from "@mui/material";
 import { useRef } from "react";
 
 
-// ────────────────────────────────────────────────────────────
-// Base Modal (Using MUI Dialog)
-// ────────────────────────────────────────────────────────────
+
 export const Modal = ({ isOpen, onClose, children, maxWidth = "sm" }) => {
   return (
     <Dialog
@@ -54,14 +52,12 @@ export const Modal = ({ isOpen, onClose, children, maxWidth = "sm" }) => {
   );
 };
 
-// ────────────────────────────────────────────────────────────
-// Attention Modal
-// ────────────────────────────────────────────────────────────
+
 export const ModalAttention = ({ isOpen, onClose }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} maxWidth="xs">
       <Box sx={{ textAlign: "center", py: 2 }}>
-        {/* Icon */}
+  
         <Box
           sx={{
             width: 80,
@@ -138,9 +134,7 @@ export const ModalAttention = ({ isOpen, onClose }) => {
   );
 };
 
-// ────────────────────────────────────────────────────────────
-// Notice Detail Modal
-// ────────────────────────────────────────────────────────────
+
 export const ModalNotice = ({
   isOpen,
   onClose,
@@ -179,7 +173,7 @@ export const ModalNotice = ({
         },
       }}
     >
-      {/* Close Button */}
+
       <IconButton
         onClick={onClose}
         sx={{
@@ -196,7 +190,7 @@ export const ModalNotice = ({
 
       <Box sx={{ p: { xs: 3, sm: 5 } }}>
         <Box sx={{ position: "relative", mb: 3 }}>
-          {/* Pet Image */}
+
           <Box
             sx={{
               width: "100%",
@@ -219,7 +213,7 @@ export const ModalNotice = ({
             />
           </Box>
 
-          {/* Category Tag Overlay */}
+
           <Box
             sx={{
               position: "absolute",
@@ -248,7 +242,7 @@ export const ModalNotice = ({
           </Box>
         </Box>
 
-        {/* Title and Rating */}
+
         <Box
           sx={{
             display: "flex",
@@ -305,7 +299,7 @@ export const ModalNotice = ({
           </Box>
         </Box>
 
-        {/* Details Grid */}
+
         <Box
           sx={{
             display: "flex",
@@ -315,7 +309,7 @@ export const ModalNotice = ({
             mb: 3,
           }}
         >
-          {/* Name */}
+
           <Box sx={{ textAlign: "center", minWidth: 60 }}>
             <Typography
               sx={{ fontSize: 10, color: "rgba(38, 38, 38, 0.5)", mb: 0.5 }}
@@ -328,7 +322,7 @@ export const ModalNotice = ({
               {notice.name || "Unknown"}
             </Typography>
           </Box>
-          {/* Birthday */}
+
           <Box sx={{ textAlign: "center", minWidth: 60 }}>
             <Typography
               sx={{ fontSize: 10, color: "rgba(38, 38, 38, 0.5)", mb: 0.5 }}
@@ -341,7 +335,7 @@ export const ModalNotice = ({
               {formatDate(notice.birthday)}
             </Typography>
           </Box>
-          {/* Sex */}
+
           <Box sx={{ textAlign: "center", minWidth: 60 }}>
             <Typography
               sx={{ fontSize: 10, color: "rgba(38, 38, 38, 0.5)", mb: 0.5 }}
@@ -359,7 +353,7 @@ export const ModalNotice = ({
               {notice.sex || "Unknown"}
             </Typography>
           </Box>
-          {/* Species */}
+
           <Box sx={{ textAlign: "center", minWidth: 60 }}>
             <Typography
               sx={{ fontSize: 10, color: "rgba(38, 38, 38, 0.5)", mb: 0.5 }}
@@ -379,7 +373,7 @@ export const ModalNotice = ({
           </Box>
         </Box>
 
-        {/* Description */}
+
         <Typography
           sx={{
             fontFamily: "'Manrope', sans-serif",
@@ -399,7 +393,7 @@ export const ModalNotice = ({
           {notice.comment || "Adorable furry looking for a loving home."}
         </Typography>
 
-        {/* Price & Buttons */}
+
         <Stack spacing={2}>
           {notice.price && notice.price > 0 && (
             <Typography
@@ -469,9 +463,7 @@ export const ModalNotice = ({
     </Dialog>
   );
 };
-// ────────────────────────────────────────────────────────────
-// Edit Profile Modal
-// ────────────────────────────────────────────────────────────
+
 const editSchema = yup.object().shape({
   avatar: yup.string(),
   name: yup.string().required("Name is required"),
@@ -499,7 +491,7 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
     },
   });
 
-  // Reload user values every time the modal opens
+
   React.useEffect(() => {
     if (isOpen) {
       reset({
@@ -521,10 +513,10 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Store the file object itself for the form submission
+      
       setValue("avatarFile", file);
 
-      // Update the preview URL
+      
       const reader = new FileReader();
       reader.onloadend = () => {
         setValue("avatar", reader.result);
@@ -577,7 +569,7 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
         onSubmit={handleSubmit(onSave)}
         sx={{ display: "flex", flexDirection: "column", gap: 2 }}
       >
-        {/* Avatar Preview */}
+
         <Box
           sx={{
             display: "flex",
@@ -605,7 +597,7 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
           </Avatar>
         </Box>
 
-        {/* Avatar URL & Upload Row */}
+
         <Box
           sx={{
             display: "flex",
@@ -684,7 +676,7 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
           </Button>
         </Box>
 
-        {/* Other Fields */}
+
         <TextField
           {...register("name")}
           fullWidth
@@ -764,9 +756,7 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
   );
 };
 
-// ────────────────────────────────────────────────────────────
-// Log Out Modal
-// ────────────────────────────────────────────────────────────
+
 export const ModalLogout = ({ isOpen, onClose, onLogout }) => {
   return (
     <Dialog
@@ -864,9 +854,7 @@ export const ModalLogout = ({ isOpen, onClose, onLogout }) => {
   );
 };
 
-// ────────────────────────────────────────────────────────────
-// Congrats Modal (Generic Success)
-// ────────────────────────────────────────────────────────────
+
 export const ModalCongrats = ({
   isOpen,
   onClose,
@@ -973,9 +961,6 @@ export const ModalCongrats = ({
   );
 };
 
-// ────────────────────────────────────────────────────────────
-// Delete Pet Modal
-// ────────────────────────────────────────────────────────────
 export const ModalDeletePet = ({ isOpen, onClose, onDelete }) => {
   return (
     <Dialog

@@ -67,7 +67,7 @@ const CustomPagination = ({ page, totalPages, onPageChange }) => {
       mt: '60px',
       width: '100%'
     }}>
-      {/* Prev Block */}
+      
       <Box sx={{ display: 'flex', gap: '8px' }}>
         <PaginationButton disabled={page === 1} onClick={() => onPageChange(1)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -81,12 +81,12 @@ const CustomPagination = ({ page, totalPages, onPageChange }) => {
         </PaginationButton>
       </Box>
 
-      {/* Page Numbers */}
+   
       <Box sx={{ display: 'flex', gap: '8px' }}>
         {renderPageNumbers()}
       </Box>
 
-      {/* Next Block */}
+
       <Box sx={{ display: 'flex', gap: '8px' }}>
         <PaginationButton disabled={page === totalPages} onClick={() => onPageChange(page + 1)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

@@ -19,7 +19,7 @@ const NotFound = () => {
         boxSizing: "border-box",
       }}
     >
-      {/* ── NAVBAR ── */}
+     
       <Box
         sx={{
           display: "flex",
@@ -31,7 +31,7 @@ const NotFound = () => {
           mb: "10px",
         }}
       >
-        {/* Logo */}
+      
         <MuiLink
           component={RouterLink}
           to="/"
@@ -50,7 +50,7 @@ const NotFound = () => {
           </Typography>
         </MuiLink>
 
-        {/* Nav links */}
+      
         <Box sx={{ display: { xs: "none", md: "flex" }, gap: "10px" }}>
           {[{ label: "News", to: "/news" }, { label: "Find pet", to: "/notices" }, { label: "Our friends", to: "/friends" }].map(({ label, to }) => (
             <Button
@@ -76,7 +76,6 @@ const NotFound = () => {
           ))}
         </Box>
 
-        {/* Auth */}
         <Box sx={{ display: "flex", gap: "16px", alignItems: "center" }}>
           {token ? (
             <>
@@ -121,7 +120,7 @@ const NotFound = () => {
         </Box>
       </Box>
 
-      {/* ── 404 CARD ── */}
+
       <Box
         sx={{
           flex: 1,
@@ -135,7 +134,7 @@ const NotFound = () => {
           overflow: "hidden",
         }}
       >
-        {/* 404 row */}
+       
         <Box
           sx={{
             display: "flex",
@@ -145,7 +144,7 @@ const NotFound = () => {
             mb: "20px",
           }}
         >
-          {/* 4 */}
+
           <Typography
             sx={{
               fontFamily: "'Manrope', sans-serif",
@@ -159,7 +158,7 @@ const NotFound = () => {
             4
           </Typography>
 
-          {/* Cat image */}
+ 
           <Box
             sx={{
               width: { xs: "140px", sm: "220px", md: "280px" },
@@ -185,7 +184,7 @@ const NotFound = () => {
             />
           </Box>
 
-          {/* 4 */}
+
           <Typography
             sx={{
               fontFamily: "'Manrope', sans-serif",
@@ -200,7 +199,7 @@ const NotFound = () => {
           </Typography>
         </Box>
 
-        {/* Message */}
+
         <Typography
           sx={{
             fontFamily: "'Manrope', sans-serif",
@@ -215,7 +214,7 @@ const NotFound = () => {
           Ooops! This page not found :(
         </Typography>
 
-        {/* Button */}
+
         <Button
           component={RouterLink}
           to="/home"
