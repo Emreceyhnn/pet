@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link as RouterLink, NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { logoutClient } from '../store/authSlice';
+import React, { useState } from "react";
+import { Link as RouterLink, NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutClient } from "../store/authSlice";
 import {
   Typography,
   Button,
@@ -10,9 +10,9 @@ import {
   Avatar,
   Drawer,
   Link as MuiLink,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Header = () => {
   const token = useSelector((state) => state.auth.token);
@@ -21,9 +21,9 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: 'News', path: '/news' },
-    { name: 'Find pet', path: '/notices' },
-    { name: 'Our friends', path: '/friends' },
+    { name: "News", path: "/news" },
+    { name: "Find pet", path: "/notices" },
+    { name: "Our friends", path: "/friends" },
   ];
 
   const handleLogout = () => dispatch(logoutClient());
@@ -57,7 +57,6 @@ const Header = () => {
             alignItems: "flex-end",
             gap: 0,
             textDecoration: "none",
-            color: "inherit",
           }}
         >
           <Typography
@@ -65,7 +64,6 @@ const Header = () => {
               fontFamily: "'Manrope', sans-serif",
               fontSize: 28,
               fontWeight: 700,
-              lineHeight: "28px",
               letterSpacing: "-0.04em",
               color: "#262626",
             }}
@@ -97,7 +95,6 @@ const Header = () => {
               fontFamily: "'Manrope', sans-serif",
               fontSize: 28,
               fontWeight: 700,
-              lineHeight: "28px",
               letterSpacing: "-0.04em",
               color: "#262626",
             }}
@@ -129,17 +126,12 @@ const Header = () => {
                 borderRadius: "30px",
                 fontSize: 16,
                 fontWeight: 500,
-                border: "1px solid rgba(38, 38, 38, 0.15)",
+                border: "1px solid rgba(38,38,38,0.15)",
                 color: "#262626",
                 textTransform: "none",
-                "&:hover": {
-                  borderColor: "#F6B83D",
-                  bgcolor: "transparent",
-                },
-                "&.active": {
-                  borderColor: "#F6B83D",
-                  bgcolor: "transparent",
-                },
+                fontFamily: "'Manrope', sans-serif",
+                "&:hover": { borderColor: "#F6B83D", bgcolor: "transparent" },
+                "&.active": { borderColor: "#F6B83D", bgcolor: "transparent" },
               }}
             >
               {link.name}
@@ -147,15 +139,9 @@ const Header = () => {
           ))}
         </Box>
 
-        {/* Auth / User - Right (Tablet & Desktop) */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-          }}
-        >
-          {/* Tablet/Desktop Auth Buttons */}
+        {/* Right side */}
+        <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          {/* Tablet/Desktop auth */}
           <Box sx={{ display: { xs: "none", md: "flex" }, gap: "10px" }}>
             {token ? (
               <>
@@ -193,7 +179,7 @@ const Header = () => {
                       height: 50,
                       bgcolor: "#FFF4DF",
                       color: "#F6B83D",
-                      borderRadius: "50%",
+                      border: "1px solid #F6B83D",
                     }}
                   >
                     {!(user?.avatar || user?.avatarURL) && (
@@ -216,7 +202,6 @@ const Header = () => {
                       fontWeight: 700,
                       color: "#262626",
                       fontSize: "20px",
-                      lineHeight: "20px",
                       letterSpacing: "-0.03em",
                       display: { xs: "none", md: "block" },
                     }}
@@ -239,7 +224,6 @@ const Header = () => {
                     fontFamily: "'Manrope', sans-serif",
                     fontWeight: 700,
                     fontSize: "16px",
-                    lineHeight: "20px",
                     letterSpacing: "-0.03em",
                     textTransform: "uppercase",
                     "&:hover": { bgcolor: "#e5a52e" },
@@ -259,7 +243,6 @@ const Header = () => {
                     fontFamily: "'Manrope', sans-serif",
                     fontWeight: 700,
                     fontSize: "16px",
-                    lineHeight: "20px",
                     letterSpacing: "-0.03em",
                     textTransform: "uppercase",
                     "&:hover": { bgcolor: "#fee8c1" },
@@ -271,7 +254,7 @@ const Header = () => {
             )}
           </Box>
 
-          {/* Mobile Hamburger Icon */}
+          {/* Hamburger - mobile/tablet only */}
           <IconButton
             onClick={() => setIsMenuOpen(true)}
             sx={{ display: { lg: "none" }, color: "#262626", p: 0 }}
@@ -281,88 +264,51 @@ const Header = () => {
         </Box>
       </Box>
 
-      {/* Mobile menu drawer */}
+      {/* DRAWER */}
       <Drawer
         anchor="right"
         open={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
+        ModalProps={{ keepMounted: true }}
         PaperProps={{
           sx: {
-            width: "100%",
+            width: { xs: "100%", md: "374px" },
             height: "100%",
-            bgcolor: "#F6B83D",
-            p: { xs: 2, md: 4 },
+            bgcolor: "#FFFFFF",
             display: "flex",
             flexDirection: "column",
+            p: "40px 32px",
+            boxSizing: "border-box",
           },
         }}
       >
-        {/* Drawer Header */}
+        {/* Top row: Close */}
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            mb: 8,
+            position: "absolute",
+            top: "20px",
+            right: "20px",
           }}
         >
-          <MuiLink
-            component={RouterLink}
-            to="/"
+          {/* Close */}
+          <IconButton
             onClick={() => setIsMenuOpen(false)}
-            sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              gap: 0,
-              textDecoration: "none",
-              color: "inherit",
-            }}
+            sx={{ p: 0, color: "#262626" }}
           >
-            <Typography
-              sx={{ fontSize: 28, fontWeight: 800, color: "white" }}
-            >
-              petl
-            </Typography>
-            <Box
-              sx={{
-                width: 23,
-                height: 23,
-                bgcolor: "white",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                mb: "2px",
-              }}
-            >
-              <svg width="13" height="12" viewBox="0 0 14 13" fill="none">
-                <path
-                  d="M7 11.5S1 7.5 1 3.5A3 3 0 0 1 7 2.118 3 3 0 0 1 13 3.5C13 7.5 7 11.5 7 11.5Z"
-                  fill="#F6B83D"
-                />
-              </svg>
-            </Box>
-            <Typography
-              sx={{ fontSize: 28, fontWeight: 700, color: "white" }}
-            >
-              ve
-            </Typography>
-          </MuiLink>
-          <IconButton onClick={() => setIsMenuOpen(false)}>
-            <CloseIcon sx={{ fontSize: 36, color: "white" }} />
+            <CloseIcon sx={{ fontSize: 32 }} />
           </IconButton>
         </Box>
 
-        {/* Drawer Nav Links */}
+        {/* Nav links - vertically centered in remaining space */}
         <Box
           component="nav"
           sx={{
             flexGrow: 1,
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
-            gap: 2,
-            mt: 4,
+            gap: { xs: "16px", md: "20px" },
           }}
         >
           {navLinks.map((link) => (
@@ -372,39 +318,79 @@ const Header = () => {
               to={link.path}
               onClick={() => setIsMenuOpen(false)}
               sx={{
-                width: "100%",
-                maxWidth: "280px",
-                height: "56px",
+                minWidth: { xs: "120px", md: "140px" },
+                height: { xs: "40px", md: "50px" },
+                px: "20px",
                 borderRadius: "30px",
-                fontSize: "18px",
-                fontWeight: 700,
-                color: "white",
+                fontSize: { xs: "14px", md: "16px" },
+                fontWeight: 500,
+                color: "#262626",
                 bgcolor: "transparent",
-                border: "1px solid rgba(255, 255, 255, 0.4)",
+                border: "1px solid rgba(38,38,38,0.4)",
                 textTransform: "none",
+                fontFamily: "'Manrope', sans-serif",
+                letterSpacing: "-0.03em",
+                whiteSpace: "nowrap",
                 "&.active": {
-                  bgcolor: "white",
-                  color: "#F6B83D",
-                  border: "none",
+                  borderColor: "#F6B83D",
+                  bgcolor: "rgba(246,184,61,0.06)",
                 },
                 "&:hover": {
-                  bgcolor: "rgba(255, 255, 255, 0.1)",
+                  bgcolor: "rgba(38,38,38,0.04)",
+                  borderColor: "#262626",
                 },
               }}
             >
               {link.name}
             </Button>
           ))}
+          {token && (
+            <Button
+              component={NavLink}
+              to="/profile"
+              onClick={() => setIsMenuOpen(false)}
+              sx={{
+                minWidth: { xs: "120px", md: "140px" },
+                height: { xs: "40px", md: "50px" },
+                px: "20px",
+                borderRadius: "30px",
+                fontSize: { xs: "14px", md: "16px" },
+                fontWeight: 500,
+                color: "#262626",
+                bgcolor: "transparent",
+                border: "1px solid rgba(38,38,38,0.4)",
+                textTransform: "none",
+                fontFamily: "'Manrope', sans-serif",
+                letterSpacing: "-0.03em",
+                whiteSpace: "nowrap",
+                "&.active": {
+                  borderColor: "#F6B83D",
+                  bgcolor: "rgba(246,184,61,0.06)",
+                },
+                "&:hover": {
+                  bgcolor: "rgba(38,38,38,0.04)",
+                  borderColor: "#262626",
+                },
+              }}
+            >
+              Profile
+            </Button>
+          )}
         </Box>
 
-        {/* Drawer Auth Buttons (Mobile Only) */}
+        {/* Auth buttons - pinned to bottom */}
         <Box
           sx={{
-            display: { xs: "flex", md: "none" },
-            flexDirection: "column",
-            gap: 2,
-            mb: 4,
-            px: 2,
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            justifyContent: "center",
+            alignItems: "center",
+            gap: { xs: "16px", sm: "8px" },
+            mt: "40px",
+            mb: "20px",
+            width: "100%",
+            px: "20px",
+            boxSizing: "border-box",
           }}
         >
           {!token ? (
@@ -413,15 +399,18 @@ const Header = () => {
                 component={RouterLink}
                 to="/login"
                 onClick={() => setIsMenuOpen(false)}
-                fullWidth
                 sx={{
-                  height: "50px",
+                  width: { xs: "100%", sm: "119px" },
+                  height: { xs: "40px", md: "50px" },
                   borderRadius: "30px",
-                  bgcolor: "white",
-                  color: "#F6B83D",
+                  bgcolor: "#F6B83D",
+                  color: "#FFFFFF",
                   fontWeight: 700,
-                  fontSize: "16px",
-                  "&:hover": { bgcolor: "rgba(255, 255, 255, 0.9)" },
+                  fontSize: { xs: "14px", md: "16px" },
+                  fontFamily: "'Manrope', sans-serif",
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.03em",
+                  "&:hover": { bgcolor: "#e5a52e" },
                 }}
               >
                 LOG IN
@@ -430,41 +419,47 @@ const Header = () => {
                 component={RouterLink}
                 to="/register"
                 onClick={() => setIsMenuOpen(false)}
-                fullWidth
                 sx={{
-                  height: "50px",
+                  width: { xs: "100%", sm: "149px" },
+                  height: { xs: "40px", md: "50px" },
                   borderRadius: "30px",
-                  bgcolor: "#FFF4DF",
+                  bgcolor: "transparent",
+                  border: "2px solid #F6B83D",
                   color: "#F6B83D",
                   fontWeight: 700,
-                  fontSize: "16px",
-                  "&:hover": { bgcolor: "#fee8c1" },
+                  fontSize: { xs: "14px", md: "16px" },
+                  fontFamily: "'Manrope', sans-serif",
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.03em",
+                  "&:hover": { bgcolor: "#FFF4DF" },
                 }}
               >
                 REGISTRATION
               </Button>
             </>
           ) : (
-            <>
-              <Button
-                onClick={() => {
-                  handleLogout();
-                  setIsMenuOpen(false);
-                }}
-                fullWidth
-                sx={{
-                  height: "50px",
-                  borderRadius: "30px",
-                  bgcolor: "#FFF4DF",
-                  color: "#F6B83D",
-                  fontWeight: 700,
-                  fontSize: "16px",
-                  "&:hover": { bgcolor: "#fee8c1" },
-                }}
-              >
-                LOG OUT
-              </Button>
-            </>
+            <Button
+              onClick={() => {
+                handleLogout();
+                setIsMenuOpen(false);
+              }}
+              sx={{
+                width: { xs: "100%", sm: "276px" },
+                height: { xs: "40px", md: "50px" },
+                borderRadius: "30px",
+                bgcolor: "transparent",
+                border: "2px solid #F6B83D",
+                color: "#F6B83D",
+                fontWeight: 700,
+                fontSize: { xs: "14px", md: "16px" },
+                fontFamily: "'Manrope', sans-serif",
+                textTransform: "uppercase",
+                letterSpacing: "-0.03em",
+                "&:hover": { bgcolor: "#FFF4DF" },
+              }}
+            >
+              LOG OUT
+            </Button>
           )}
         </Box>
       </Drawer>

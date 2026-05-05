@@ -36,157 +36,10 @@ const Home = () => {
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        p: { xs: "10px", md: "20px", lg: "32px" },
+        p: { xs: "10px", sm: "16px", md: "20px", lg: "32px" },
         boxSizing: "border-box",
-        position: "relative",
-        // Tablet Specific Layout (768px range)
-        "@media (min-width: 768px) and (max-width: 1199px)": {
-          p: 0,
-          height: "1024px",
-          overflow: "hidden",
-        }
       }}
     >
-      {/* ── TABLET ONLY FULL-SCREEN HERO ── */}
-      <Box
-        sx={{
-          display: "none",
-          "@media (min-width: 768px) and (max-width: 1199px)": {
-            display: "block",
-            position: "absolute",
-            width: "768px",
-            height: "1024px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            top: 0,
-            background: `linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/home-hero.png)`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }
-        }}
-      >
-        {/* Large Centered Logo */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "center",
-            position: "absolute",
-            width: "374px",
-            height: "100px",
-            left: "calc(50% - 374px/2)",
-            top: "462px",
-          }}
-        >
-          <Typography
-            sx={{
-              fontFamily: "'Manrope', sans-serif",
-              fontSize: 100,
-              fontWeight: 700,
-              lineHeight: "100px",
-              letterSpacing: "-0.04em",
-              color: "#FFFFFF",
-            }}
-          >
-            petl
-          </Typography>
-          <Box
-            sx={{
-              width: 82,
-              height: 82,
-              bgcolor: "#fff",
-              borderRadius: "50%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              mb: "10px",
-              flexShrink: 0,
-            }}
-          >
-            <svg width="46" height="42" viewBox="0 0 14 13" fill="none">
-              <path
-                d="M7 11.5S1 7.5 1 3.5A3 3 0 0 1 7 2.118 3 3 0 0 1 13 3.5C13 7.5 7 11.5 7 11.5Z"
-                fill="#F6B83D"
-              />
-            </svg>
-          </Box>
-          <Typography
-            sx={{
-              fontFamily: "'Manrope', sans-serif",
-              fontSize: 100,
-              fontWeight: 700,
-              lineHeight: "100px",
-              letterSpacing: "-0.04em",
-              color: "#FFFFFF",
-            }}
-          >
-            ve
-          </Typography>
-        </Box>
-
-        {/* Bottom Buttons */}
-        <Box
-          sx={{
-            display: "flex",
-            gap: "8px",
-            position: "absolute",
-            width: "276px",
-            height: "50px",
-            left: "calc(50% - 276px/2)",
-            top: "934px",
-          }}
-        >
-          <Button
-            component={RouterLink}
-            to="/login"
-            sx={{
-              height: 50,
-              flex: 1,
-              bgcolor: "#fff",
-              color: "#F6B83D",
-              borderRadius: "30px",
-              fontFamily: "'Manrope', sans-serif",
-              fontWeight: 700,
-              fontSize: "16px",
-              textTransform: "uppercase",
-              "&:hover": { bgcolor: "rgba(255,255,255,0.9)" },
-            }}
-          >
-            Log In
-          </Button>
-          <Button
-            component={RouterLink}
-            to="/register"
-            sx={{
-              height: 50,
-              flex: 1,
-              bgcolor: "transparent",
-              color: "#fff",
-              border: "1px solid rgba(255, 255, 255, 0.4)",
-              borderRadius: "30px",
-              fontFamily: "'Manrope', sans-serif",
-              fontWeight: 700,
-              fontSize: "16px",
-              textTransform: "uppercase",
-              "&:hover": { bgcolor: "rgba(255,255,255,0.1)" },
-            }}
-          >
-            Reg
-          </Button>
-        </Box>
-      </Box>
-
-      {/* ── DESKTOP & MOBILE CONTENT (Hidden on Tablet 768px range) ── */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          flex: 1,
-          "@media (min-width: 768px) and (max-width: 1199px)": {
-            display: "none",
-          }
-        }}
-      >
         {/* ── YELLOW HERO BLOCK ── */}
         <Box
           sx={{
@@ -520,7 +373,6 @@ const Home = () => {
               display: "block",
             }}
           />
-        </Box>
       </Box>
 
       {/* Mobile menu drawer */}
@@ -528,77 +380,42 @@ const Home = () => {
         anchor="right"
         open={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
+        ModalProps={{ keepMounted: true }}
         PaperProps={{
           sx: {
-            width: "100%",
+            width: { xs: "100%", md: "374px" },
             height: "100%",
-            bgcolor: "#F6B83D",
-            p: { xs: 2, md: 4 },
+            bgcolor: "#FFFFFF",
             display: "flex",
             flexDirection: "column",
+            p: "40px 32px",
+            boxSizing: "border-box",
           },
         }}
       >
+        {/* Top row: Close */}
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            mb: 8,
+            position: "absolute",
+            top: "30px",
+            right: "30px",
           }}
         >
-          <MuiLink
-            component={RouterLink}
-            to="/"
-            onClick={() => setIsMenuOpen(false)}
-            sx={{
-              display: "flex",
-              alignItems: "flex-end",
-              gap: 0,
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-            <Typography sx={{ fontSize: 28, fontWeight: 800, color: "white" }}>
-              petl
-            </Typography>
-            <Box
-              sx={{
-                width: 23,
-                height: 23,
-                bgcolor: "white",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                mb: "2px",
-              }}
-            >
-              <svg width="13" height="12" viewBox="0 0 14 13" fill="none">
-                <path
-                  d="M7 11.5S1 7.5 1 3.5A3 3 0 0 1 7 2.118 3 3 0 0 1 13 3.5C13 7.5 7 11.5 7 11.5Z"
-                  fill="#F6B83D"
-                />
-              </svg>
-            </Box>
-            <Typography sx={{ fontSize: 28, fontWeight: 700, color: "white" }}>
-              ve
-            </Typography>
-          </MuiLink>
-          <IconButton onClick={() => setIsMenuOpen(false)}>
-            <CloseIcon sx={{ fontSize: 36, color: "white" }} />
+          <IconButton onClick={() => setIsMenuOpen(false)} sx={{ p: 0, color: "#262626" }}>
+            <CloseIcon sx={{ fontSize: 32 }} />
           </IconButton>
         </Box>
 
+        {/* Nav links - vertically centered */}
         <Box
           component="nav"
           sx={{
             flexGrow: 1,
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
-            gap: 2,
-            mt: 4,
+            gap: { xs: "16px", md: "20px" },
           }}
         >
           {navLinks.map((link) => (
@@ -608,38 +425,73 @@ const Home = () => {
               to={link.to}
               onClick={() => setIsMenuOpen(false)}
               sx={{
-                width: "100%",
-                maxWidth: "280px",
-                height: "56px",
+                minWidth: { xs: "120px", md: "140px" },
+                height: { xs: "40px", md: "50px" },
+                px: "20px",
                 borderRadius: "30px",
-                fontSize: "18px",
-                fontWeight: 700,
-                color: "white",
+                fontSize: { xs: "14px", md: "16px" },
+                fontWeight: 500,
+                color: "#262626",
                 bgcolor: "transparent",
-                border: "1px solid rgba(255, 255, 255, 0.4)",
+                border: "1px solid rgba(38,38,38,0.4)",
                 textTransform: "none",
-                "&.active": {
-                  bgcolor: "white",
-                  color: "#F6B83D",
-                  border: "none",
-                },
-                "&:hover": {
-                  bgcolor: "rgba(255, 255, 255, 0.1)",
-                },
+                fontFamily: "'Manrope', sans-serif",
+                letterSpacing: "-0.03em",
+                whiteSpace: "nowrap",
+                "&.active": { borderColor: "#F6B83D", bgcolor: "rgba(246,184,61,0.06)" },
+                "&:hover": { bgcolor: "rgba(38,38,38,0.04)", borderColor: "#262626" },
               }}
             >
               {link.label}
             </Button>
           ))}
+          {token && (
+            <Button
+              component={NavLink}
+              to="/profile"
+              onClick={() => setIsMenuOpen(false)}
+              sx={{
+                minWidth: { xs: "120px", md: "140px" },
+                height: { xs: "40px", md: "50px" },
+                px: "20px",
+                borderRadius: "30px",
+                fontSize: { xs: "14px", md: "16px" },
+                fontWeight: 500,
+                color: "#262626",
+                bgcolor: "transparent",
+                border: "1px solid rgba(38,38,38,0.4)",
+                textTransform: "none",
+                fontFamily: "'Manrope', sans-serif",
+                letterSpacing: "-0.03em",
+                whiteSpace: "nowrap",
+                "&.active": {
+                  borderColor: "#F6B83D",
+                  bgcolor: "rgba(246,184,61,0.06)",
+                },
+                "&:hover": {
+                  bgcolor: "rgba(38,38,38,0.04)",
+                  borderColor: "#262626",
+                },
+              }}
+            >
+              Profile
+            </Button>
+          )}
         </Box>
 
+        {/* Auth buttons - pinned to bottom */}
         <Box
           sx={{
-            display: { xs: "flex", md: "none" },
-            flexDirection: "column",
-            gap: 2,
-            mb: 4,
-            px: 2,
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            justifyContent: "center",
+            alignItems: "center",
+            gap: { xs: "16px", sm: "8px" },
+            mt: "40px",
+            mb: "20px",
+            width: "100%",
+            px: "20px",
+            boxSizing: "border-box",
           }}
         >
           {!token ? (
@@ -648,14 +500,18 @@ const Home = () => {
                 component={RouterLink}
                 to="/login"
                 onClick={() => setIsMenuOpen(false)}
-                fullWidth
                 sx={{
-                  height: "50px",
+                  width: { xs: "100%", sm: "119px" },
+                  height: { xs: "40px", md: "50px" },
                   borderRadius: "30px",
-                  bgcolor: "white",
-                  color: "#F6B83D",
+                  bgcolor: "#F6B83D",
+                  color: "#FFFFFF",
                   fontWeight: 700,
-                  fontSize: "16px",
+                  fontSize: { xs: "14px", md: "16px" },
+                  fontFamily: "'Manrope', sans-serif",
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.03em",
+                  "&:hover": { bgcolor: "#e5a52e" },
                 }}
               >
                 LOG IN
@@ -664,14 +520,19 @@ const Home = () => {
                 component={RouterLink}
                 to="/register"
                 onClick={() => setIsMenuOpen(false)}
-                fullWidth
                 sx={{
-                  height: "50px",
+                  width: { xs: "100%", sm: "149px" },
+                  height: { xs: "40px", md: "50px" },
                   borderRadius: "30px",
-                  bgcolor: "#FFF4DF",
+                  bgcolor: "transparent",
+                  border: "2px solid #F6B83D",
                   color: "#F6B83D",
                   fontWeight: 700,
-                  fontSize: "16px",
+                  fontSize: { xs: "14px", md: "16px" },
+                  fontFamily: "'Manrope', sans-serif",
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.03em",
+                  "&:hover": { bgcolor: "#FFF4DF" },
                 }}
               >
                 REGISTRATION
@@ -679,18 +540,20 @@ const Home = () => {
             </>
           ) : (
             <Button
-              onClick={() => {
-                handleLogout();
-                setIsMenuOpen(false);
-              }}
-              fullWidth
+              onClick={() => { handleLogout(); setIsMenuOpen(false); }}
               sx={{
-                height: "50px",
+                width: { xs: "100%", sm: "276px" },
+                height: { xs: "40px", md: "50px" },
                 borderRadius: "30px",
-                bgcolor: "#FFF4DF",
+                bgcolor: "transparent",
+                border: "2px solid #F6B83D",
                 color: "#F6B83D",
                 fontWeight: 700,
-                fontSize: "16px",
+                fontSize: { xs: "14px", md: "16px" },
+                fontFamily: "'Manrope', sans-serif",
+                textTransform: "uppercase",
+                letterSpacing: "-0.03em",
+                "&:hover": { bgcolor: "#FFF4DF" },
               }}
             >
               LOG OUT

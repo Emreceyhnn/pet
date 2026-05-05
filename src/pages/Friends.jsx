@@ -68,14 +68,14 @@ const Friends = () => {
                   width: "100%",
                   height: "196px",
                   bgcolor: "#FFFFFF",
-                  borderRadius: "15px",
-                  p: "20px",
+                  borderRadius: "30px",
+                  p: "24px",
                   display: "flex",
                   position: "relative",
-                  transition: "transform 0.2s",
+                  transition: "all 0.3s ease",
                   "&:hover": {
-                    transform: "translateY(-4px)",
-                    boxShadow: "0px 10px 20px rgba(0,0,0,0.05)",
+                    transform: "translateY(-6px)",
+                    boxShadow: "0px 12px 24px rgba(0,0,0,0.08)",
                   },
                 }}
               >

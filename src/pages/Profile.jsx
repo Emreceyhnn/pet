@@ -489,9 +489,12 @@ const Profile = () => {
               {/* Notices List (Flex Row + Wrap) */}
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
+                  display: "grid",
+                  gridTemplateColumns: {
+                    xs: "1fr",
+                    sm: "repeat(2, 1fr)",
+                    lg: "repeat(2, 1fr)",
+                  },
                   gap: "24px",
                   minHeight: 400,
                 }}
@@ -500,10 +503,7 @@ const Profile = () => {
                   <Box
                     key={item._id}
                     sx={{
-                      width: {
-                        xs: "100%",
-                        sm: "calc(50% - 12px)",
-                      },
+                      width: "100%",
                       display: "flex",
                     }}
                   >
@@ -518,6 +518,7 @@ const Profile = () => {
                 {activeNotices.length === 0 && !isLoading && (
                   <Box
                     sx={{
+                      gridColumn: "1 / -1",
                       width: "100%",
                       textAlign: "center",
                       maxWidth: "400px",
@@ -544,7 +545,7 @@ const Profile = () => {
                   </Box>
                 )}
                 {isLoading && (
-                  <Box sx={{ width: "100%", display: "flex", justifyContent: "center", pt: 15 }}>
+                  <Box sx={{ gridColumn: "1 / -1", width: "100%", display: "flex", justifyContent: "center", pt: 15 }}>
                     <CircularProgress sx={{ color: "#F6B83D" }} />
                   </Box>
                 )}

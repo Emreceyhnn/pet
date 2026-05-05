@@ -442,7 +442,7 @@ const AddPet = () => {
                     endAdornment: (
                       <InputAdornment position="end">
                         <CalendarTodayOutlinedIcon
-                          sx={{ fontSize: "18px", color: "rgba(38,38,38,0.4)" }}
+                          sx={{ fontSize: "18px", color: "#F6B83D" }}
                         />
                       </InputAdornment>
                     ),
@@ -545,9 +545,11 @@ const AddPet = () => {
             <Box
               sx={{
                 display: "flex",
+                flexWrap: "wrap",
                 justifyContent: "flex-end",
                 gap: "8px",
                 mt: "8px",
+                mb: "40px",
               }}
             >
               <Button

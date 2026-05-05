@@ -229,17 +229,17 @@ const Notices = () => {
         </Typography>
 
         {/* Filters Section */}
-        <Box
-          sx={{
-            p: { xs: "24px", md: "40px" },
-            borderRadius: "30px",
-            bgcolor: "#FFF4DF",
-            mb: "40px",
-            display: "flex",
-            flexDirection: "column",
-            position: "relative",
-          }}
-        >
+          <Box
+            sx={{
+              p: { xs: "24px", md: "40px" },
+              borderRadius: "30px",
+              bgcolor: "#FFF4DF",
+              mb: "40px",
+              display: "flex",
+              flexDirection: "column",
+              position: "relative",
+            }}
+          >
           {/* Row 1: Main Filters */}
           <Box
             sx={{
@@ -258,7 +258,7 @@ const Notices = () => {
               }}
               variant="outlined"
               sx={{
-                width: { xs: "100%", md: "230px" },
+                width: { xs: "100%", sm: "265px", lg: "230px" },
                 "& .MuiOutlinedInput-root": {
                   height: "48px",
                   borderRadius: "30px",
@@ -316,7 +316,7 @@ const Notices = () => {
               }}
             />
 
-            <FormControl sx={{ width: { xs: "100%", md: "200px" } }}>
+            <FormControl sx={{ width: { xs: "calc(50% - 6px)", sm: "170px", lg: "200px" } }}>
               <Select
                 value={category}
                 onChange={(e) => {
@@ -365,7 +365,7 @@ const Notices = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ width: { xs: "100%", md: "190px" } }}>
+            <FormControl sx={{ width: { xs: "calc(50% - 6px)", sm: "170px", lg: "190px" } }}>
               <Select
                 value={sex}
                 onChange={(e) => {
@@ -408,7 +408,7 @@ const Notices = () => {
               </Select>
             </FormControl>
 
-            <FormControl sx={{ width: { xs: "100%", md: "190px" } }}>
+            <FormControl sx={{ width: { xs: "100%", sm: "170px", lg: "190px" } }}>
               <Select
                 value={species}
                 onChange={(e) => {
@@ -457,7 +457,7 @@ const Notices = () => {
               </Select>
             </FormControl>
 
-            <Box sx={{ width: { xs: "100%", md: "227px" } }}>
+            <Box sx={{ width: { xs: "100%", sm: "265px", lg: "227px" } }}>
               <AsyncSelect
                 loadOptions={loadCityOptions}
                 value={locationId}
@@ -516,17 +516,12 @@ const Notices = () => {
             }}
           />
 
-          {/* Row 2: Sorting Options - Scrollable on Mobile */}
+          {/* Row 2: Sorting Options */}
           <Box
             sx={{
               display: "flex",
-              overflowX: { xs: "auto", lg: "visible" },
-              whiteSpace: "nowrap",
-              pb: { xs: 1, lg: 0 },
+              flexWrap: "wrap",
               gap: "8px",
-              "&::-webkit-scrollbar": { display: "none" },
-              msOverflowStyle: "none",
-              scrollbarWidth: "none",
             }}
           >
             {sortOptions.map((opt) => (
@@ -538,24 +533,20 @@ const Notices = () => {
                 }}
                 sx={{
                   height: "48px",
-                  px: "14px",
+                  px: "20px",
                   borderRadius: "30px",
-                  bgcolor: "white",
+                  bgcolor: sortBy === opt.value ? "#F6B83D" : "white",
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
                   cursor: "pointer",
                   fontFamily: "'Manrope', sans-serif",
                   fontWeight: 500,
-                  fontSize: "16px",
-                  color: "#262626",
+                  fontSize: "14px",
+                  color: sortBy === opt.value ? "white" : "#262626",
                   textTransform: "capitalize",
                   transition: "all 0.2s",
-                  border:
-                    sortBy === opt.value
-                      ? "2px solid #F6B83D"
-                      : "2px solid transparent",
-                  "&:hover": { border: "2px solid #F6B83D" },
+                  "&:hover": { bgcolor: sortBy === opt.value ? "#e5a52e" : "#fef8e8" },
                 }}
               >
                 {opt.label}
@@ -564,14 +555,14 @@ const Notices = () => {
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                       <path
                         d="M10.5 3.5L3.5 10.5"
-                        stroke="#F6B83D"
+                        stroke="white"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M3.5 3.5L10.5 10.5"
-                        stroke="#F6B83D"
+                        stroke="white"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -604,7 +595,7 @@ const Notices = () => {
                 sx={{
                   width: {
                     xs: "100%",
-                    md: "calc((100% - 32px) / 2)",
+                    sm: "calc((100% - 32px) / 2)",
                     lg: "calc((100% - 64px) / 3)",
                   },
                 }}

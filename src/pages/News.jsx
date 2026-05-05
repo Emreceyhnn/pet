@@ -159,7 +159,7 @@ const News = () => {
               display: "grid",
               gridTemplateColumns: {
                 xs: "1fr",
-                md: "repeat(2, 1fr)",
+                sm: "repeat(2, 1fr)",
                 lg: "repeat(3, 1fr)",
               },
               gap: "35px",

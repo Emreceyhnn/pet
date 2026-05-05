@@ -49,101 +49,94 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
           }}
         />
 
-        {/* Category Tag */}
+        {/* Info Chips Overlays */}
         <Box
           sx={{
             position: "absolute",
-            top: 12,
+            bottom: 12,
             left: 12,
-            bgcolor: "#FFF4DF",
-            color: "#F6B83D",
-            px: 1.5,
-            py: 0.5,
-            borderRadius: "30px",
-            fontSize: 12,
-            fontWeight: 500,
-            textTransform: "capitalize",
+            right: 12,
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "8px",
           }}
         >
-          {item.category || "Sell"}
-        </Box>
-
-        
-      </Box>
-
-      {/* Body */}
-      <Box sx={{ flexGrow: 1, mb: 3 }}/>
-      {/* Content Area */}
-      <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-        <Typography
-          sx={{
-            fontSize: 18,
-            fontWeight: 700,
-            color: "#262626",
-            mb: 1,
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {item.title}
-        </Typography>
-
-        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 2 }}>
-          <StarIcon sx={{ fontSize: 18, color: "#FFC531" }} />
-          <Typography sx={{ fontSize: 14, fontWeight: 500, color: "#262626" }}>
-            {item.popularity}
-          </Typography>
-        </Box>
-
-        <Grid container spacing={2}>
           {[
-            { label: "Name", value: item.name },
+            { label: "Sex", value: item.sex },
+            { label: "Type", value: item.species },
+            { label: "Location", value: item.locationId?.label?.split(",")[0] || "Kyiv" },
             {
               label: "Birthday",
               value: item.birthday
                 ? new Date(item.birthday).toLocaleDateString("en-GB").replaceAll("/", ".")
-                : "Unknown",
+                : "21.09.2020",
             },
-            { label: "Sex", value: item.sex },
-            { label: "Species", value: item.species },
-            { label: "Category", value: item.category },
-          ].map((detail) => (
-            <Grid item xs={3} key={detail.label}>
-              <Typography
-                sx={{
-                  fontSize: 10,
-                  fontWeight: 500,
-                  color: "rgba(38, 38, 38, 0.5)",
-                }}
-              >
-                {detail.label}
+          ].map((chip) => (
+            <Box
+              key={chip.label}
+              sx={{
+                bgcolor: "rgba(255, 255, 255, 0.1)",
+                backdropFilter: "blur(10px)",
+                color: "white",
+                px: 1.5,
+                py: 0.5,
+                borderRadius: "30px",
+                fontSize: 10,
+                fontWeight: 500,
+                display: "flex",
+                gap: "4px",
+              }}
+            >
+              <Typography sx={{ fontSize: 10, fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>
+                {chip.label}:
               </Typography>
-              <Typography
-                sx={{
-                  fontSize: 12,
-                  fontWeight: 500,
-                  color: "#262626",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  textTransform: "capitalize",
-                }}
-              >
-                {detail.value}
+              <Typography sx={{ fontSize: 10, fontWeight: 500 }}>
+                {chip.value}
               </Typography>
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
+      </Box>
 
-        {/* Commentary / Description */}
+      {/* Content Area */}
+      <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: 1,
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: 18,
+              fontWeight: 700,
+              color: "#262626",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              maxWidth: "75%",
+            }}
+          >
+            {item.title}
+          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+            <StarIcon sx={{ fontSize: 18, color: "#FFC531" }} />
+            <Typography
+              sx={{ fontSize: 14, fontWeight: 500, color: "#262626" }}
+            >
+              {item.popularity}
+            </Typography>
+          </Box>
+        </Box>
+
         <Typography
           sx={{
             fontFamily: "'Manrope', sans-serif",
             fontSize: 14,
             fontWeight: 500,
             color: "#262626",
-            mt: 2,
             lineHeight: "18px",
             letterSpacing: "-0.02em",
             overflow: "hidden",

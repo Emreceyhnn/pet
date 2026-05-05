@@ -8,6 +8,7 @@ import {
   Box,
   Button,
   Avatar,
+  Stack,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
@@ -169,9 +170,7 @@ export const ModalNotice = ({
       onClose={onClose}
       sx={{
         "& .MuiDialog-paper": {
-          width: 473,
-          height: 510,
-          maxWidth: "none",
+          width: { xs: "90%", sm: 473 },
           borderRadius: "30px",
           p: 0,
           position: "relative",
@@ -188,38 +187,44 @@ export const ModalNotice = ({
           top: 20,
           right: 20,
           zIndex: 10,
-          p: 0,
+          bgcolor: "rgba(255, 255, 255, 0.8)",
+          "&:hover": { bgcolor: "white" },
         }}
       >
-        <Box
-          sx={{
-            width: 24,
-            height: 24,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M18 6L6 18M6 6L18 18"
-              stroke="#262626"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Box>
+        <CloseIcon sx={{ color: "#262626" }} />
       </IconButton>
 
-      <Box>
-        <Box sx={{ position: "relative" }}>
-          {/* Category Tag */}
+      <Box sx={{ p: { xs: 3, sm: 5 } }}>
+        <Box sx={{ position: "relative", mb: 3 }}>
+          {/* Pet Image */}
+          <Box
+            sx={{
+              width: "100%",
+              height: { xs: 200, sm: 190 },
+              borderRadius: "30px",
+              overflow: "hidden",
+              bgcolor: "#f3f4f6",
+              mb: 2,
+            }}
+          >
+            <Box
+              component="img"
+              src={notice.imgURL || notice.imgUrl}
+              alt={notice.name}
+              sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+              onError={(e) => {
+                e.target.src =
+                  "https://via.placeholder.com/400x200?text=No+Image";
+              }}
+            />
+          </Box>
+
+          {/* Category Tag Overlay */}
           <Box
             sx={{
               position: "absolute",
-              left: 160,
-              top: 40,
+              left: 16,
+              top: 16,
               bgcolor: "#FFF4DF",
               borderRadius: "30px",
               px: "14px",
@@ -241,43 +246,16 @@ export const ModalNotice = ({
               {notice.category || "Sell"}
             </Typography>
           </Box>
-          {/* Pet Image */}
-          <Box
-            sx={{
-              position: "absolute",
-              width: 150,
-              height: 150,
-              left: "50%",
-              transform: "translateX(-50%)",
-              top: 40,
-              borderRadius: "100px",
-              overflow: "hidden",
-              bgcolor: "#f3f4f6",
-            }}
-          >
-            <Box
-              component="img"
-              src={notice.imgURL || notice.imgUrl}
-              alt={notice.name}
-              sx={{ width: "100%", height: "100%", objectFit: "cover" }}
-              onError={(e) => {
-                e.target.src =
-                  "https://via.placeholder.com/150x150?text=No+Image";
-              }}
-            />
-          </Box>
         </Box>
 
         {/* Title and Rating */}
         <Box
           sx={{
-            position: "absolute",
-            width: "100%",
-            top: 206,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "10px",
+            gap: "8px",
+            mb: 2,
           }}
         >
           <Typography
@@ -288,7 +266,6 @@ export const ModalNotice = ({
               lineHeight: "24px",
               color: "#2B2B2A",
               textAlign: "center",
-              px: 3,
             }}
           >
             {notice.title}
@@ -328,29 +305,20 @@ export const ModalNotice = ({
           </Box>
         </Box>
 
-        {/* Details Block */}
+        {/* Details Grid */}
         <Box
           sx={{
-            position: "absolute",
-            width: 300,
-            left: "50%",
-            transform: "translateX(-50%)",
-            top: 280,
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "center",
             flexWrap: "wrap",
-            gap: "27px",
+            gap: "20px",
+            mb: 3,
           }}
         >
           {/* Name */}
-          <Box sx={{ textAlign: "center" }}>
+          <Box sx={{ textAlign: "center", minWidth: 60 }}>
             <Typography
-              sx={{
-                fontSize: 10,
-                fontWeight: 500,
-                color: "rgba(38, 38, 38, 0.5)",
-                mb: "4px",
-              }}
+              sx={{ fontSize: 10, color: "rgba(38, 38, 38, 0.5)", mb: 0.5 }}
             >
               Name
             </Typography>
@@ -361,14 +329,9 @@ export const ModalNotice = ({
             </Typography>
           </Box>
           {/* Birthday */}
-          <Box sx={{ textAlign: "center" }}>
+          <Box sx={{ textAlign: "center", minWidth: 60 }}>
             <Typography
-              sx={{
-                fontSize: 10,
-                fontWeight: 500,
-                color: "rgba(38, 38, 38, 0.5)",
-                mb: "4px",
-              }}
+              sx={{ fontSize: 10, color: "rgba(38, 38, 38, 0.5)", mb: 0.5 }}
             >
               Birthday
             </Typography>
@@ -379,14 +342,9 @@ export const ModalNotice = ({
             </Typography>
           </Box>
           {/* Sex */}
-          <Box sx={{ textAlign: "center" }}>
+          <Box sx={{ textAlign: "center", minWidth: 60 }}>
             <Typography
-              sx={{
-                fontSize: 10,
-                fontWeight: 500,
-                color: "rgba(38, 38, 38, 0.5)",
-                mb: "4px",
-              }}
+              sx={{ fontSize: 10, color: "rgba(38, 38, 38, 0.5)", mb: 0.5 }}
             >
               Sex
             </Typography>
@@ -402,14 +360,9 @@ export const ModalNotice = ({
             </Typography>
           </Box>
           {/* Species */}
-          <Box sx={{ textAlign: "center" }}>
+          <Box sx={{ textAlign: "center", minWidth: 60 }}>
             <Typography
-              sx={{
-                fontSize: 10,
-                fontWeight: 500,
-                color: "rgba(38, 38, 38, 0.5)",
-                mb: "4px",
-              }}
+              sx={{ fontSize: 10, color: "rgba(38, 38, 38, 0.5)", mb: 0.5 }}
             >
               Species
             </Typography>
@@ -429,112 +382,89 @@ export const ModalNotice = ({
         {/* Description */}
         <Typography
           sx={{
-            position: "absolute",
-            width: 260,
-            left: "50%",
-            transform: "translateX(-50%)",
-            top: 328,
             fontFamily: "'Manrope', sans-serif",
             fontWeight: 500,
             fontSize: 14,
             lineHeight: "18px",
             color: "#2B2B2A",
             textAlign: "center",
-            letterSpacing: "-0.02em",
+            mb: 3,
             overflow: "hidden",
             textOverflow: "ellipsis",
             display: "-webkit-box",
-            WebkitLineClamp: 2,
+            WebkitLineClamp: 3,
             WebkitBoxOrient: "vertical",
           }}
         >
-          {notice.comment || "Adorable puppy looking for a loving home."}
+          {notice.comment || "Adorable furry looking for a loving home."}
         </Typography>
 
-        {/* Price */}
-        <Box
-          sx={{
-            position: "absolute",
-            width: "100%",
-            top: 378,
-            display: "flex",
-            justifyContent: "center",
-            height: "24px",
-          }}
-        >
+        {/* Price & Buttons */}
+        <Stack spacing={2}>
           {notice.price && notice.price > 0 && (
             <Typography
               sx={{
                 fontFamily: "'Manrope', sans-serif",
                 fontWeight: 700,
                 fontSize: 18,
-                lineHeight: "24px",
                 color: "#2B2B2A",
+                textAlign: "center",
               }}
             >
               ${notice.price}
             </Typography>
           )}
-        </Box>
 
-        {/* Buttons */}
-        <Box
-          sx={{
-            position: "absolute",
-            width: 330,
-            left: "50%",
-            transform: "translateX(-50%)",
-            top: 422,
-            display: "flex",
-            gap: "10px",
-          }}
-        >
-          <Button
-            onClick={() => onToggleFavorite(notice._id)}
-            sx={{
-              width: 160,
-              height: 48,
-              bgcolor: isFavorite ? "#FFF4DF" : "#F6B83D",
-              color: isFavorite ? "#F6B83D" : "#FFFFFF",
-              borderRadius: "30px",
-              textTransform: "none",
-              fontWeight: 500,
-              fontSize: 16,
-              gap: "8px",
-              "&:hover": { bgcolor: isFavorite ? "#fee8c1" : "#e5a52e" },
-            }}
-          >
-            {isFavorite ? "Added" : "Add to"}
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path
-                d="M15.63 3.4575C15.247 3.0743 14.7924 2.77024 14.2921 2.56285C13.7918 2.35545 13.2555 2.24878 12.7139 2.24878C12.1722 2.24878 11.6359 2.35545 11.1356 2.56285C10.6353 2.77024 10.1807 3.0743 9.7977 3.4575L8.99933 4.25588L8.20095 3.4575C7.4273 2.68385 6.37793 2.24915 5.2837 2.24915C4.18947 2.24915 3.1401 2.68385 2.36645 3.4575C1.5928 4.23115 1.15811 5.28052 1.15811 6.37475C1.15811 7.46898 1.5928 8.51835 2.36645 9.292L3.16483 10.0904L8.99933 15.9249L14.8338 10.0904L15.6322 9.292C16.0154 8.90901 16.3195 8.45437 16.5268 7.95408C16.7342 7.45378 16.8409 6.91754 16.8409 6.37588C16.8409 5.83421 16.7342 5.29797 16.5268 4.79767C16.3195 4.29738 16.0154 3.84274 15.6322 3.45975L15.63 3.4575Z"
-                stroke={isFavorite ? "#F6B83D" : "#FFFFFF"}
-                fill={isFavorite ? "#F6B83D" : "none"}
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </Button>
+          <Box sx={{ display: "flex", gap: "10px" }}>
+            <Button
+              onClick={() => onToggleFavorite(notice._id)}
+              fullWidth
+              sx={{
+                height: 48,
+                bgcolor: isFavorite ? "#FFF4DF" : "#F6B83D",
+                color: isFavorite ? "#F6B83D" : "#FFFFFF",
+                borderRadius: "30px",
+                textTransform: "none",
+                fontWeight: 700,
+                fontSize: 16,
+                gap: "8px",
+                fontFamily: "'Manrope', sans-serif",
+                "&:hover": { bgcolor: isFavorite ? "#fee8c1" : "#e5a52e" },
+              }}
+            >
+              {isFavorite ? "Added" : "Add to"}
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path
+                  d="M15.63 3.4575C15.247 3.0743 14.7924 2.77024 14.2921 2.56285C13.7918 2.35545 13.2555 2.24878 12.7139 2.24878C12.1722 2.24878 11.6359 2.35545 11.1356 2.56285C10.6353 2.77024 10.1807 3.0743 9.7977 3.4575L8.99933 4.25588L8.20095 3.4575C7.4273 2.68385 6.37793 2.24915 5.2837 2.24915C4.18947 2.24915 3.1401 2.68385 2.36645 3.4575C1.5928 4.23115 1.15811 5.28052 1.15811 6.37475C1.15811 7.46898 1.5928 8.51835 2.36645 9.292L3.16483 10.0904L8.99933 15.9249L14.8338 10.0904L15.6322 9.292C16.0154 8.90901 16.3195 8.45437 16.5268 7.95408C16.7342 7.45378 16.8409 6.91754 16.8409 6.37588C16.8409 5.83421 16.7342 5.29797 16.5268 4.79767C16.3195 4.29738 16.0154 3.84274 15.6322 3.45975L15.63 3.4575Z"
+                  stroke={isFavorite ? "#F6B83D" : "#FFFFFF"}
+                  fill={isFavorite ? "#F6B83D" : "none"}
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Button>
 
-          <Button
-            component="a"
-            href={`mailto:${notice.owner?.email || "contact@petlove.com"}`}
-            sx={{
-              width: 160,
-              height: 48,
-              bgcolor: "#FFF4DF",
-              color: "#F6B83D",
-              borderRadius: "30px",
-              textTransform: "none",
-              fontWeight: 500,
-              fontSize: 16,
-              "&:hover": { bgcolor: "#fee8c1" },
-            }}
-          >
-            Contact
-          </Button>
-        </Box>
+            <Button
+              component="a"
+              href={`mailto:${notice.owner?.email || "contact@petlove.com"}`}
+              fullWidth
+              sx={{
+                height: 48,
+                bgcolor: "#FFF4DF",
+                color: "#F6B83D",
+                borderRadius: "30px",
+                textTransform: "none",
+                fontWeight: 700,
+                fontSize: 16,
+                fontFamily: "'Manrope', sans-serif",
+                "&:hover": { bgcolor: "#fee8c1" },
+              }}
+            >
+              Contact
+            </Button>
+          </Box>
+        </Stack>
       </Box>
     </Dialog>
   );
@@ -563,9 +493,9 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
     resolver: yupResolver(editSchema),
     defaultValues: {
       avatar: user?.avatar || "",
-      name:   user?.name  || "",
-      email:  user?.email || "",
-      phone:  user?.phone || "+380",
+      name: user?.name || "",
+      email: user?.email || "",
+      phone: user?.phone || "+380",
     },
   });
 
@@ -574,16 +504,15 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
     if (isOpen) {
       reset({
         avatar: user?.avatar || "",
-        name:   user?.name  || "",
-        email:  user?.email || "",
-        phone:  user?.phone || "+380",
+        name: user?.name || "",
+        email: user?.email || "",
+        phone: user?.phone || "+380",
         avatarFile: undefined,
       });
     }
   }, [isOpen, user, reset]);
 
   const avatarUrl = watch("avatar");
-
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
@@ -594,7 +523,7 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
     if (file) {
       // Store the file object itself for the form submission
       setValue("avatarFile", file);
-      
+
       // Update the preview URL
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -632,11 +561,12 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
 
       <Typography
         sx={{
-          fontSize: 18,
+          fontSize: { xs: 20, sm: 24 },
           fontWeight: 700,
           color: "#262626",
           mb: 3,
           fontFamily: "'Manrope', sans-serif",
+          letterSpacing: "-0.03em",
         }}
       >
         Edit information
@@ -676,7 +606,13 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
         </Box>
 
         {/* Avatar URL & Upload Row */}
-        <Box sx={{ display: "flex", gap: 1, alignItems: "flex-start" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" },
+            gap: 1.5,
+          }}
+        >
           <TextField
             {...register("avatar")}
             fullWidth
@@ -710,7 +646,7 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
               px: 3,
               borderRadius: "100px",
               bgcolor: "#FFF4DF",
-              color: "#262626",
+              color: "#F6B83D",
               whiteSpace: "nowrap",
               fontSize: 14,
               fontWeight: 500,
@@ -810,13 +746,14 @@ export const ModalEditProfile = ({ isOpen, onClose, user, onSave }) => {
           variant="contained"
           fullWidth
           sx={{
-            py: 2,
+            py: 1.5,
             bgcolor: "#F6B83D",
             borderRadius: "100px",
             fontWeight: 700,
             fontSize: 16,
             textTransform: "none",
             mt: 2,
+            fontFamily: "'Manrope', sans-serif",
             "&:hover": { bgcolor: "#e5a52e" },
           }}
         >
@@ -877,7 +814,14 @@ export const ModalLogout = ({ isOpen, onClose, onLogout }) => {
       </Box>
 
       <Typography
-        sx={{ fontSize: 20, fontWeight: 700, color: "#262626", mb: 4 }}
+        sx={{
+          fontSize: 20,
+          fontWeight: 700,
+          color: "#262626",
+          mb: 4,
+          fontFamily: "'Manrope', sans-serif",
+          letterSpacing: "-0.03em",
+        }}
       >
         Already leaving?
       </Typography>
@@ -886,7 +830,6 @@ export const ModalLogout = ({ isOpen, onClose, onLogout }) => {
         <Button
           onClick={onLogout}
           fullWidth
-          variant="contained"
           sx={{
             bgcolor: "#F6B83D",
             color: "white",
@@ -894,6 +837,7 @@ export const ModalLogout = ({ isOpen, onClose, onLogout }) => {
             height: 48,
             fontWeight: 700,
             textTransform: "none",
+            fontFamily: "'Manrope', sans-serif",
             "&:hover": { bgcolor: "#e5a52e" },
           }}
         >
@@ -903,13 +847,14 @@ export const ModalLogout = ({ isOpen, onClose, onLogout }) => {
           onClick={onClose}
           fullWidth
           sx={{
-            bgcolor: "#F9F9F9",
-            color: "rgba(38, 38, 38, 0.5)",
+            bgcolor: "rgba(38, 38, 38, 0.05)",
+            color: "#262626",
             borderRadius: "100px",
             height: 48,
             fontWeight: 700,
             textTransform: "none",
-            "&:hover": { bgcolor: "#f0f0f0" },
+            fontFamily: "'Manrope', sans-serif",
+            "&:hover": { bgcolor: "rgba(38, 38, 38, 0.1)" },
           }}
         >
           Cancel
@@ -922,7 +867,13 @@ export const ModalLogout = ({ isOpen, onClose, onLogout }) => {
 // ────────────────────────────────────────────────────────────
 // Congrats Modal (Generic Success)
 // ────────────────────────────────────────────────────────────
-export const ModalCongrats = ({ isOpen, onClose, title = "Congrats", text, buttonText = "Go to profile" }) => {
+export const ModalCongrats = ({
+  isOpen,
+  onClose,
+  title = "Congrats",
+  text,
+  buttonText = "Go to profile",
+}) => {
   return (
     <Dialog
       open={isOpen}
@@ -967,18 +918,19 @@ export const ModalCongrats = ({ isOpen, onClose, title = "Congrats", text, butto
           onError={(e) => {
             // Fallback to emoji if image is missing
             e.target.style.display = "none";
-            e.target.parentElement.innerHTML = '<span style="font-size: 32px">🐱</span>';
+            e.target.parentElement.innerHTML =
+              '<span style="font-size: 32px">🐱</span>';
           }}
         />
       </Box>
 
       <Typography
-        sx={{ 
-          fontSize: 24, 
-          fontWeight: 700, 
+        sx={{
+          fontSize: 24,
+          fontWeight: 700,
           color: "#F6B83D", // Match image color
           mb: 2,
-          fontFamily: "'Manrope', sans-serif"
+          fontFamily: "'Manrope', sans-serif",
         }}
       >
         {title}
@@ -991,10 +943,11 @@ export const ModalCongrats = ({ isOpen, onClose, title = "Congrats", text, butto
           lineHeight: "22px",
           mb: 4,
           fontFamily: "'Manrope', sans-serif",
-          px: 2
+          px: 2,
         }}
       >
-        {text || "The first fluff in the favorites! May your friendship be the happiest and filled with fun."}
+        {text ||
+          "The first fluff in the favorites! May your friendship be the happiest and filled with fun."}
       </Typography>
 
       <Button
@@ -1080,7 +1033,14 @@ export const ModalDeletePet = ({ isOpen, onClose, onDelete }) => {
       </Box>
 
       <Typography
-        sx={{ fontSize: 20, fontWeight: 700, color: "#262626", mb: 2 }}
+        sx={{
+          fontSize: 20,
+          fontWeight: 700,
+          color: "#262626",
+          mb: 2,
+          fontFamily: "'Manrope', sans-serif",
+          letterSpacing: "-0.03em",
+        }}
       >
         Delete pet?
       </Typography>
@@ -1088,7 +1048,9 @@ export const ModalDeletePet = ({ isOpen, onClose, onDelete }) => {
         sx={{
           color: "rgba(38, 38, 38, 0.8)",
           fontSize: 14,
+          lineHeight: "1.5",
           mb: 4,
+          fontFamily: "'Manrope', sans-serif",
         }}
       >
         Are you sure you want to remove this pet? This action cannot be undone.
@@ -1098,7 +1060,6 @@ export const ModalDeletePet = ({ isOpen, onClose, onDelete }) => {
         <Button
           onClick={onDelete}
           fullWidth
-          variant="contained"
           sx={{
             bgcolor: "#F6B83D",
             color: "white",
@@ -1106,6 +1067,7 @@ export const ModalDeletePet = ({ isOpen, onClose, onDelete }) => {
             height: 48,
             fontWeight: 700,
             textTransform: "none",
+            fontFamily: "'Manrope', sans-serif",
             "&:hover": { bgcolor: "#e5a52e" },
           }}
         >
@@ -1115,13 +1077,14 @@ export const ModalDeletePet = ({ isOpen, onClose, onDelete }) => {
           onClick={onClose}
           fullWidth
           sx={{
-            bgcolor: "#F9F9F9",
-            color: "rgba(38, 38, 38, 0.5)",
+            bgcolor: "rgba(38, 38, 38, 0.05)",
+            color: "#262626",
             borderRadius: "100px",
             height: 48,
             fontWeight: 700,
             textTransform: "none",
-            "&:hover": { bgcolor: "#f0f0f0" },
+            fontFamily: "'Manrope', sans-serif",
+            "&:hover": { bgcolor: "rgba(38, 38, 38, 0.1)" },
           }}
         >
           Cancel

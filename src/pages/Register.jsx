@@ -145,18 +145,20 @@ const Register = () => {
             }}
           />
 
-          {/* Info Card (Visible on MD+) */}
+          {/* Info Card (Visible on SM+) */}
           <Box
             sx={{
-              display: { xs: "none", md: "block" },
+              display: { xs: "none", sm: "block" },
               position: "absolute",
               width: "294px",
               height: "121px",
-              left: "60px",
-              top: "600px",
+              left: { sm: "16px", md: "60px" },
+              bottom: { sm: "20px", md: "40px" },
               bgcolor: "#FFFFFF",
               borderRadius: "20px",
               zIndex: 5,
+              transform: { sm: "scale(0.9)", md: "none" },
+              transformOrigin: "bottom left",
             }}
           >
             {/* Image Icon Block */}
