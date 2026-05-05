@@ -459,19 +459,22 @@ export const ModalNotice = ({
             top: 378,
             display: "flex",
             justifyContent: "center",
+            height: "24px",
           }}
         >
-          <Typography
-            sx={{
-              fontFamily: "'Manrope', sans-serif",
-              fontWeight: 700,
-              fontSize: 18,
-              lineHeight: "24px",
-              color: "#2B2B2A",
-            }}
-          >
-            ${notice.price || "0.00"}
-          </Typography>
+          {notice.price && notice.price > 0 && (
+            <Typography
+              sx={{
+                fontFamily: "'Manrope', sans-serif",
+                fontWeight: 700,
+                fontSize: 18,
+                lineHeight: "24px",
+                color: "#2B2B2A",
+              }}
+            >
+              ${notice.price}
+            </Typography>
+          )}
         </Box>
 
         {/* Buttons */}
@@ -917,9 +920,9 @@ export const ModalLogout = ({ isOpen, onClose, onLogout }) => {
 };
 
 // ────────────────────────────────────────────────────────────
-// Congrats Modal
+// Congrats Modal (Generic Success)
 // ────────────────────────────────────────────────────────────
-export const ModalCongrats = ({ isOpen, onClose }) => {
+export const ModalCongrats = ({ isOpen, onClose, title = "Congrats", text, buttonText = "Go to profile" }) => {
   return (
     <Dialog
       open={isOpen}
@@ -957,33 +960,46 @@ export const ModalCongrats = ({ isOpen, onClose }) => {
           mb: 3,
         }}
       >
-        <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 12L12 12.01M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.33 4 18V20H20V18C20 15.33 14.67 14 12 14Z"
-            fill="#F6B83D"
-          />
-        </svg>
+        <Box
+          component="img"
+          src="/cat-success.png" // Using a generic success image or similar
+          sx={{ width: 44, height: 44, objectFit: "contain" }}
+          onError={(e) => {
+            // Fallback to emoji if image is missing
+            e.target.style.display = "none";
+            e.target.parentElement.innerHTML = '<span style="font-size: 32px">🐱</span>';
+          }}
+        />
       </Box>
 
       <Typography
-        sx={{ fontSize: 24, fontWeight: 700, color: "#262626", mb: 2 }}
+        sx={{ 
+          fontSize: 24, 
+          fontWeight: 700, 
+          color: "#F6B83D", // Match image color
+          mb: 2,
+          fontFamily: "'Manrope', sans-serif"
+        }}
       >
-        Congrats
+        {title}
       </Typography>
       <Typography
         sx={{
-          color: "rgba(38, 38, 38, 0.8)",
+          color: "#262626",
           fontSize: 16,
+          fontWeight: 500,
           lineHeight: "22px",
           mb: 4,
           fontFamily: "'Manrope', sans-serif",
+          px: 2
         }}
       >
-        You have successfully created your account. Start your happy life with a
-        new friend.
+        {text || "The first fluff in the favorites! May your friendship be the happiest and filled with fun."}
       </Typography>
 
       <Button
+        component={RouterLink}
+        to="/profile"
         onClick={onClose}
         fullWidth
         variant="contained"
@@ -994,11 +1010,123 @@ export const ModalCongrats = ({ isOpen, onClose }) => {
           height: 52,
           fontWeight: 700,
           textTransform: "none",
+          fontSize: 16,
           "&:hover": { bgcolor: "#e5a52e" },
         }}
       >
-        Go to profile
+        {buttonText}
       </Button>
+    </Dialog>
+  );
+};
+
+// ────────────────────────────────────────────────────────────
+// Delete Pet Modal
+// ────────────────────────────────────────────────────────────
+export const ModalDeletePet = ({ isOpen, onClose, onDelete }) => {
+  return (
+    <Dialog
+      open={isOpen}
+      onClose={onClose}
+      sx={{
+        "& .MuiDialog-paper": {
+          width: 440,
+          borderRadius: "30px",
+          p: 5,
+          textAlign: "center",
+        },
+      }}
+    >
+      <IconButton
+        onClick={onClose}
+        sx={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
+
+      <Box
+        sx={{
+          width: 80,
+          height: 80,
+          bgcolor: "#FFF4DF",
+          borderRadius: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          mx: "auto",
+          mb: 3,
+        }}
+      >
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M3 6H5H21"
+            stroke="#F6B83D"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z"
+            stroke="#F6B83D"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </Box>
+
+      <Typography
+        sx={{ fontSize: 20, fontWeight: 700, color: "#262626", mb: 2 }}
+      >
+        Delete pet?
+      </Typography>
+      <Typography
+        sx={{
+          color: "rgba(38, 38, 38, 0.8)",
+          fontSize: 14,
+          mb: 4,
+        }}
+      >
+        Are you sure you want to remove this pet? This action cannot be undone.
+      </Typography>
+
+      <Box sx={{ display: "flex", gap: 2 }}>
+        <Button
+          onClick={onDelete}
+          fullWidth
+          variant="contained"
+          sx={{
+            bgcolor: "#F6B83D",
+            color: "white",
+            borderRadius: "100px",
+            height: 48,
+            fontWeight: 700,
+            textTransform: "none",
+            "&:hover": { bgcolor: "#e5a52e" },
+          }}
+        >
+          Yes
+        </Button>
+        <Button
+          onClick={onClose}
+          fullWidth
+          sx={{
+            bgcolor: "#F9F9F9",
+            color: "rgba(38, 38, 38, 0.5)",
+            borderRadius: "100px",
+            height: 48,
+            fontWeight: 700,
+            textTransform: "none",
+            "&:hover": { bgcolor: "#f0f0f0" },
+          }}
+        >
+          Cancel
+        </Button>
+      </Box>
     </Dialog>
   );
 };

@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { fetchCurrentUser } from "../store/authSlice";
 import {
+  Stack,
   Box,
   Typography,
   Button,
@@ -17,6 +18,7 @@ import {
 } from "@mui/material";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { ModalCongrats } from "../components/Modals";
 
 /* ─── validation ─────────────────────────────────── */
 const schema = yup.object({
@@ -75,6 +77,7 @@ const AddPet = () => {
   const { token } = useSelector((s) => s.auth);
   const navigate  = useNavigate();
   const dispatch  = useDispatch();
+  const [isCongratsOpen, setIsCongratsOpen] = useState(false);
 
   const fileInputRef = useRef(null);
   const [avatarPreview, setAvatarPreview] = useState(null);
@@ -152,7 +155,8 @@ const AddPet = () => {
       }
 
       dispatch(fetchCurrentUser());
-      navigate("/profile");
+      setIsCongratsOpen(true);
+      // navigate("/profile"); // Now handled by Modal
     } catch (err) {
       console.error(err.response?.data);
       alert(err.response?.data?.message || "Error adding pet");
@@ -165,62 +169,66 @@ const AddPet = () => {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        bgcolor: "#F9F9F9",
         display: "flex",
-        alignItems: "center",
         justifyContent: "center",
+        bgcolor: "#F9F9F9",
         px: { xs: 2, lg: "64px" },
-        py: { xs: "20px", lg: "40px" },
+        py: { xs: 2, lg: "16px" },
+        minHeight: "calc(100vh - 130px)",
       }}
     >
-      <Box
+      <Stack
+        direction={{ xs: "column", md: "row" }}
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", lg: "row" },
-          gap: { xs: "20px", lg: "20px" },
           width: "100%",
           maxWidth: "1216px",
-          alignItems: "stretch",
+          mx: "auto",
+          gap: { xs: 2, md: 4, lg: 8 },
         }}
       >
         {/* ── LEFT: image card (TOP on mobile) ─────────────────────────── */}
         <Box
           sx={{
-            width: { xs: "100%", lg: "592px" },
-            height: { xs: "280px", lg: "654px" },
-            borderRadius: { xs: "30px", lg: "60px" },
+            flex: { xs: "none", md: 1 },
             bgcolor: "#F6B83D",
+            height: { xs: "280px", sm: "302px", md: "654px" },
+            borderRadius: { xs: "30px", md: "60px" },
             position: "relative",
             overflow: "hidden",
-            flexShrink: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-           <Box
-              component="img"
-              src="/bg.png"
-              alt="Pet illustration"
-              sx={{
-                position: "absolute",
-                width: { xs: "240px", lg: "512px" },
-                height: { xs: "300px", lg: "660px" },
-                left: { xs: "20px", lg: "40px" },
-                top: { xs: "-10px", lg: "-6px" },
-                objectFit: "contain",
-              }}
-            />
+          <Box
+            component="img"
+            src="/bg.png"
+            alt=""
+            sx={{
+              scale: { xs: 1.1, sm: 1.3, md: 0.9 },
+              position: "absolute",
+              width: { xs: "120%", sm: "100%", md: "512px" },
+              height: "auto",
+              left: { xs: "-10%", sm: "0", md: "40px" },
+              top: { xs: "-10px", md: "-6px" },
+              objectFit: "contain",
+              opacity: 0.8,
+            }}
+          />
           <Box
             component="img"
             src="/add pet dog.png"
-            alt="dog"
+            alt="Pet illustration"
             sx={{
+              scale: { xs: 1.1, sm: 1.2, md: 1.45 },
               position: "absolute",
-              bottom: 0,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: { xs: "80%", lg: "100%" },
+              width: { xs: "240px", sm: "320px", md: "512px" },
+              height: "auto",
+              left: { xs: "50%", md: "auto" },
+              right: { xs: "auto", md: "40px" },
+              transform: { xs: "translateX(-50%)", md: "none" },
+              top: { xs: "40px", sm: "60px", md: "260px" },
               objectFit: "contain",
-              objectPosition: "bottom",
             }}
           />
         </Box>
@@ -229,15 +237,16 @@ const AddPet = () => {
         <Box
           sx={{
             flex: 1,
-            bgcolor: "#fff",
-            borderRadius: { xs: "30px", lg: "60px" },
-            p: { xs: "40px 24px", sm: "60px 80px" },
             display: "flex",
-            flexDirection: "column",
+            alignItems: "center",
             justifyContent: "center",
-            minHeight: { xs: "auto", lg: "654px" },
+            bgcolor: "#FFFFFF",
+            borderRadius: { xs: "30px", md: "60px" },
+            p: { xs: 3, sm: 5, md: 6 },
+            minHeight: { xs: "auto", sm: "560px", md: "654px" },
           }}
         >
+          <Box sx={{ maxWidth: { xs: "100%", md: 424, lg: 600 }, width: "100%" }}>
           {/* title */}
           <Box sx={{ mb: "32px" }}>
             <Typography
@@ -509,7 +518,7 @@ const AddPet = () => {
                       }}
                     >
                       {SPECIES.map((s) => (
-                        <MenuItem key={s} value={s}>
+                        <MenuItem key={s} value={s} sx={{ textTransform: "capitalize" }}>
                           {s}
                         </MenuItem>
                       ))}
@@ -581,8 +590,19 @@ const AddPet = () => {
               </Button>
             </Box>
           </Box>
+          </Box>
         </Box>
-      </Box>
+      </Stack>
+
+      <ModalCongrats
+        isOpen={isCongratsOpen}
+        onClose={() => {
+          setIsCongratsOpen(false);
+          navigate("/profile");
+        }}
+        title="Congrats"
+        text="Your pet has been successfully added! May your friendship be the happiest and filled with fun."
+      />
     </Box>
   );
 };

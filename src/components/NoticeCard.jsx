@@ -161,19 +161,20 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
       {/* Footer Area (Fixed at bottom) */}
       <Box sx={{ mt: 3 }}>
         {/* Price Row */}
-        {item.price && (
-          <Typography
-            sx={{
-              fontSize: 20,
-              fontWeight: 700,
-              color: "#F6B83D",
-              mb: 1.5,
-              fontFamily: "'Manrope', sans-serif",
-            }}
-          >
-            ${item.price}
-          </Typography>
-        )}
+        <Box sx={{ height: "38px", display: "flex", alignItems: "center", mb: 1.5 }}>
+          {item.price && (
+            <Typography
+              sx={{
+                fontSize: 20,
+                fontWeight: 700,
+                color: "#F6B83D",
+                fontFamily: "'Manrope', sans-serif",
+              }}
+            >
+              ${item.price}
+            </Typography>
+          )}
+        </Box>
 
         {/* Buttons Row */}
         <Box sx={{ display: "flex", gap: "10px", alignItems: "center" }}>

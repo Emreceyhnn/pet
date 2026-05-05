@@ -69,7 +69,7 @@ const Login = () => {
         bgcolor: "#F9F9F9",
         px: { xs: 2, lg: "64px" },
         py: { xs: 2, lg: "16px" },
-        minHeight: "calc(100vh - 100px)",
+        minHeight: "calc(100vh - 130px)",
       }}
     >
       <Stack
@@ -85,8 +85,8 @@ const Login = () => {
         <Box
           sx={{
             flex: { xs: "none", md: 1 },
-            height: { xs: "280px", sm: "350px", md: "654px" },
             bgcolor: "#F6B83D",
+            height: { xs: "280px", sm: "302px", md: "654px" },
             borderRadius: { xs: "30px", md: "60px" },
             position: "relative",
             overflow: "hidden",
@@ -101,10 +101,11 @@ const Login = () => {
             src="/bg.png"
             alt=""
             sx={{
+              scale: { xs: 1.1, sm: 1.3, md: 0.9 },
               position: "absolute",
-              width: { xs: "120%", md: "512px" },
+              width: { xs: "120%", sm: "100%", md: "512px" },
               height: "auto",
-              left: { xs: "-10%", md: "40px" },
+              left: { xs: "-10%", sm: "0", md: "40px" },
               top: { xs: "-10px", md: "-6px" },
               objectFit: "contain",
               opacity: 0.8,
@@ -117,14 +118,14 @@ const Login = () => {
             src="/login dog.png"
             alt="Pet illustration"
             sx={{
-              scale: { xs: 1.1, md: 1.45 },
+              scale: { xs: 1.1, sm: 1.2, md: 1.45 },
               position: "absolute",
               width: { xs: "240px", sm: "320px", md: "512px" },
               height: "auto",
               left: { xs: "50%", md: "auto" },
               right: { xs: "auto", md: "40px" },
               transform: { xs: "translateX(-50%)", md: "none" },
-              top: { xs: "40px", md: "60px" },
+              top: { xs: "40px", sm: "60px", md: "260px" },
               objectFit: "contain",
             }}
           />
@@ -137,7 +138,7 @@ const Login = () => {
               width: "294px",
               height: "121px",
               left: "60px",
-              top: "450px",
+              top: "600px",
               bgcolor: "#FFFFFF",
               borderRadius: "20px",
               zIndex: 5,
@@ -226,7 +227,8 @@ const Login = () => {
             justifyContent: "center",
             bgcolor: "#FFFFFF",
             borderRadius: { xs: "30px", md: "60px" },
-            p: { xs: 3, md: 6 },
+            p: { xs: 3, sm: 5, md: 6 },
+            minHeight: { xs: "auto", sm: "560px", md: "654px" },
           }}
         >
           <Box sx={{ maxWidth: 424, width: "100%" }}>

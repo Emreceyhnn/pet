@@ -6,6 +6,8 @@ import {
   ModalNotice,
   ModalEditProfile,
   ModalLogout,
+  ModalDeletePet,
+  ModalCongrats,
 } from "../components/Modals";
 import NoticeCard from "../components/NoticeCard";
 import axios from "axios";
@@ -33,6 +35,9 @@ const Profile = () => {
   const [selectedNotice, setSelectedNotice] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isCongratsOpen, setIsCongratsOpen] = useState(false);
+  const [petToDelete, setPetToDelete] = useState(null);
 
   const handleLogout = () => {
     dispatch(logoutClient());
@@ -96,17 +101,24 @@ const Profile = () => {
     }
   };
 
-  const handleRemovePet = async (petId) => {
-    if (!window.confirm("Are you sure you want to remove this pet?")) return;
+  const handleRemovePet = async () => {
+    if (!petToDelete) return;
     try {
       await axios.delete(
-        `https://petlove.b.goit.study/api/users/current/pets/remove/${petId}`,
+        `https://petlove.b.goit.study/api/users/current/pets/remove/${petToDelete}`,
         { headers: { Authorization: `Bearer ${token}` } },
       );
       dispatch(fetchCurrentUser());
+      setIsDeleteModalOpen(false);
+      setPetToDelete(null);
     } catch (error) {
       console.error("Error removing pet", error);
     }
+  };
+
+  const confirmDeletePet = (petId) => {
+    setPetToDelete(petId);
+    setIsDeleteModalOpen(true);
   };
 
   const handleToggleFavorite = async (id) => {
@@ -123,6 +135,9 @@ const Profile = () => {
           {},
           { headers: { Authorization: `Bearer ${token}` } },
         );
+      }
+      if (!isFav && (!user?.noticesFavorites || user.noticesFavorites.length === 0)) {
+        setIsCongratsOpen(true);
       }
       dispatch(fetchCurrentUser());
     } catch (error) {
@@ -382,7 +397,7 @@ const Profile = () => {
                     </Typography>
                   </Box>
                   <IconButton
-                    onClick={() => handleRemovePet(pet._id)}
+                    onClick={() => confirmDeletePet(pet._id)}
                     sx={{
                       bgcolor: "#FFF4DF",
                       color: "#F6B83D",
@@ -550,6 +565,21 @@ const Profile = () => {
           isOpen={isLogoutModalOpen}
           onClose={() => setIsLogoutModalOpen(false)}
           onLogout={handleLogout}
+        />
+
+        <ModalDeletePet
+          isOpen={isDeleteModalOpen}
+          onClose={() => {
+            setIsDeleteModalOpen(false);
+            setPetToDelete(null);
+          }}
+          onDelete={handleRemovePet}
+        />
+
+        <ModalCongrats
+          isOpen={isCongratsOpen}
+          onClose={() => setIsCongratsOpen(false)}
+          text="The first fluff in the favorites! May your friendship be the happiest and filled with fun."
         />
 
         <ModalNotice

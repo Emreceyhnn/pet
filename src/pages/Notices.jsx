@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import AsyncSelect from "react-select/async";
-import { ModalAttention, ModalNotice } from "../components/Modals";
+import { ModalAttention, ModalNotice, ModalCongrats } from "../components/Modals";
 import NoticeCard from "../components/NoticeCard";
 import { fetchCurrentUser } from "../store/authSlice";
 import {
@@ -27,6 +27,7 @@ const Notices = () => {
 
   // Filter States
   const [search, setSearch] = useState("");
+  const [isCongratsOpen, setIsCongratsOpen] = useState(false);
   const [category, setCategory] = useState("");
   const [sex, setSex] = useState("");
   const [species, setSpecies] = useState("");
@@ -96,12 +97,14 @@ const Notices = () => {
 
   const loadCityOptions = async (inputValue) => {
     if (inputValue.length < 3) return [];
+    // API is case-sensitive for keywords, capitalize first letter
+    const formattedInput = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
     try {
       const response = await axios.get(
-        `https://petlove.b.goit.study/api/cities?keyword=${inputValue}`,
+        `https://petlove.b.goit.study/api/cities?keyword=${formattedInput}`,
       );
       return response.data.map((city) => ({
-        label: city.cityEn || city.stateEn,
+        label: `${city.cityEn}, ${city.stateEn}`,
         value: city._id,
       }));
     } catch {
@@ -149,6 +152,9 @@ const Notices = () => {
           { headers: { Authorization: `Bearer ${token}` } },
         );
       }
+      if (!isFav && favoriteIds.length === 0) {
+        setIsCongratsOpen(true);
+      }
       dispatch(fetchCurrentUser());
     } catch (error) {
       console.error("Error toggling favorite:", error);
@@ -181,7 +187,12 @@ const Notices = () => {
       ...base,
       fontFamily: "'Manrope', sans-serif",
       backgroundColor: state.isSelected ? "#F6B83D" : "white",
+      textTransform: "capitalize",
       "&:hover": { backgroundColor: "#FFF4DF" },
+    }),
+    singleValue: (base) => ({
+      ...base,
+      textTransform: "capitalize",
     }),
   };
 
@@ -345,9 +356,9 @@ const Notices = () => {
                   },
                 }}
               >
-                <MenuItem value="">Category</MenuItem>
+                <MenuItem value="" sx={{ textTransform: "capitalize" }}>Category</MenuItem>
                 {categories?.map((c) => (
-                  <MenuItem key={c} value={c}>
+                  <MenuItem key={c} value={c} sx={{ textTransform: "capitalize" }}>
                     {c}
                   </MenuItem>
                 ))}
@@ -388,9 +399,9 @@ const Notices = () => {
                   "& .MuiOutlinedInput-notchedOutline": { border: "none" },
                 }}
               >
-                <MenuItem value="">By gender</MenuItem>
+                <MenuItem value="" sx={{ textTransform: "capitalize" }}>By gender</MenuItem>
                 {sexOptions?.map((s) => (
-                  <MenuItem key={s} value={s}>
+                  <MenuItem key={s} value={s} sx={{ textTransform: "capitalize" }}>
                     {s}
                   </MenuItem>
                 ))}
@@ -429,11 +440,17 @@ const Notices = () => {
                   fontSize: "16px",
                   color: "#262626",
                   "& .MuiOutlinedInput-notchedOutline": { border: "none" },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    border: "1px solid #F6B83D",
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    border: "1px solid #F6B83D",
+                  },
                 }}
               >
-                <MenuItem value="">By type</MenuItem>
+                <MenuItem value="" sx={{ textTransform: "capitalize" }}>By type</MenuItem>
                 {speciesOptions?.map((s) => (
-                  <MenuItem key={s} value={s}>
+                  <MenuItem key={s} value={s} sx={{ textTransform: "capitalize" }}>
                     {s}
                   </MenuItem>
                 ))}
@@ -532,6 +549,7 @@ const Notices = () => {
                   fontWeight: 500,
                   fontSize: "16px",
                   color: "#262626",
+                  textTransform: "capitalize",
                   transition: "all 0.2s",
                   border:
                     sortBy === opt.value
@@ -621,6 +639,12 @@ const Notices = () => {
             selectedNotice ? favoriteIds.includes(selectedNotice._id) : false
           }
           onToggleFavorite={handleToggleFavorite}
+        />
+
+        <ModalCongrats
+          isOpen={isCongratsOpen}
+          onClose={() => setIsCongratsOpen(false)}
+          text="The first fluff in the favorites! May your friendship be the happiest and filled with fun."
         />
       </Box>
     </Box>
