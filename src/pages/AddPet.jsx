@@ -495,21 +495,23 @@ const AddPet = () => {
                         )
                       }
                       MenuProps={{
-                        PaperProps: {
-                          sx: {
-                            borderRadius: "16px",
-                            mt: "4px",
-                            boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-                            "& .MuiMenuItem-root": {
-                              fontFamily: "'Manrope', sans-serif",
-                              fontSize: "14px",
-                              py: "10px",
-                              px: "20px",
-                              "&:hover": { bgcolor: "#FFF4DF" },
-                              "&.Mui-selected": {
-                                bgcolor: "#FFF4DF",
-                                color: "#F6B83D",
-                                fontWeight: 600,
+                        slotProps: {
+                          paper: {
+                            sx: {
+                              borderRadius: "16px",
+                              mt: "4px",
+                              boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+                              "& .MuiMenuItem-root": {
+                                fontFamily: "'Manrope', sans-serif",
+                                fontSize: "14px",
+                                py: "10px",
+                                px: "20px",
+                                "&:hover": { bgcolor: "#FFF4DF" },
+                                "&.Mui-selected": {
+                                  bgcolor: "#FFF4DF",
+                                  color: "#F6B83D",
+                                  fontWeight: 600,
+                                },
                               },
                             },
                           },

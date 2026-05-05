@@ -31,12 +31,13 @@ const Home = () => {
     <Box
       sx={{
         bgcolor: "#F9F9F9",
-        minHeight: "100vh",
+        height: "100vh",
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        p: { xs: "10px", sm: "16px", md: "20px", lg: "32px" },
+        p: "16px",
         boxSizing: "border-box",
+        overflow: "hidden",
       }}
     >
         {/* ── YELLOW HERO BLOCK ── */}
@@ -47,13 +48,15 @@ const Home = () => {
             maxWidth: "1216px",
             mx: "auto",
             boxSizing: "border-box",
-            minHeight: { xs: "auto", md: "auto", lg: "400px" },
             bgcolor: "#F6B83D",
             borderRadius: { xs: "30px", lg: "60px" },
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
-            pb: { xs: "60px", lg: "80px" },
+            pb: { xs: "60px", lg: "40px" },
+            flex: { xs: "none", lg: 1 },
+            minHeight: 0,
+            flexShrink: 0,
           }}
         >
           {/* ── HEADER ROW ── */}
@@ -351,10 +354,10 @@ const Home = () => {
             width: "100%",
             maxWidth: "1216px",
             mx: "auto",
-            mt: "10px",
+            mt: { xs: "10px", lg: 0 },
             boxSizing: "border-box",
-            height: { xs: "400px", md: "500px", lg: "calc(100vh - 600px)" },
-            minHeight: "400px",
+            flex: 1,
+            minHeight: 0,
             borderRadius: { xs: "30px", lg: "60px" },
             overflow: "hidden",
             bgcolor: "#000",
@@ -379,16 +382,18 @@ const Home = () => {
         anchor="right"
         open={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        ModalProps={{ keepMounted: true }}
-        PaperProps={{
-          sx: {
-            width: { xs: "100%", md: "374px" },
-            height: "100%",
-            bgcolor: "#FFFFFF",
-            display: "flex",
-            flexDirection: "column",
-            p: "40px 32px",
-            boxSizing: "border-box",
+        slotProps={{
+          modal: { keepMounted: true },
+          paper: {
+            sx: {
+              width: { xs: "100%", md: "374px" },
+              height: "100%",
+              bgcolor: "#FFFFFF",
+              display: "flex",
+              flexDirection: "column",
+              p: "40px 32px",
+              boxSizing: "border-box",
+            },
           },
         }}
       >

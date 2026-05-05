@@ -269,16 +269,18 @@ const Header = () => {
         anchor="right"
         open={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        ModalProps={{ keepMounted: true }}
-        PaperProps={{
-          sx: {
-            width: { xs: "100%", md: "374px" },
-            height: "100%",
-            bgcolor: "#FFFFFF",
-            display: "flex",
-            flexDirection: "column",
-            p: "40px 32px",
-            boxSizing: "border-box",
+        slotProps={{
+          modal: { keepMounted: true },
+          paper: {
+            sx: {
+              width: { xs: "100%", md: "374px" },
+              height: "100%",
+              bgcolor: "#FFFFFF",
+              display: "flex",
+              flexDirection: "column",
+              p: "40px 32px",
+              boxSizing: "border-box",
+            },
           },
         }}
       >
