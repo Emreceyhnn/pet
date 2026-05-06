@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser } from './store/authSlice';
 import SharedLayout from './components/SharedLayout';
-import Home from './pages/Home';
-import News from './pages/News';
-import Notices from './pages/Notices';
-import Friends from './pages/Friends';
-import Register from './pages/Register';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import AddPet from './pages/AddPet';
-import NotFound from './pages/NotFound';
 import Loader from './components/Loader';
+
+const Home = lazy(() => import('./pages/Home'));
+const News = lazy(() => import('./pages/News'));
+const Notices = lazy(() => import('./pages/Notices'));
+const Friends = lazy(() => import('./pages/Friends'));
+const Register = lazy(() => import('./pages/Register'));
+const Login = lazy(() => import('./pages/Login'));
+const Profile = lazy(() => import('./pages/Profile'));
+const AddPet = lazy(() => import('./pages/AddPet'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const PrivateRoute = ({ children }) => {
   const token = useSelector((state) => state.auth.token);
@@ -50,22 +51,24 @@ function App() {
   return (
     <>
       {showLoader && <Loader onDone={handleLoaderDone} />}
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Navigate to="/home" />} />
-          <Route path="home" element={<Home />} />
-          <Route path="news" element={<News />} />
-          <Route path="notices" element={<Notices />} />
-          <Route path="friends" element={<Friends />} />
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Navigate to="/home" />} />
+            <Route path="home" element={<Home />} />
+            <Route path="news" element={<News />} />
+            <Route path="notices" element={<Notices />} />
+            <Route path="friends" element={<Friends />} />
 
-          <Route path="register" element={<PublicRoute restricted><Register /></PublicRoute>} />
-          <Route path="login" element={<PublicRoute restricted><Login /></PublicRoute>} />
+            <Route path="register" element={<PublicRoute restricted><Register /></PublicRoute>} />
+            <Route path="login" element={<PublicRoute restricted><Login /></PublicRoute>} />
 
-          <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          <Route path="add-pet" element={<PrivateRoute><AddPet /></PrivateRoute>} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+            <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            <Route path="add-pet" element={<PrivateRoute><AddPet /></PrivateRoute>} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </>
   );
 }

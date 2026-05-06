@@ -71,6 +71,7 @@ const Home = () => {
             <MuiLink
               component={RouterLink}
               to="/"
+              aria-label="PetLove Home"
               sx={{
                 display: "flex",
                 alignItems: "flex-end",
@@ -200,15 +201,17 @@ const Home = () => {
                         }}
                       >
                         {user?.avatar || user?.avatarURL ? (
-                          <Box
-                            component="img"
-                            src={user.avatar || user.avatarURL}
-                            sx={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                            }}
-                          />
+                            <Box
+                              component="img"
+                              src={user.avatar || user.avatarURL}
+                              alt="User avatar"
+                              loading="lazy"
+                              sx={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                              }}
+                            />
                         ) : (
                           <svg
                             width="24"
@@ -282,6 +285,7 @@ const Home = () => {
               {/* Mobile Hamburger */}
               <IconButton
                 onClick={() => setIsMenuOpen(true)}
+                aria-label="Open menu"
                 sx={{ display: { lg: "none" }, color: "#fff", p: 0 }}
               >
                 <MenuIcon sx={{ fontSize: 32 }} />
@@ -364,6 +368,7 @@ const Home = () => {
             component="img"
             src="/home-hero.png"
             alt="Woman with dog"
+            loading="eager"
             sx={{
               width: "100%",
               height: "100%",
@@ -400,7 +405,11 @@ const Home = () => {
             right: "30px",
           }}
         >
-          <IconButton onClick={() => setIsMenuOpen(false)} sx={{ p: 0, color: "#262626" }}>
+          <IconButton 
+            onClick={() => setIsMenuOpen(false)} 
+            aria-label="Close menu"
+            sx={{ p: 0, color: "#262626" }}
+          >
             <CloseIcon sx={{ fontSize: 32 }} />
           </IconButton>
         </Box>

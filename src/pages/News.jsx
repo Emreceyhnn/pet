@@ -191,6 +191,7 @@ const News = () => {
                   <img
                     src={item.imgUrl}
                     alt={item.title}
+                    loading="lazy"
                     style={{
                       width: "100%",
                       height: "100%",

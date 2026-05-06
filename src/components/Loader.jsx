@@ -66,6 +66,7 @@ const Loader = ({ onDone }) => {
         component="img"
         src="/landing loader background.png"
         alt=""
+        loading="eager"
         sx={{
           position: 'absolute',
           inset: 0,

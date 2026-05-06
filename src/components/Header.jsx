@@ -52,6 +52,7 @@ const Header = () => {
         <MuiLink
           component={RouterLink}
           to="/"
+          aria-label="PetLove Home"
           sx={{
             display: "flex",
             alignItems: "flex-end",
@@ -257,6 +258,7 @@ const Header = () => {
           {/* Hamburger - mobile/tablet only */}
           <IconButton
             onClick={() => setIsMenuOpen(true)}
+            aria-label="Open menu"
             sx={{ display: { lg: "none" }, color: "#262626", p: 0 }}
           >
             <MenuIcon sx={{ fontSize: 32 }} />
@@ -293,6 +295,7 @@ const Header = () => {
           {/* Close */}
           <IconButton
             onClick={() => setIsMenuOpen(false)}
+            aria-label="Close menu"
             sx={{ p: 0, color: "#262626" }}
           >
             <CloseIcon sx={{ fontSize: 32 }} />

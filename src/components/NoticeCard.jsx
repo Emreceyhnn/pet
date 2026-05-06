@@ -33,15 +33,16 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
           mb: 3,
         }}
       >
-        <Box
-          component="img"
-          src={item.imgURL || item.imgUrl}
-          alt={item.title}
-          sx={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
+          <Box
+            component="img"
+            src={item.imgURL || item.imgUrl}
+            alt={item.title}
+            loading="lazy"
+            sx={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
           onError={(e) => {
             e.target.src = "https://via.placeholder.com/400x200?text=No+Image";
           }}
@@ -190,6 +191,7 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
 
           <IconButton
             onClick={() => onToggleFavorite(item._id)}
+            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
             sx={{
               width: 48,
               height: 48,
