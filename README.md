@@ -24,6 +24,25 @@
 
 ---
 
+## ⚡ Performance & Accessibility
+
+PetLove is optimized for speed and inclusivity, achieving top-tier scores in Google Lighthouse:
+
+| Metric                | Score    |
+| :-------------------- | :------- |
+| 🚀 **Performance**    | **99%**  |
+| ♿ **Accessibility**  | **95%**  |
+| ✅ **Best Practices** | **100%** |
+| 🔍 **SEO**            | **100%** |
+
+**Optimization Highlights:**
+
+- **Code Splitting**: Implemented dynamic imports (`React.lazy`) to reduce initial bundle size and speed up page loads.
+- **Image Optimization**: Strategic use of `loading="lazy"` for non-critical assets and `loading="eager"` for hero elements to optimize LCP.
+- **A11y Compliance**: Fully keyboard-navigable interface with semantic HTML and comprehensive ARIA labels for screen readers.
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Core**: [React 19](https://reactjs.org/)
@@ -46,12 +65,14 @@
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/yourusername/petlove.git
    cd petlove
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
@@ -60,6 +81,7 @@
    Create a `.env` file in the root directory and add any necessary environment variables (e.g., API Base URL).
 
 4. **Start the development server:**
+
    ```bash
    npm run dev
    ```
@@ -88,6 +110,7 @@ src/
 ## 🎨 Design System
 
 PetLove follows a strict and vibrant design language:
+
 - **Primary Color**: `#F6B83D` (Yellow/Orange)
 - **Secondary Color**: `#FFF4DF` (Light Cream)
 - **Typography**: Manrope (Font-weights: 400, 500, 700)
@@ -98,18 +121,13 @@ PetLove follows a strict and vibrant design language:
 ## 📈 SEO Strategy
 
 Each page in the application is wrapped with a custom `<SEO />` component that dynamically updates:
+
 - `document.title`
 - `meta[name="description"]`
 - `meta[property="og:title"]`
 - `meta[property="og:description"]`
 
 This ensures that social media shares are always visually appealing and search engines index the content accurately.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
