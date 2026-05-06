@@ -1,12 +1,9 @@
 # 🐾 PetLove - Find Your Perfect Companion
 
-![PetLove Hero](https://images.unsplash.com/photo-1548191265-cc70d3d45ba1?auto=format&fit=crop&q=80&w=1200&h=400)
-
 [![React](https://img.shields.io/badge/React-19.2-blue?logo=react)](https://react.dev/)
 [![MUI](https://img.shields.io/badge/MUI-9.0-007FFF?logo=mui)](https://mui.com/)
 [![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC?logo=redux)](https://redux-toolkit.js.org/)
 [![React Router](https://img.shields.io/badge/React_Router-7.14-CA4245?logo=reactrouter)](https://reactrouter.com/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 **PetLove** is a modern, premium web application designed to connect pet lovers with their future furry friends. Built with a focus on aesthetics and user experience, it offers a seamless platform for browsing pet notices, staying updated with animal news, and managing pet adoptions.
 
