@@ -98,7 +98,6 @@ const CustomPagination = ({ page, totalPages, onPageChange }) => {
         width: "100%",
       }}
     >
-      {/* Prev Block */}
       <Box sx={{ display: "flex", gap: "8px" }}>
         <PaginationButton
           disabled={page === 1}

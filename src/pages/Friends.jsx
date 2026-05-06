@@ -29,9 +29,9 @@ const Friends = () => {
         pb: { xs: 4, md: 8 },
       }}
     >
-      <SEO 
-        title="Our Friends" 
-        description="Meet our partners and friends who help us provide the best care for pets and facilitate adoptions." 
+      <SEO
+        title="Our Friends"
+        description="Meet our partners and friends who help us provide the best care for pets and facilitate adoptions."
       />
       <Box sx={{ maxWidth: "1216px", mx: "auto" }}>
         <Typography
@@ -84,7 +84,6 @@ const Friends = () => {
                   },
                 }}
               >
-                {/* Work Time Badge */}
                 <Box
                   sx={{
                     position: "absolute",
@@ -113,7 +112,6 @@ const Friends = () => {
                   </Typography>
                 </Box>
 
-                {/* Left: Logo/Image */}
                 <Box
                   sx={{
                     width: { xs: 80, md: 90 },
@@ -137,7 +135,6 @@ const Friends = () => {
                   />
                 </Box>
 
-                {/* Right: Info */}
                 <Box
                   sx={{
                     ml: "20px",
@@ -172,7 +169,6 @@ const Friends = () => {
                       gap: "8px",
                     }}
                   >
-                    {/* Email */}
                     <Box
                       sx={{
                         display: "flex",
@@ -233,7 +229,6 @@ const Friends = () => {
                       )}
                     </Box>
 
-                    {/* Address */}
                     <Box
                       sx={{
                         display: "flex",
@@ -296,7 +291,6 @@ const Friends = () => {
                       )}
                     </Box>
 
-                    {/* Phone */}
                     <Box
                       sx={{
                         display: "flex",

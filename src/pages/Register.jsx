@@ -29,7 +29,10 @@ const schema = yup.object().shape({
     .min(8, "Min 8 characters")
     .matches(/[a-z]/, "Must contain at least one lowercase letter")
     .matches(/[A-Z]/, "Must contain at least one uppercase letter")
-    .matches(/[!@#$%^&*(),.?":{}|<>]/, "Must contain at least one special character")
+    .matches(
+      /[!@#$%^&*(),.?":{}|<>]/,
+      "Must contain at least one special character",
+    )
     .required("Password is required"),
   confirmPassword: yup
     .string()
@@ -88,9 +91,9 @@ const Register = () => {
         minHeight: "calc(100vh - 130px)",
       }}
     >
-      <SEO 
-        title="Registration" 
-        description="Join PetLove today! Create an account to start finding your perfect pet companion and share your love for animals." 
+      <SEO
+        title="Registration"
+        description="Join PetLove today! Create an account to start finding your perfect pet companion and share your love for animals."
       />
       <Stack
         direction={{ xs: "column", md: "row" }}
@@ -101,7 +104,6 @@ const Register = () => {
           gap: { xs: 2, md: 4, lg: 8 },
         }}
       >
-      
         <Box
           sx={{
             flex: { xs: "none", md: 1 },
@@ -115,7 +117,6 @@ const Register = () => {
             justifyContent: "center",
           }}
         >
-        
           <Box
             component="img"
             src="/bg.png"
@@ -132,7 +133,6 @@ const Register = () => {
             }}
           />
 
-          {/* Pet Image */}
           <Box
             component="img"
             src="/register cat.webp"
@@ -150,7 +150,6 @@ const Register = () => {
             }}
           />
 
-       
           <Box
             sx={{
               display: { xs: "none", sm: "block" },
@@ -166,7 +165,6 @@ const Register = () => {
               transformOrigin: "bottom left",
             }}
           >
-         
             <Box
               sx={{
                 position: "absolute",
@@ -184,7 +182,6 @@ const Register = () => {
               <Typography sx={{ fontSize: "32px" }}>🐈</Typography>
             </Box>
 
-        
             <Box
               sx={{
                 position: "absolute",
@@ -240,7 +237,6 @@ const Register = () => {
           </Box>
         </Box>
 
- 
         <Stack
           sx={{
             flex: 1,
@@ -299,12 +295,18 @@ const Register = () => {
                     fontFamily: "'Manrope', sans-serif",
                     "& fieldset": { borderColor: "rgba(38,38,38,0.15)" },
                     "&:hover fieldset": { borderColor: "rgba(38,38,38,0.35)" },
-                    "&.Mui-focused fieldset": { borderColor: "#F6B83D", borderWidth: "1.5px" },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#F6B83D",
+                      borderWidth: "1.5px",
+                    },
                   },
                   "& .MuiOutlinedInput-input": {
                     padding: "0 18px",
                     fontFamily: "'Manrope', sans-serif",
-                    "&::placeholder": { color: "rgba(38,38,38,0.4)", opacity: 1 },
+                    "&::placeholder": {
+                      color: "rgba(38,38,38,0.4)",
+                      opacity: 1,
+                    },
                   },
                 }}
               />
@@ -322,12 +324,18 @@ const Register = () => {
                     fontFamily: "'Manrope', sans-serif",
                     "& fieldset": { borderColor: "rgba(38,38,38,0.15)" },
                     "&:hover fieldset": { borderColor: "rgba(38,38,38,0.35)" },
-                    "&.Mui-focused fieldset": { borderColor: "#F6B83D", borderWidth: "1.5px" },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#F6B83D",
+                      borderWidth: "1.5px",
+                    },
                   },
                   "& .MuiOutlinedInput-input": {
                     padding: "0 18px",
                     fontFamily: "'Manrope', sans-serif",
-                    "&::placeholder": { color: "rgba(38,38,38,0.4)", opacity: 1 },
+                    "&::placeholder": {
+                      color: "rgba(38,38,38,0.4)",
+                      opacity: 1,
+                    },
                   },
                 }}
               />
@@ -357,12 +365,18 @@ const Register = () => {
                     fontFamily: "'Manrope', sans-serif",
                     "& fieldset": { borderColor: "rgba(38,38,38,0.15)" },
                     "&:hover fieldset": { borderColor: "rgba(38,38,38,0.35)" },
-                    "&.Mui-focused fieldset": { borderColor: "#F6B83D", borderWidth: "1.5px" },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#F6B83D",
+                      borderWidth: "1.5px",
+                    },
                   },
                   "& .MuiOutlinedInput-input": {
                     padding: "0 18px",
                     fontFamily: "'Manrope', sans-serif",
-                    "&::placeholder": { color: "rgba(38,38,38,0.4)", opacity: 1 },
+                    "&::placeholder": {
+                      color: "rgba(38,38,38,0.4)",
+                      opacity: 1,
+                    },
                   },
                 }}
                 slotProps={{
@@ -397,12 +411,18 @@ const Register = () => {
                     fontFamily: "'Manrope', sans-serif",
                     "& fieldset": { borderColor: "rgba(38,38,38,0.15)" },
                     "&:hover fieldset": { borderColor: "rgba(38,38,38,0.35)" },
-                    "&.Mui-focused fieldset": { borderColor: "#F6B83D", borderWidth: "1.5px" },
+                    "&.Mui-focused fieldset": {
+                      borderColor: "#F6B83D",
+                      borderWidth: "1.5px",
+                    },
                   },
                   "& .MuiOutlinedInput-input": {
                     padding: "0 18px",
                     fontFamily: "'Manrope', sans-serif",
-                    "&::placeholder": { color: "rgba(38,38,38,0.4)", opacity: 1 },
+                    "&::placeholder": {
+                      color: "rgba(38,38,38,0.4)",
+                      opacity: 1,
+                    },
                   },
                 }}
                 slotProps={{
