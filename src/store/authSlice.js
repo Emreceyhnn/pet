@@ -77,7 +77,7 @@ const authSlice = createSlice({
         localStorage.removeItem('token');
     },
     setCredentials: (state, action) => {
-      // Handle different response structures: { user: {...}, token: "..." } or { ...userFields, token: "..." }
+
       if (action.payload.user) {
         state.user = action.payload.user;
       } else {
@@ -137,7 +137,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload || action.error.message;
         
-        // ONLY logout if it's an authentication error (401)
+
         const isAuthError = 
           (action.payload && action.payload.status === 401) || 
           (action.error && action.error.message && action.error.message.includes('401'));
@@ -154,7 +154,7 @@ const authSlice = createSlice({
         localStorage.removeItem('token');
       })
       .addCase(logoutUser.rejected, (state) => {
-        // Even if the server logout fails, we clear the client session
+
         state.user = null;
         state.token = null;
         localStorage.removeItem('token');

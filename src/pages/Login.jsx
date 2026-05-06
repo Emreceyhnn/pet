@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import SEO from "../components/SEO";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -72,6 +73,10 @@ const Login = () => {
         minHeight: "calc(100vh - 130px)",
       }}
     >
+      <SEO 
+        title="Login" 
+        description="Login to your PetLove account to manage your profile, view favorites, and add new pets." 
+      />
       <Stack
         direction={{ xs: "column", md: "row" }}
         sx={{
@@ -81,7 +86,7 @@ const Login = () => {
           gap: { xs: 2, md: 4, lg: 8 },
         }}
       >
-        {/* Left/Top Card */}
+        
         <Box
           sx={{
             flex: { xs: "none", md: 1 },
@@ -95,7 +100,7 @@ const Login = () => {
             justifyContent: "center",
           }}
         >
-          {/* Background Illustration */}
+          
           <Box
             component="img"
             src="/bg.png"
@@ -112,10 +117,10 @@ const Login = () => {
             }}
           />
 
-          {/* Pet Image */}
+        
           <Box
             component="img"
-            src="/login dog.png"
+            src="/login dog.webp"
             alt="Pet illustration"
             sx={{
               scale: { xs: 1.1, sm: 1.2, md: 1.45 },
@@ -130,7 +135,7 @@ const Login = () => {
             }}
           />
 
-          {/* Info Card (Visible on SM+) */}
+         
           <Box
             sx={{
               display: { xs: "none", sm: "block" },
@@ -146,7 +151,7 @@ const Login = () => {
               transformOrigin: "bottom left",
             }}
           >
-            {/* Image Icon Block */}
+            
             <Box
               sx={{
                 position: "absolute",
@@ -164,7 +169,7 @@ const Login = () => {
               <Typography sx={{ fontSize: "32px" }}>🐶</Typography>
             </Box>
 
-            {/* Text Block */}
+           
             <Box
               sx={{
                 position: "absolute",
@@ -220,7 +225,7 @@ const Login = () => {
           </Box>
         </Box>
 
-        {/* Right/Bottom Form Block */}
+      
         <Stack
           sx={{
             flex: 1,

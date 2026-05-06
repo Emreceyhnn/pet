@@ -1,7 +1,13 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
+import React from "react";
+import { Box, Typography } from "@mui/material";
 
-const PaginationButton = ({ onClick, disabled, children, active, "aria-label": ariaLabel }) => (
+const PaginationButton = ({
+  onClick,
+  disabled,
+  children,
+  active,
+  "aria-label": ariaLabel,
+}) => (
   <Box
     component="button"
     onClick={!disabled ? onClick : undefined}
@@ -9,28 +15,32 @@ const PaginationButton = ({ onClick, disabled, children, active, "aria-label": a
     aria-current={active ? "page" : undefined}
     disabled={disabled}
     sx={{
-      width: '44px',
-      height: '44px',
-      borderRadius: '50%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      cursor: disabled ? 'default' : 'pointer',
-      border: '1px solid rgba(38, 38, 38, 0.05)',
-      bgcolor: active ? '#F6B83D' : 'white',
-      color: active ? 'white' : '#262626',
+      width: "44px",
+      height: "44px",
+      borderRadius: "50%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      cursor: disabled ? "default" : "pointer",
+      border: "1px solid rgba(38, 38, 38, 0.05)",
+      bgcolor: active ? "#F6B83D" : "white",
+      color: active ? "white" : "#262626",
       opacity: disabled ? 0.5 : 1,
-      transition: 'all 0.2s',
-      outline: 'none',
+      transition: "all 0.2s",
+      outline: "none",
       p: 0,
-      '&:hover': {
-        bgcolor: active ? '#F6B83D' : !disabled ? 'rgba(38, 38, 38, 0.05)' : 'white',
-        borderColor: !disabled ? '#F6B83D' : 'rgba(38, 38, 38, 0.05)',
+      "&:hover": {
+        bgcolor: active
+          ? "#F6B83D"
+          : !disabled
+            ? "rgba(38, 38, 38, 0.05)"
+            : "white",
+        borderColor: !disabled ? "#F6B83D" : "rgba(38, 38, 38, 0.05)",
       },
-      '&:focus-visible': {
-        boxShadow: '0 0 0 2px #F6B83D',
+      "&:focus-visible": {
+        boxShadow: "0 0 0 2px #F6B83D",
       },
-      userSelect: 'none',
+      userSelect: "none",
     }}
   >
     {children}
@@ -43,10 +53,10 @@ const CustomPagination = ({ page, totalPages, onPageChange }) => {
   const renderPageNumbers = () => {
     const pages = [];
     const maxVisible = 3;
-    
+
     let start = Math.max(1, page - 1);
     let end = Math.min(totalPages, start + maxVisible - 1);
-    
+
     if (end - start < maxVisible - 1) {
       start = Math.max(1, end - maxVisible + 1);
     }
@@ -59,74 +69,100 @@ const CustomPagination = ({ page, totalPages, onPageChange }) => {
           onClick={() => onPageChange(i)}
           aria-label={`Page ${i}`}
         >
-          <Typography sx={{ fontFamily: "'Manrope', sans-serif", fontWeight: 700, fontSize: '18px' }}>
+          <Typography
+            sx={{
+              fontFamily: "'Manrope', sans-serif",
+              fontWeight: 700,
+              fontSize: "18px",
+            }}
+          >
             {i}
           </Typography>
-        </PaginationButton>
+        </PaginationButton>,
       );
     }
     return pages;
   };
 
   return (
-    <Box 
-      component="nav" 
+    <Box
+      component="nav"
       aria-label="Pagination"
-      sx={{ 
-        display: 'flex', 
-        flexDirection: 'row', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        gap: '24px',
-        mt: '60px',
-        width: '100%'
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "24px",
+        mt: "60px",
+        width: "100%",
       }}
     >
       {/* Prev Block */}
-      <Box sx={{ display: 'flex', gap: '8px' }}>
-        <PaginationButton 
-          disabled={page === 1} 
+      <Box sx={{ display: "flex", gap: "8px" }}>
+        <PaginationButton
+          disabled={page === 1}
           onClick={() => onPageChange(1)}
           aria-label="First page"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M11 16L7 12L11 8M17 16L13 12L17 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M11 16L7 12L11 8M17 16L13 12L17 8"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </PaginationButton>
-        <PaginationButton 
-          disabled={page === 1} 
+        <PaginationButton
+          disabled={page === 1}
           onClick={() => onPageChange(page - 1)}
           aria-label="Previous page"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M14 16L10 12L14 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M14 16L10 12L14 8"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </PaginationButton>
       </Box>
 
-      {/* Page Numbers */}
-      <Box sx={{ display: 'flex', gap: '8px' }}>
-        {renderPageNumbers()}
-      </Box>
+      <Box sx={{ display: "flex", gap: "8px" }}>{renderPageNumbers()}</Box>
 
-      {/* Next Block */}
-      <Box sx={{ display: 'flex', gap: '8px' }}>
-        <PaginationButton 
-          disabled={page === totalPages} 
+      <Box sx={{ display: "flex", gap: "8px" }}>
+        <PaginationButton
+          disabled={page === totalPages}
           onClick={() => onPageChange(page + 1)}
           aria-label="Next page"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M10 16L14 12L10 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M10 16L14 12L10 8"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </PaginationButton>
-        <PaginationButton 
-          disabled={page === totalPages} 
+        <PaginationButton
+          disabled={page === totalPages}
           onClick={() => onPageChange(totalPages)}
           aria-label="Last page"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M13 16L17 12L13 8M7 16L11 12L7 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path
+              d="M13 16L17 12L13 8M7 16L11 12L7 8"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </PaginationButton>
       </Box>

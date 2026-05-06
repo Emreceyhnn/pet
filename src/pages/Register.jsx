@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import SEO from "../components/SEO";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -87,6 +88,10 @@ const Register = () => {
         minHeight: "calc(100vh - 130px)",
       }}
     >
+      <SEO 
+        title="Registration" 
+        description="Join PetLove today! Create an account to start finding your perfect pet companion and share your love for animals." 
+      />
       <Stack
         direction={{ xs: "column", md: "row" }}
         sx={{
@@ -96,7 +101,7 @@ const Register = () => {
           gap: { xs: 2, md: 4, lg: 8 },
         }}
       >
-        {/* Left/Top Card */}
+      
         <Box
           sx={{
             flex: { xs: "none", md: 1 },
@@ -110,7 +115,7 @@ const Register = () => {
             justifyContent: "center",
           }}
         >
-          {/* Background Illustration */}
+        
           <Box
             component="img"
             src="/bg.png"
@@ -130,7 +135,7 @@ const Register = () => {
           {/* Pet Image */}
           <Box
             component="img"
-            src="/register cat.png"
+            src="/register cat.webp"
             alt="Pet illustration"
             sx={{
               scale: { xs: 1.1, sm: 1.2, md: 1.4 },
@@ -145,7 +150,7 @@ const Register = () => {
             }}
           />
 
-          {/* Info Card (Visible on SM+) */}
+       
           <Box
             sx={{
               display: { xs: "none", sm: "block" },
@@ -161,7 +166,7 @@ const Register = () => {
               transformOrigin: "bottom left",
             }}
           >
-            {/* Image Icon Block */}
+         
             <Box
               sx={{
                 position: "absolute",
@@ -179,7 +184,7 @@ const Register = () => {
               <Typography sx={{ fontSize: "32px" }}>🐈</Typography>
             </Box>
 
-            {/* Text Block */}
+        
             <Box
               sx={{
                 position: "absolute",
@@ -235,7 +240,7 @@ const Register = () => {
           </Box>
         </Box>
 
-        {/* Right/Bottom Form Block */}
+ 
         <Stack
           sx={{
             flex: 1,

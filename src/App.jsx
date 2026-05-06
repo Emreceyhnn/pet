@@ -36,8 +36,7 @@ function App() {
   );
 
   useEffect(() => {
-    // If we have a token but no user, OR the user object is incomplete (missing pets/favorites)
-    // then fetch the full profile.
+
     if (token && (!user || user.pets === undefined)) {
       dispatch(fetchCurrentUser());
     }

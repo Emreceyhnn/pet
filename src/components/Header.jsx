@@ -48,7 +48,7 @@ const Header = () => {
           justifyContent: "space-between",
         }}
       >
-        {/* Logo */}
+
         <MuiLink
           component={RouterLink}
           to="/"
@@ -104,7 +104,7 @@ const Header = () => {
           </Typography>
         </MuiLink>
 
-        {/* Desktop Nav - Centered */}
+
         <Box
           component="nav"
           sx={{
@@ -140,9 +140,9 @@ const Header = () => {
           ))}
         </Box>
 
-        {/* Right side */}
+
         <Box sx={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          {/* Tablet/Desktop auth */}
+
           <Box sx={{ display: { xs: "none", md: "flex" }, gap: "10px" }}>
             {token ? (
               <>
@@ -255,7 +255,7 @@ const Header = () => {
             )}
           </Box>
 
-          {/* Hamburger - mobile/tablet only */}
+
           <IconButton
             onClick={() => setIsMenuOpen(true)}
             aria-label="Open menu"
@@ -266,25 +266,27 @@ const Header = () => {
         </Box>
       </Box>
 
-      {/* DRAWER */}
+
       <Drawer
         anchor="right"
         open={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        ModalProps={{ keepMounted: true }}
-        PaperProps={{
-          sx: {
-            width: { xs: "100%", md: "374px" },
-            height: "100%",
-            bgcolor: "#FFFFFF",
-            display: "flex",
-            flexDirection: "column",
-            p: "40px 32px",
-            boxSizing: "border-box",
+        slotProps={{
+          modal: { keepMounted: true },
+          paper: {
+            sx: {
+              width: { xs: "100%", md: "374px" },
+              height: "100%",
+              bgcolor: "#FFFFFF",
+              display: "flex",
+              flexDirection: "column",
+              p: "40px 32px",
+              boxSizing: "border-box",
+            },
           },
         }}
       >
-        {/* Top row: Close */}
+
         <Box
           sx={{
             position: "absolute",
@@ -292,7 +294,7 @@ const Header = () => {
             right: "20px",
           }}
         >
-          {/* Close */}
+
           <IconButton
             onClick={() => setIsMenuOpen(false)}
             aria-label="Close menu"
@@ -302,7 +304,7 @@ const Header = () => {
           </IconButton>
         </Box>
 
-        {/* Nav links - vertically centered in remaining space */}
+
         <Box
           component="nav"
           sx={{
@@ -381,7 +383,7 @@ const Header = () => {
           )}
         </Box>
 
-        {/* Auth buttons - pinned to bottom */}
+
         <Box
           sx={{
             display: "flex",

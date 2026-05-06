@@ -16,6 +16,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import CustomPagination from "../components/CustomPagination";
+import SEO from "../components/SEO";
 
 const Notices = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Notices = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  // Filter States
+
   const [search, setSearch] = useState("");
   const [isCongratsOpen, setIsCongratsOpen] = useState(false);
   const [category, setCategory] = useState("");
@@ -33,12 +34,12 @@ const Notices = () => {
   const [locationId, setLocationId] = useState(null);
   const [sortBy, setSortBy] = useState("");
 
-  // Options
+
   const [categories, setCategories] = useState([]);
   const [sexOptions, setSexOptions] = useState([]);
   const [speciesOptions, setSpeciesOptions] = useState([]);
 
-  // Modals
+
   const [isAttentionOpen, setIsAttentionOpen] = useState(false);
   const [selectedNotice, setSelectedNotice] = useState(null);
 
@@ -46,7 +47,7 @@ const Notices = () => {
   const isAuth = !!token;
   const favoriteIds = user?.noticesFavorites?.map((n) => n._id) || [];
 
-  // Fetch filter options
+
   useEffect(() => {
     const fetchOptions = async () => {
       try {
@@ -65,7 +66,7 @@ const Notices = () => {
     fetchOptions();
   }, []);
 
-  // Fetch notices
+
   useEffect(() => {
     const fetchNotices = async () => {
       setLoading(true);
@@ -96,7 +97,7 @@ const Notices = () => {
 
   const loadCityOptions = async (inputValue) => {
     if (inputValue.length < 3) return [];
-    // API is case-sensitive for keywords, capitalize first letter
+
     const formattedInput = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
     try {
       const response = await axios.get(
@@ -212,6 +213,10 @@ const Notices = () => {
         pb: { xs: "60px", lg: "100px" },
       }}
     >
+      <SEO 
+        title="Find Pets" 
+        description="Browse our notices to find your new best friend. Filter by category, gender, type, and location to find the perfect pet for you." 
+      />
       <Box sx={{ maxWidth: "1216px", mx: "auto", pt: { xs: "40px", lg: "80px" } }}>
         <Typography
           sx={{
@@ -227,7 +232,7 @@ const Notices = () => {
           Find your favorite pet
         </Typography>
 
-        {/* Filters Section */}
+
           <Box
             sx={{
               p: { xs: "24px", md: "40px" },
@@ -239,7 +244,7 @@ const Notices = () => {
               position: "relative",
             }}
           >
-          {/* Row 1: Main Filters */}
+
           <Box
             sx={{
               display: "flex",
@@ -515,7 +520,7 @@ const Notices = () => {
             }}
           />
 
-          {/* Row 2: Sorting Options */}
+
           <Box
             sx={{
               display: "flex",
@@ -574,7 +579,7 @@ const Notices = () => {
           </Box>
         </Box>
 
-        {/* Grid Section */}
+
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", py: 10 }}>
             <CircularProgress sx={{ color: "#F6B83D" }} />
@@ -610,7 +615,7 @@ const Notices = () => {
           </Box>
         )}
 
-        {/* Pagination */}
+
         <CustomPagination
           page={page}
           totalPages={totalPages}

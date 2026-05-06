@@ -23,7 +23,7 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
         border: "1px solid rgba(38, 38, 38, 0.05)",
       }}
     >
-      {/* Image Area */}
+   
       <Box
         sx={{
           position: "relative",
@@ -48,7 +48,7 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
           }}
         />
 
-        {/* Info Chips Overlays */}
+ 
         <Box
           sx={{
             position: "absolute",
@@ -97,7 +97,7 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
         </Box>
       </Box>
 
-      {/* Content Area */}
+    
       <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
         <Box
           sx={{
@@ -150,9 +150,9 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
         </Typography>
       </Box>
 
-      {/* Footer Area (Fixed at bottom) */}
+      
       <Box sx={{ mt: 3 }}>
-        {/* Price Row */}
+     
         <Box sx={{ height: "38px", display: "flex", alignItems: "center", mb: 1.5 }}>
           {item.price && (
             <Typography
@@ -168,7 +168,7 @@ const NoticeCard = ({ item, isFavorite, onToggleFavorite, onLearnMore }) => {
           )}
         </Box>
 
-        {/* Buttons Row */}
+
         <Box sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
           <Button
             onClick={() => onLearnMore(item._id)}

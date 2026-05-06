@@ -12,6 +12,7 @@ import {
 import NoticeCard from "../components/NoticeCard";
 import axios from "axios";
 import { fetchCurrentUser } from "../store/authSlice";
+import SEO from "../components/SEO";
 import {
   Box,
   Typography,
@@ -49,7 +50,7 @@ const Profile = () => {
   const handleEditProfile = async (data) => {
     try {
       if (data.avatarFile) {
-        // file upload → multipart/form-data
+
         const formData = new FormData();
         formData.append("name",   data.name);
         formData.append("email",  data.email);
@@ -67,7 +68,7 @@ const Profile = () => {
           }
         );
       } else {
-        // no file → JSON
+
         const body = {
           name:  data.name,
           email: data.email,
@@ -163,6 +164,10 @@ const Profile = () => {
 
   return (
     <Box sx={{ bgcolor: "#F9F9F9", minHeight: "100vh", px: { xs: 2, lg: "64px" }, py: { xs: 4, lg: 4 } }}>
+      <SEO 
+        title="My Profile" 
+        description="View and manage your personal information, your pets, and your favorite notices on PetLove." 
+      />
       <Box sx={{ maxWidth: "1216px", mx: "auto" }}>
         <Box
           sx={{
@@ -172,7 +177,7 @@ const Profile = () => {
             alignItems: "flex-start",
           }}
         >
-          {/* Left Column: Unified User & Pets Card */}
+
           <Paper
             elevation={0}
             sx={{
@@ -185,7 +190,7 @@ const Profile = () => {
               flexShrink: 0,
             }}
           >
-            {/* User Chip */}
+
             <Box
               sx={{
                 position: "absolute",
@@ -222,7 +227,7 @@ const Profile = () => {
               </svg>
             </Box>
 
-            {/* Edit Icon */}
+
             <IconButton
               onClick={() => setIsEditModalOpen(true)}
               sx={{
@@ -247,7 +252,7 @@ const Profile = () => {
               </svg>
             </IconButton>
 
-            {/* Avatar Section */}
+
             <Box
               sx={{
                 display: "flex",
@@ -290,7 +295,7 @@ const Profile = () => {
               </Typography>
             </Box>
 
-            {/* My Information */}
+
             <Typography
               sx={{
                 fontSize: 18,
@@ -324,7 +329,7 @@ const Profile = () => {
               ))}
             </Stack>
 
-            {/* My Pets Header */}
+
             <Box
               sx={{
                 display: "flex",
@@ -362,7 +367,7 @@ const Profile = () => {
               </Button>
             </Box>
 
-            {/* Pet List */}
+
             <Stack spacing={1.5} sx={{ mb: 6 }}>
               {user?.pets?.map((pet) => (
                 <Box
@@ -426,10 +431,10 @@ const Profile = () => {
             </Button>
           </Paper>
 
-          {/* Right Column: Notices Tabs & Content */}
+
           <Box sx={{ flexGrow: 1, minWidth: 0, minHeight: "80vh" }}>
             <Stack spacing={3}>
-              {/* Tab Navigation */}
+
               <Box
                 sx={{
                   display: "flex",
@@ -482,7 +487,7 @@ const Profile = () => {
                 </Button>
               </Box>
 
-              {/* Notices List (Flex Row + Wrap) */}
+
               <Box
                 sx={{
                   display: "grid",

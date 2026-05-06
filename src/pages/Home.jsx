@@ -12,6 +12,7 @@ import {
   Drawer,
   IconButton,
 } from "@mui/material";
+import SEO from "../components/SEO";
 
 const Home = () => {
   const { token, user } = useSelector((state) => state.auth);
@@ -31,15 +32,21 @@ const Home = () => {
     <Box
       sx={{
         bgcolor: "#F9F9F9",
-        minHeight: "100vh",
+        height: "100vh",
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        p: { xs: "10px", sm: "16px", md: "20px", lg: "32px" },
+        p: "16px",
         boxSizing: "border-box",
+        overflow: "hidden",
       }}
     >
-        {/* ── YELLOW HERO BLOCK ── */}
+      <SEO 
+        title="Home" 
+        description="Welcome to PetLove! Take good care of your small pets and find your perfect companion today." 
+      />
+
+
         <Box
           sx={{
             position: "relative",
@@ -47,16 +54,18 @@ const Home = () => {
             maxWidth: "1216px",
             mx: "auto",
             boxSizing: "border-box",
-            minHeight: { xs: "auto", md: "auto", lg: "400px" },
             bgcolor: "#F6B83D",
             borderRadius: { xs: "30px", lg: "60px" },
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
-            pb: { xs: "60px", lg: "80px" },
+            pb: { xs: "60px", lg: "40px" },
+            flex: { xs: "none", lg: 1 },
+            minHeight: 0,
+            flexShrink: 0,
           }}
         >
-          {/* ── HEADER ROW ── */}
+
           <Box
             sx={{
               display: "flex",
@@ -67,7 +76,7 @@ const Home = () => {
               height: { xs: "80px", lg: "82px" },
             }}
           >
-            {/* Logo */}
+
             <MuiLink
               component={RouterLink}
               to="/"
@@ -127,7 +136,7 @@ const Home = () => {
               </Typography>
             </MuiLink>
 
-            {/* Desktop Nav - Centered exactly on large screens */}
+
             <Box
               sx={{
                 display: { xs: "none", lg: "flex" },
@@ -171,9 +180,9 @@ const Home = () => {
               ))}
             </Box>
 
-            {/* Auth/User — right */}
+
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              {/* Tablet/Desktop Auth */}
+
               <Box sx={{ display: { xs: "none", md: "flex" }, gap: "10px" }}>
                 {token ? (
                   <>
@@ -282,7 +291,7 @@ const Home = () => {
                 )}
               </Box>
 
-              {/* Mobile Hamburger */}
+
               <IconButton
                 onClick={() => setIsMenuOpen(true)}
                 aria-label="Open menu"
@@ -293,7 +302,7 @@ const Home = () => {
             </Box>
           </Box>
 
-          {/* ── CONTENT ROW ── */}
+
           <Box
             sx={{
               display: "flex",
@@ -307,7 +316,7 @@ const Home = () => {
               justifyContent: "space-between",
             }}
           >
-            {/* Headline */}
+
             <Box sx={{ flex: 1, maxWidth: { xs: "100%", md: "700px", lg: "760px" } }}>
               <Typography
                 variant="h1"
@@ -330,7 +339,7 @@ const Home = () => {
               </Typography>
             </Box>
 
-            {/* Description */}
+
             <Box sx={{ flex: "0 0 auto", maxWidth: { xs: "100%", lg: "250px" } }}>
               <Typography
                 sx={{
@@ -349,16 +358,16 @@ const Home = () => {
           </Box>
         </Box>
 
-        {/* ── HERO IMAGE BLOCK ── */}
+
         <Box
           sx={{
             width: "100%",
             maxWidth: "1216px",
             mx: "auto",
-            mt: "10px",
+            mt: { xs: "10px", lg: 0 },
             boxSizing: "border-box",
-            height: { xs: "400px", md: "500px", lg: "calc(100vh - 600px)" },
-            minHeight: "400px",
+            flex: 1,
+            minHeight: 0,
             borderRadius: { xs: "30px", lg: "60px" },
             overflow: "hidden",
             bgcolor: "#000",
@@ -366,7 +375,7 @@ const Home = () => {
         >
           <Box
             component="img"
-            src="/home-hero.png"
+            src="/home-hero.webp"
             alt="Woman with dog"
             loading="eager"
             sx={{
@@ -379,25 +388,27 @@ const Home = () => {
           />
       </Box>
 
-      {/* Mobile menu drawer */}
+
       <Drawer
         anchor="right"
         open={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        ModalProps={{ keepMounted: true }}
-        PaperProps={{
-          sx: {
-            width: { xs: "100%", md: "374px" },
-            height: "100%",
-            bgcolor: "#FFFFFF",
-            display: "flex",
-            flexDirection: "column",
-            p: "40px 32px",
-            boxSizing: "border-box",
+        slotProps={{
+          modal: { keepMounted: true },
+          paper: {
+            sx: {
+              width: { xs: "100%", md: "374px" },
+              height: "100%",
+              bgcolor: "#FFFFFF",
+              display: "flex",
+              flexDirection: "column",
+              p: "40px 32px",
+              boxSizing: "border-box",
+            },
           },
         }}
       >
-        {/* Top row: Close */}
+
         <Box
           sx={{
             position: "absolute",
@@ -414,7 +425,7 @@ const Home = () => {
           </IconButton>
         </Box>
 
-        {/* Nav links - vertically centered */}
+
         <Box
           component="nav"
           sx={{
@@ -487,7 +498,7 @@ const Home = () => {
           )}
         </Box>
 
-        {/* Auth buttons - pinned to bottom */}
+
         <Box
           sx={{
             display: "flex",

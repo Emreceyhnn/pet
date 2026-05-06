@@ -10,11 +10,11 @@ import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#F6B83D", // Amber
+      main: "#F6B83D",
       contrastText: "#fff",
     },
     secondary: {
-      main: "#FFF4DF", // Light Cream
+      main: "#FFF4DF",
     },
     text: {
       primary: "#262626",
@@ -45,7 +45,7 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 30, // Most buttons and inputs use 30px
+    borderRadius: 30,
   },
   components: {
     MuiButton: {
@@ -66,7 +66,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "& .MuiOutlinedInput-root": {
-            borderRadius: "12px", // Inputs often have 12px or 30px
+            borderRadius: "12px",
             height: "48px",
             "& fieldset": {
               borderColor: "rgba(38, 38, 38, 0.1)",

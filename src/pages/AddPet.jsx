@@ -19,8 +19,9 @@ import {
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ModalCongrats } from "../components/Modals";
+import SEO from "../components/SEO";
 
-/* ─── validation ─────────────────────────────────── */
+
 const schema = yup.object({
   name: yup.string().required("Pet's name is required"),
   title: yup.string().required("Title is required"),
@@ -33,20 +34,20 @@ const schema = yup.object({
   sex: yup.string().required("Sex is required"),
 });
 
-/* ─── species list ────────────────────────────────── */
+
 const SPECIES = [
   "dog", "cat", "monkey", "bird", "snake", "turtle",
   "lizard", "frog", "fish", "ants", "bees", "butterfly", "spider", "scorpion",
 ];
 
-/* ─── gender options ─────────────────────────────── */
+
 const GENDERS = [
   { value: "female", icon: "♀", color: "#F43F5E", bg: "#FFF0F3", activeBg: "#F43F5E" },
   { value: "male",   icon: "♂", color: "#3B82F6", bg: "#EFF6FF", activeBg: "#3B82F6" },
   { value: "multiple", icon: "⚥", color: "#6B7280", bg: "#F3F4F6", activeBg: "#6B7280" },
 ];
 
-/* ─── shared input sx ────────────────────────────── */
+
 const inputSx = {
   "& .MuiOutlinedInput-root": {
     borderRadius: "30px",
@@ -66,13 +67,13 @@ const inputSx = {
   "& .MuiFormHelperText-root": { fontFamily: "'Manrope', sans-serif", fontSize: "11px" },
 };
 
-/* ─── convert DD.MM.YYYY → YYYY-MM-DD for API ────── */
+
 const toApiDate = (str) => {
   const [d, m, y] = str.split(".");
   return `${y}-${m}-${d}`;
 };
 
-/* ════════════════════════════════════════════════════ */
+
 const AddPet = () => {
   const { token } = useSelector((s) => s.auth);
   const navigate  = useNavigate();
@@ -97,7 +98,7 @@ const AddPet = () => {
   const selectedSex = watch("sex");
   const imgUrlValue = watch("imgURL");
 
-  /* ── avatar preview ─── */
+
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -107,11 +108,11 @@ const AddPet = () => {
     reader.readAsDataURL(file);
   };
 
-  /* ── submit ─── */
+
   const onSubmit = async (data) => {
     try {
       if (avatarFile) {
-        // file upload → multipart/form-data
+
         const fd = new FormData();
         fd.append("name",     data.name);
         fd.append("title",    data.title);
@@ -131,7 +132,7 @@ const AddPet = () => {
           }
         );
       } else {
-        // no file → JSON
+
         const body = {
           name:     data.name,
           title:    data.title,
@@ -155,14 +156,14 @@ const AddPet = () => {
 
       dispatch(fetchCurrentUser());
       setIsCongratsOpen(true);
-      // navigate("/profile"); // Now handled by Modal
+
     } catch (err) {
       console.error(err.response?.data);
       alert(err.response?.data?.message || "Error adding pet");
     }
   };
 
-  /* ── avatar image src ─── */
+
   const avatarSrc = avatarPreview || (imgUrlValue && !imgUrlValue.startsWith("data:") ? imgUrlValue : null);
 
   return (
@@ -176,6 +177,10 @@ const AddPet = () => {
         minHeight: "calc(100vh - 130px)",
       }}
     >
+      <SEO 
+        title="Add Pet" 
+        description="Share your pet with the PetLove community! Add your pet's details and photos to find them a new friend or just show them off." 
+      />
       <Stack
         direction={{ xs: "column", md: "row" }}
         sx={{
@@ -185,7 +190,7 @@ const AddPet = () => {
           gap: { xs: 2, md: 4, lg: 8 },
         }}
       >
-        {/* ── LEFT: image card (TOP on mobile) ─────────────────────────── */}
+
         <Box
           sx={{
             flex: { xs: "none", md: 1 },
@@ -216,7 +221,7 @@ const AddPet = () => {
           />
           <Box
             component="img"
-            src="/add pet dog.png"
+            src="/add pet dog.webp"
             alt="Pet illustration"
             sx={{
               scale: { xs: 1.1, sm: 1.2, md: 1.45 },
@@ -232,7 +237,7 @@ const AddPet = () => {
           />
         </Box>
 
-        {/* ── RIGHT: form card (BOTTOM on mobile) ──────────────────────────── */}
+
         <Box
           sx={{
             flex: 1,
@@ -246,7 +251,7 @@ const AddPet = () => {
           }}
         >
           <Box sx={{ maxWidth: { xs: "100%", md: 424, lg: 600 }, width: "100%" }}>
-          {/* title */}
+
           <Box sx={{ mb: "32px" }}>
             <Typography
               sx={{
@@ -279,7 +284,7 @@ const AddPet = () => {
             onSubmit={handleSubmit(onSubmit)}
             sx={{ display: "flex", flexDirection: "column", gap: "16px" }}
           >
-            {/* ── Gender chips ── */}
+
             <Box sx={{ display: "flex", gap: "8px", mb: "4px" }}>
               {GENDERS.map((g) => {
                 const isActive = selectedSex === g.value;
@@ -322,7 +327,7 @@ const AddPet = () => {
               })}
             </Box>
 
-            {/* ── Avatar circle ── */}
+
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: "4px" }}>
               <Box
                 onClick={() => fileInputRef.current?.click()}
@@ -350,7 +355,7 @@ const AddPet = () => {
                     sx={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 ) : (
-                  /* paw icon */
+
                   <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
                     <ellipse cx="9" cy="11" rx="3.5" ry="4.5" fill="#F6B83D" />
                     <ellipse cx="17" cy="8"  rx="3.5" ry="4.5" fill="#F6B83D" />
@@ -371,7 +376,7 @@ const AddPet = () => {
               />
             </Box>
 
-            {/* ── Photo URL + Upload button ── */}
+
             <Box sx={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
               <TextField
                 {...register("imgURL")}
@@ -403,7 +408,7 @@ const AddPet = () => {
               </Button>
             </Box>
 
-            {/* ── Title ── */}
+
             <TextField
               {...register("title")}
               placeholder="Title"
@@ -413,7 +418,7 @@ const AddPet = () => {
               sx={inputSx}
             />
 
-            {/* ── Pet's Name ── */}
+
             <TextField
               {...register("name")}
               placeholder="Pet's Name"
@@ -423,7 +428,7 @@ const AddPet = () => {
               sx={inputSx}
             />
 
-            {/* ── Birthday + Type of pet ── */}
+
             <Box sx={{ display: "flex", gap: "8px" }}>
               {/* Birthday */}
               <TextField
@@ -495,21 +500,23 @@ const AddPet = () => {
                         )
                       }
                       MenuProps={{
-                        PaperProps: {
-                          sx: {
-                            borderRadius: "16px",
-                            mt: "4px",
-                            boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-                            "& .MuiMenuItem-root": {
-                              fontFamily: "'Manrope', sans-serif",
-                              fontSize: "14px",
-                              py: "10px",
-                              px: "20px",
-                              "&:hover": { bgcolor: "#FFF4DF" },
-                              "&.Mui-selected": {
-                                bgcolor: "#FFF4DF",
-                                color: "#F6B83D",
-                                fontWeight: 600,
+                        slotProps: {
+                          paper: {
+                            sx: {
+                              borderRadius: "16px",
+                              mt: "4px",
+                              boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+                              "& .MuiMenuItem-root": {
+                                fontFamily: "'Manrope', sans-serif",
+                                fontSize: "14px",
+                                py: "10px",
+                                px: "20px",
+                                "&:hover": { bgcolor: "#FFF4DF" },
+                                "&.Mui-selected": {
+                                  bgcolor: "#FFF4DF",
+                                  color: "#F6B83D",
+                                  fontWeight: 600,
+                                },
                               },
                             },
                           },
@@ -540,7 +547,7 @@ const AddPet = () => {
               />
             </Box>
 
-            {/* ── Buttons ── */}
+
             <Box
               sx={{
                 display: "flex",
